@@ -4,7 +4,7 @@
 # Date: 22 oktober 2025
 # Description: Mount/unmount selected volume(s).
 # Meant to be used with XFile (p/o 'Enhanced Motif Window Manager'
-# by Alexander Pampuchin - https://fastestcode.org/ LGPLv3, MIT License).
+# by Alexander Pampuchin - https://fastestcode.org/ , LGPLv3, MIT License).
 #
 # Reason for developing this program was to work around following bug(?):
 # Primary X-selected filenames containing spaces aren't properly handled by '%n'

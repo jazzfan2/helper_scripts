@@ -3,8 +3,9 @@
 # Author: R.J.Toscani
 # Date: 9 October 2025
 # Description:
-# Alternative rename-function for the Tools-menu of XFile (p/o 'Enhanced Motif Window
-# Manager' # by Alexander Pampuchin - https://fastestcode.org/ , LGPLv3, MIT License).
+# Alternative rename-function for the Tools-menu of file-manager named 'XFile' 
+# (part of 'Enhanced Motif Window Manager' by Alexander Pampuchin
+# - https://fastestcode.org/ - LGPLv3, MIT License).
 # This version allows using MB2 for entering a new name copied by X-selection (MB1)
 # (unlike XFile's own rename-function).
 #

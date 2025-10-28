@@ -3,8 +3,10 @@
 # Author: R.J.Toscani
 # Date: 5 september 2025
 # Description: Mount all present external USB-drives, eMMC's and SD-Cards.
-# Program meant to be used with XFile (p/o 'Enhanced Motif Window Manager'
-# by Alexander Pampuchin - https://fastestcode.org/ , LGPLv3, MIT License).
+#
+# Meant to be launched from the tools-menu of the file-manager named 'XFile
+# (p/o 'Enhanced Motif Window Manager' by Alexander Pampuchin - https://fastestcode.org/
+# - LGPLv3, MIT License).
 #
 ######################################################################################
 #

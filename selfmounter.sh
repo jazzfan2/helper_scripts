@@ -4,9 +4,8 @@
 # Date: 21 oktober 2025
 # Description:
 # Automatically mount all present external USB-drives, eMMC's and SD-Cards.
-# Program meant to be launched from $HOME/.sessionetc and be used as a background
-# daemon facilitating the 'XFile' file manager (p/o 'Enhanced Motif Window Manager'
-# by Alexander Pampuchin - https://fastestcode.org/ , LGPLv3, MIT License).
+#
+# Alternative for using a udev-rule for automounting.
 #
 ######################################################################################
 #

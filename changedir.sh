@@ -13,9 +13,10 @@
 # 'changedir.sh' keeps track of whether or not the window was a result of splitting by
 # the program 'split_panes.sh' thus allowing re-uniting with related (split) window panes.
 # It does so by consulting and editing the latter programs's relations-file if present.
-
-# Meant to be launched from the tools-menu of the file-manager named 'XFile' (EMWM)
-# by Alexander Pampuchin - https://fastestcode.org (LGPLv3, MIT License).
+#
+# Meant to be launched from the tools-menu of the file-manager named 'XFile
+# (p/o 'Enhanced Motif Window Manager' by Alexander Pampuchin - https://fastestcode.org/
+# - LGPLv3, MIT License).
 #
 # Prerequisites:
 # - xfile

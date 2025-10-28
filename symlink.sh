@@ -5,8 +5,11 @@
 # Description: Store an absolute symlink to the selected file into a RAM directory,
 # and present this in a popup from which the symlink can be moved to a desired directory.
 # The symlink gets the same name as the file pointed to.
-# Meant to be used with XFile (p/o 'Enhanced Motif Window Manager'
-# by Alexander Pampuchin - https://fastestcode.org/ , LGPLv3, MIT License).
+#
+# Meant to be launched from the tools-menu of the file-manager named 'XFile' (part of 
+# 'Enhanced Motif Window Manager' by Alexander Pampuchin
+# - https://fastestcode.org/ - LGPLv3, MIT License).
+#
 # This program takes two arguments:
 #     1. full path to directory where selected file resides
 #     2. name of selected file

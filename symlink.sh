@@ -11,7 +11,23 @@
 #     2. name of selected file
 #
 ########################################################################################
-
+#
+# Copyright (C) 2025 Rob Toscani <rob_toscani@yahoo.com>
+#
+# symlink.sh is free software: you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation, either version 3 of the License, or
+# (at your option) any later version.
+#
+# symlink.sh is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with this program.  If not, see <http://www.gnu.org/licenses/>.
+#
+######################################################################################
 
 # Determine where the temporary directory can be created:
 if [[ -d /tmp/ramdisk/ ]]; then

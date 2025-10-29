@@ -3,7 +3,11 @@
 # Author: R.J.Toscani
 # Date: 21 oktober 2025
 # Description:
-# Automatically mount all present external USB-drives, eMMC's and SD-Cards.
+# Automatically mount any external USB-drive, eMMC and SD-Card once it is physically
+# added to the system.
+# Meant to function as a background daemon called from the $HOME/.sessionetc file (part of
+# the 'Enhanced Motif Window Manager' by Alexander Pampuchin - https://fastestcode.org/
+# - LGPLv3, MIT License).
 #
 # Alternative for using a udev-rule for automounting.
 #

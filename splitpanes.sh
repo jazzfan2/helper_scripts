@@ -19,6 +19,9 @@
 # in size and position of the original window (i.e. the first one, which did not originate
 # by splitting itself).
 #
+# XFile Toolsmenu items for splitting and uniting could e.g. be accelerated by assigning
+# F8 and F9 keys respectively.
+#
 # Prerequisites:
 # - xfile
 # - xdotool

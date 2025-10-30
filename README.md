@@ -14,7 +14,7 @@ file-manager window of similar position and size as before changing directory, r
 'changedir.sh' is meant to be launched as a menu-item from XFile's tools-menu, taking the to-be-specified directory as an argument.
 The active file-manager window is being derived by the program by finding its parent's process-ID and subsequently the related window-ID.
 
-'changedir.sh' keeps track of whether or not the window was a result of splitting by the program 'split_panes.sh' thus allowing re-uniting with
+'changedir.sh' keeps track of whether or not the window was a result of splitting by the program 'split_panes.sh', thus allowing re-uniting with
 related (split) window panes. It does so by consulting and editing the latter programs's relations-file if present.
 
 ## mount_plugdrives.sh
@@ -60,7 +60,7 @@ in some other file managers e.g. PCmanfm, by actually generating two new windows
 The program takes the (current) directory (within the active file manager window) as an argument.
 The active file manager window itself is being derived by the program by finding its parent's process-ID and subsequently the related window-ID.
 It keeps track of all windows that originated from the parent window by subsequent splitting, even if replaced by use of the program 
-'changedir.sh'.
+'changedir.sh'. It does so by maintaining a so-called 'relations-file' in RAM memory.
 
 Option -u 're-unites' all (recursively) split windows, in the directory of the selected window, in size and position of the original window 
 i.e. the first one in the sequence of splitting, in other words the one that did not originate by splitting itself.

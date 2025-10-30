@@ -83,9 +83,9 @@ Prerequisites:
 
 ## symlink.sh
 
-'symlink.sh' stores an absolute symlink to the file selected in the file manager into a RAM directory. It presents this in a file
-manager window popping up, from which the symlink can be moved or copied to a desired directory opened in another file manager window.
-The symlink gets the same name as the file pointed to.
+'symlink.sh' stores an absolute symbolic link to the file selected in the file manager into a RAM directory. It presents this in a file
+manager window popping up, from which the link can be moved or copied to a desired directory opened in another file manager window.
+The symbolic link gets the same name as the file pointed to.
 
 'symlink.sh' is meant to be launched from XFile's tools-menu.
 

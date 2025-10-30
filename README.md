@@ -57,9 +57,9 @@ doing a *new* primary X-selection by mouse button 1.
 
 'selfmounter.sh' is an alternative for using a 'udev'-rule for automounting - which I wasn't able to get working although I really tried hard, grrrr!!! :-C
 
-## splitplanes.sh
+## splitpanes.sh
 
-'splitplanes.sh' does a 'splitting' of the active file-manager window into two side-by-side windows showing same directory, sharing same total
+'splitpanes.sh' does a 'splitting' of the active file-manager window into two side-by-side windows showing same directory, sharing same total
 area and position as a pair as before splitting. Repeated splitting is supported. It is meant to 'mimic' the 'split pane'-functionality found
 in some other file managers e.g. PCManFM, by actually generating two new windows replacing their parent window.
 The program takes the (current) directory (within the active file manager window) as an argument.
@@ -70,7 +70,7 @@ It keeps track of all windows that originated from the parent window by subseque
 Option -u 're-unites' all (recursively) split windows, in the current directory of the active window, in size and position of the original
 window i.e. the first one in the full sequence of splitting, in other words the one that did not originate by splitting itself.
 
-'splitplanes.sh' is meant to be launched as an item from XFile's tools-menu, where it could e.g. be accelerated by assigning F8 and F9 
+'splitpanes.sh' is meant to be launched as an item from XFile's tools-menu, where it could e.g. be accelerated by assigning F8 and F9 
 function keys respectively for easy toggling between 'splitting' and 're-uniting'.
 
 Prerequisites:

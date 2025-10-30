@@ -1,4 +1,4 @@
-# Project’s Title
+# Project’s Title: Helper scripts for use with the 'Enhanced Motif Window Manager' (EMWM) and 'XFile'
 A couple of helper scripts that I made, customizing and facilitating the use of the 'Enhanced Motif Window Manager' (EMWM) and its file manager 'XFile', developped and maintained by Alexander Pampuchin.
 
 # Description:
@@ -90,5 +90,5 @@ This program takes two arguments:
 # Credits:
 Thanks to Alexander Pampuchin (https://fastestcode.org/) for his wonderful project 'Enhanced Motif Window Manager' (EMWM) among which the XFile file manager and many more applications.
 
-# author
+# Author
 Written by Rob Toscani (rob_toscani@yahoo.com). If you find any bugs or want to comment otherwise, please let me know.

@@ -35,9 +35,9 @@ Unmounting takes option -u
 Reason for developing this program was to work around what I perceive as a bug, but might as well be undefined 'xterm -e' behaviour:
 Suppose that a mounting point (directory name) contains a space, and an xterm is needed to prompt for the password. 
 In that case the '%n' argument, corresponding with the X-selected mounting point(s), must be used inside the quoted command string
-fed to 'xterm -e':
+fed to 'xterm -e', like:
 
-	xterm -e "<command> \"%n\""
+	xterm -e "sudo mount \"%n\""
 
 The problem is that undesired word-splitting is not prevented in that case, even if %n is surrounded by escaped quotes inside the quoted
 command string.

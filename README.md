@@ -71,7 +71,7 @@ It keeps track of all windows that originated from the parent window by subseque
 'changedir.sh'. It does so by maintaining a so-called 'relations-file' in RAM memory, which even supports multiple split windows situations sumultaneously.
 
 Option -u 're-unites' all (recursively) split windows, in the current directory of the active window, in size and position of the original
-window, out of which the full splitting sequence started and which didn't not originate by splitting itself.
+window, out of which the full splitting sequence started and which didn't originate by splitting itself.
 
 'splitpanes.sh' is meant to be launched as an item from XFile's tools-menu, where it could e.g. be accelerated by assigning F8 and F9 
 function keys respectively for easy toggling between 'splitting' and 're-uniting'.

@@ -36,9 +36,9 @@ Reason for developing this program was to work around what I perceive as a bug, 
 Suppose that a mounting point (directory name) contains a space, and an xterm is needed to prompt for the password. 
 In that case the '%n' argument, corresponding with the X-selected mounting point(s), must be used inside the quoted command string
 fed to 'xterm -e':
-[code]
-xterm -e "<command> \"%n\""
-[/code]
+
+	xterm -e "<command> \"%n\""
+
 The problem is that undesired word-splitting is not prevented in that case, even if %n is surrounded by escaped quotes inside the quoted
 command string.
 I couldn't find a way to overcome this, preventing me to use above construct as a 'XFile.tools'-resource, so I chose to handle it inside a script.

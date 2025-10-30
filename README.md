@@ -11,11 +11,11 @@ As of now, the following tools are available (more to come!):
 'changedir.sh' changes to the specified directory, seemingly in the same active file-manager window, but actually by launching a new 
 file-manager window of similar position and size as before changing directory, replacing the previous window.
 
-'changedir.sh' is meant to be launched as a menu-item from XFile's tools-menu, taking the to-be-specified directory as an argument.
+'changedir.sh' is meant to be launched as a menu-item from XFile's tools-menu, one for each to-be-specified directory taken as an argument.
 The active file-manager window is being derived by the program by finding its parent's process-ID and subsequently the related window-ID.
 
 'changedir.sh' keeps track of whether or not the window was a result of splitting by the program 'split_panes.sh', thus allowing re-uniting with
-related (split) window panes. It does so by consulting and editing the latter programs's relations-file if present.
+related (split) window panes. It does so by consulting and editing the latter programs's so-called 'relations-file' if present.
 
 ## mount_plugdrives.sh
 
@@ -25,23 +25,25 @@ It is meant to be launched as a menu-item from XFile's tools-menu. If a password
 
 ## mount_volumes.sh
 
-'mount_volumes.sh' mounts or unmounts volume(s) selected in the file manager. It is meant to be launched as a menu-item from XFile's tools-menu,
-or as a mount/unmount command from its context menu. As with mount_plugdrives.sh, an xterm window popup prompts for a password if required.
+'mount_volumes.sh' mounts or unmounts volume(s) selected in the file manager.
 Mounting point(s) selected in the file manager by mouse button 1 ('primary X-selection') is/are taken by the program as argument(s).
+The program is meant to be launched as a menu-item from XFile's tools-menu,or as a mount/unmount command from its context menu.
+As with mount_plugdrives.sh, an xterm window popup prompts for a password if required.
 
 Unmounting takes option -u
 
 Reason for developing this program was to work around what I perceive as a bug, but might as well be undefined 'xterm -e' behaviour:
 Suppose that a mounting point (directory name) contains a space, and an xterm is needed to prompt for the password. 
-In that case the '%n' argument, corresponding with the X-selected mounting point(s), must be used inside the command string fed to 'xterm -e': 
-xterm -e "<command> \"%n\""
-The problem is that undesired word-splitting is not prevented in that case, even if %n is surrounded by escaped quotes.
+In that case the '%n' argument, corresponding with the X-selected mounting point(s), must be used inside the quoted command string
+fed to 'xterm -e'.
+The problem is that undesired word-splitting is not prevented in that case, even if %n is surrounded by escaped quotes inside the quoted
+command string.
 I couldn't find a way to overcome this, preventing me to use above construct as a 'XFile.tools'-resource, so I chose to handle it inside a script.
 
 ## newname.sh
 
 'newname.sh' is a rename-function, meant to be launched as a menu-item from XFile's tools-menu. A file selected in the file manager by mouse
-button 1 is taken by the program as an argument.
+button 1 ('primary X-selection') is taken by the program as an argument.
 Unlike XFile's own rename-function (in the context menu), newname.sh allows using mouse button 2 for entering a new name obtained by
 doing a *new* primary X-selection by mouse button 1.
 
@@ -50,17 +52,17 @@ doing a *new* primary X-selection by mouse button 1.
 'selfmounter.sh' automatically mounts any external USB-drive, eMMC and SD-Card once physically added to the system. As with mount_plugdrives.sh and mount_plugdrives.sh, an xterm window popup prompts for a password if required.
 selfmounter.sh is meant to function as a background daemon called from '$HOME/.sessionetc', which is the 'startup applications' file read by EMWM's session manager.  
 
-selfmounter.sh is an alternative for using a udev-rule for automounting (which I wasn't able to get working although I really tried hard, grrrr!!! :-C).
+'selfmounter.sh' is an alternative for using a udev-rule for automounting (which I wasn't able to get working although I really tried hard, grrrr!!! :-C).
 
 ## splitplanes.sh
 
 'splitplanes.sh' does a 'splitting' of the selected file-manager window into two side-by-side windows showing same directory, sharing same total
 area and position as a pair as before splitting. Repeated splitting is supported. It is meant to 'mimic' the 'split pane'-functionality found
-in some other file managers e.g. PCmanfm, by actually generating two new windows replacing their parent window.
+in some other file managers e.g. PCManFM, by actually generating two new windows replacing their parent window.
 The program takes the (current) directory (within the active file manager window) as an argument.
 The active file manager window itself is being derived by the program by finding its parent's process-ID and subsequently the related window-ID.
 It keeps track of all windows that originated from the parent window by subsequent splitting, even if replaced by use of the program 
-'changedir.sh'. It does so by maintaining a so-called 'relations-file' in RAM memory.
+'changedir.sh'. It does so by maintaining a so-called 'relations-file' in RAM memory which also supports multiple split windows situations sumultaneously.
 
 Option -u 're-unites' all (recursively) split windows, in the directory of the selected window, in size and position of the original window 
 i.e. the first one in the sequence of splitting, in other words the one that did not originate by splitting itself.

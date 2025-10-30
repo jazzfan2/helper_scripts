@@ -8,8 +8,8 @@ As of now, the following tools are available (more to come!):
 
 ## changedir.sh
 
-'changedir.sh' changes to the specified directory, seemingly in the same active file-manager window, but actualy by launching a new 
-file-manager window of similar position and size as before changing directory, replacing the previous one.
+'changedir.sh' changes to the specified directory, seemingly in the same active file-manager window, but actually by launching a new 
+file-manager window of similar position and size as before changing directory, replacing the previous window.
 
 'changedir.sh' is meant to be launched as a menu-item from XFile's tools-menu, taking the to-be-specified directory as an argument.
 The active file-manager window is being derived by the program by finding its parent's process-ID and subsequently the related window-ID.

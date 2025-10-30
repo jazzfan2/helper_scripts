@@ -1,4 +1,4 @@
-# Project’s Title: Helper scripts for use with the 'Enhanced Motif Window Manager' (EMWM) and 'XFile'
+# Project’s Title: Helper scripts for EMWM and XFile
 A couple of helper scripts that I made, customizing and facilitating the use of the 'Enhanced Motif Window Manager' (EMWM) and its file manager 'XFile', developped and maintained by Alexander Pampuchin.
 
 # Description:
@@ -35,7 +35,10 @@ Unmounting takes option -u
 Reason for developing this program was to work around what I perceive as a bug, but might as well be undefined 'xterm -e' behaviour:
 Suppose that a mounting point (directory name) contains a space, and an xterm is needed to prompt for the password. 
 In that case the '%n' argument, corresponding with the X-selected mounting point(s), must be used inside the quoted command string
-fed to 'xterm -e'.
+fed to 'xterm -e':
+[code]
+xterm -e "<command> \"%n\""
+[/code]
 The problem is that undesired word-splitting is not prevented in that case, even if %n is surrounded by escaped quotes inside the quoted
 command string.
 I couldn't find a way to overcome this, preventing me to use above construct as a 'XFile.tools'-resource, so I chose to handle it inside a script.

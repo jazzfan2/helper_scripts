@@ -59,7 +59,7 @@ doing a *new* primary X-selection by mouse button 1.
 
 ## splitplanes.sh
 
-'splitplanes.sh' does a 'splitting' of the selected file-manager window into two side-by-side windows showing same directory, sharing same total
+'splitplanes.sh' does a 'splitting' of the active file-manager window into two side-by-side windows showing same directory, sharing same total
 area and position as a pair as before splitting. Repeated splitting is supported. It is meant to 'mimic' the 'split pane'-functionality found
 in some other file managers e.g. PCManFM, by actually generating two new windows replacing their parent window.
 The program takes the (current) directory (within the active file manager window) as an argument.
@@ -67,8 +67,8 @@ The active file manager window itself is being derived by the program by finding
 It keeps track of all windows that originated from the parent window by subsequent splitting, even if replaced by use of the program 
 'changedir.sh'. It does so by maintaining a so-called 'relations-file' in RAM memory, which even supports multiple split windows situations sumultaneously.
 
-Option -u 're-unites' all (recursively) split windows, in the directory of the selected window, in size and position of the original window 
-i.e. the first one in the sequence of splitting, in other words the one that did not originate by splitting itself.
+Option -u 're-unites' all (recursively) split windows, in the current directory of the active window, in size and position of the original
+window i.e. the first one in the full sequence of splitting, in other words the one that did not originate by splitting itself.
 
 'splitplanes.sh' is meant to be launched as an item from XFile's tools-menu, where it could e.g. be accelerated by assigning F8 and F9 
 function keys respectively for easy toggling between 'splitting' and 're-uniting'.

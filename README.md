@@ -2,7 +2,7 @@
 A couple of helper scripts that I made, customizing and facilitating the use of the 'Enhanced Motif Window Manager' (EMWM) and its file manager named 'XFile', developped and maintained by Alexander Pampuchin.
 
 # Description:
-'Enhanced Motif Window Manager' (EMWM) is a great project by Alexander Pampuchin (https://fastestcode.org/), under LGPLv3 and MIT Licenses, providing a functional, highly configurable and 'classic' looking graphical environment for unix-like systems, somewhat reminiscent of the Common Desktop Environment (CDE).
+'Enhanced Motif Window Manager' (EMWM) is a great project by Alexander Pampuchin (https://fastestcode.org/), under LGPLv3 and MIT Licenses, providing a functional, highly configurable and 'classic' looking graphical environment for unix-like systems, somewhat reminiscent of the Common Desktop Environment (CDE). Part of EMWM is the file-manager called 'XFile', among other useful applications.
 
 I very much like to use it, and in an aim to contribute to its experience I developped a few small auxilliary shell scripts facilitating and customizing its behaviour, even trying to further advance its ease of use.
 As of now, the following tools are available (more to come!):

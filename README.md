@@ -94,7 +94,7 @@ This program takes two arguments:
 2. the name of selected file
 
 # Credits:
-Thanks to Alexander Pampuchin (https://fastestcode.org/) for his wonderful project 'Enhanced Motif Window Manager' (EMWM) among which the XFile file manager and many more applications.
+Thanks to Alexander Pampuchin (https://fastestcode.org/) for his wonderful project 'Enhanced Motif Window Manager' (EMWM) among which the 'XFile' file manager and many more applications.
 
 # Author
 Written by Rob Toscani (rob_toscani@yahoo.com). If you find any bugs or want to comment otherwise, please let me know.

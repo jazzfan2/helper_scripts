@@ -3,7 +3,7 @@ A couple of helper scripts that I made, customizing and facilitating the use of 
 
 # Description:
 'Enhanced Motif Window Manager' (EMWM) is a great project by Alexander Pampuchin (https://fastestcode.org/), under LGPLv3 and MIT Licenses, providing a functional, highly configurable and 'classic' looking graphical environment for unix-like systems, somewhat reminiscent of the Common Desktop Environment (CDE).
-I very much like to use it, and in an aim to contribute to its experience I developped a few small auxilliary shell scripts facilitating and customizing its behaviour, even trying to further advance ease of use.
+I very much like to use it, and in an aim to contribute to its experience I developped a few small auxilliary shell scripts facilitating and customizing its behaviour, even trying to further advance its ease of use.
 As of now, the following tools are available (more to come!):
 
 ## changedir.sh
@@ -21,7 +21,7 @@ related (split) window panes. It does so by consulting and editing the latter pr
 
 'mount_plugdrives.sh' mounts all external USB-drives, eMMC's and SD-Cards that are physically added to the system.
 It is meant to be launched as a menu-item from XFile's tools-menu. If a password is required for mounting a particular volume,
-mount_volumes.sh offers an xterm window popup prompting for it.
+'mount_volumes.sh' offers an xterm window popup prompting for it.
 
 ## mount_volumes.sh
 
@@ -50,7 +50,7 @@ doing a *new* primary X-selection by mouse button 1.
 'selfmounter.sh' automatically mounts any external USB-drive, eMMC and SD-Card once physically added to the system. As with mount_plugdrives.sh and mount_plugdrives.sh, an xterm window popup prompts for a password if required.
 selfmounter.sh is meant to function as a background daemon called from '$HOME/.sessionetc', which is the 'startup applications' file read by EMWM's session manager.  
 
-selfmounter.sh is an alternative for using a udev-rule for automounting (which I wasn't able get working although I really tried hard, grrrr!!! :-C).
+selfmounter.sh is an alternative for using a udev-rule for automounting (which I wasn't able to get working although I really tried hard, grrrr!!! :-C).
 
 ## splitplanes.sh
 

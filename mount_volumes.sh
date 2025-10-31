@@ -72,9 +72,10 @@ function handle()
     mode=$1
 
     # Separate volume-names (mount-points) in string by pipe symbol, and store into array:
+    OLDIFS=$IFS
     IFS='|'
     mountpoints=($2)
-    IFS=' '
+    IFS=$OLDIFS
 
     # File-system table (/etc/fstab) is stored into text-string once for repeated searching:
     fstable=""

@@ -15,7 +15,7 @@ file-manager window of similar position and size as before changing directory, r
 'changedir.sh' is meant to be launched as a menu-item from XFile's tools-menu, one for each to-be-specified directory taken as an argument.
 The active file-manager window is being derived by the program by finding its parent's process-ID and subsequently the related window-ID.
 
-'changedir.sh' keeps track of whether or not the window was a result of splitting by the program 'split_panes.sh', thus allowing re-uniting with
+'changedir.sh' keeps track of whether or not the window was a result of splitting by the program 'splitpanes.sh', thus allowing re-uniting with
 related (split) window panes. It does so by consulting and editing the latter programs's so-called 'relations-file' if present.
 
 ## mount_plugdrives.sh

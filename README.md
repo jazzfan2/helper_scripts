@@ -85,9 +85,7 @@ Prerequisites:
 manager window popping up, from which the link can be moved or copied to a desired directory opened in another file manager window.
 The symbolic link gets the same name as the file pointed to.
 
-'symlink.sh' is meant to be launched from XFile's tools-menu.
-
-This program takes two arguments:
+'symlink.sh' is meant to be launched from XFile's tools-menu, taking two arguments:
 1. the full path to the directory where the selected file resides
 2. the name of selected file
 

@@ -54,7 +54,7 @@ doing a *new* primary X-selection by mouse button 1.
 ## selfmounter.sh
 
 'selfmounter.sh' automatically mounts any external USB-drive, eMMC and SD-Card once physically added to the system. As with mount_plugdrives.sh and mount_volumes.sh, an xterm window popup prompts for a password if required.
-'selfmounter.sh' is meant to function as a background daemon called from '$HOME/.sessionetc', which is the 'startup applications' file read by EMWM's session manager.  
+'selfmounter.sh' is meant to function as a background daemon called from '$HOME/.sessionetc' (i.e the 'startup applications' file read by EMWM's session manager).
 
 'selfmounter.sh' is an alternative for using a 'udev'-rule for automounting - which I wasn't able to get working although I really tried hard, grrrr!!! :-C
 
@@ -92,6 +92,11 @@ The symbolic link gets the same name as the file pointed to.
 This program takes two arguments:
 1. the full path to the directory where the selected file resides
 2. the name of selected file
+
+## updatenotify.sh
+
+'updatenotify.sh' launches a notifying popup in case Ubuntu software updates are available. Meant to act as a background daemon,
+called from the $HOME/.sessionetc file (i.e the 'startup applications' file read by EMWM's session manager).
 
 # Credits:
 Thanks to Alexander Pampuchin (https://fastestcode.org/) for his wonderful project 'Enhanced Motif Window Manager' (EMWM) among which the 'XFile' file manager and many more applications.

@@ -12,7 +12,7 @@ As of now, the following tools are available (more to come!):
 'changedir.sh' changes to the specified directory, seemingly in the same active file-manager window, but actually by launching a new 
 file-manager window of similar position and size as before changing directory, replacing the previous window.
 
-'changedir.sh' is meant to be launched as a menu-item from XFile's tools-menu, one for each to-be-specified directory taken as an argument.
+Meant to be launched as a menu-item from XFile's tools-menu, one for each to-be-specified directory taken as an argument.
 The active file-manager window is being derived by the program by finding its parent's process-ID and subsequently the related window-ID.
 
 'changedir.sh' keeps track of whether or not the window was a result of splitting by the program 'splitpanes.sh', thus allowing re-uniting with
@@ -21,14 +21,14 @@ related (split) window panes. It does so by consulting and editing the latter pr
 ## mount_plugdrives.sh
 
 'mount_plugdrives.sh' mounts all external USB-drives, eMMC's and SD-Cards that are physically added to the system.
-It is meant to be launched as a menu-item from XFile's tools-menu. If a password is required for mounting a particular volume,
+Meant to be launched as a menu-item from XFile's tools-menu. If a password is required for mounting a particular volume,
 'mount_volumes.sh' offers an xterm window popup prompting for it.
 
 ## mount_volumes.sh
 
 'mount_volumes.sh' mounts or unmounts volume(s) selected in the file manager.
 Mounting point(s) selected in the file manager by mouse button 1 ('primary X-selection') is/are taken by the program as argument(s).
-The program is meant to be launched as a menu-item from XFile's tools-menu,or as a mount/unmount command from its context menu.
+Meant to be launched as a menu-item from XFile's tools-menu,or as a mount/unmount command from its context menu.
 As with mount_plugdrives.sh, an xterm window popup prompts for a password if required.
 
 Unmounting takes option -u
@@ -53,15 +53,14 @@ doing a *new* primary X-selection by mouse button 1.
 
 ## selfmounter.sh
 
-'selfmounter.sh' automatically mounts any external USB-drive, eMMC and SD-Card once physically added to the system. As with mount_plugdrives.sh and mount_volumes.sh, an xterm window popup prompts for a password if required.
-'selfmounter.sh' is meant to function as a background daemon called from '$HOME/.sessionetc' (i.e the 'startup applications' file read by EMWM's session manager).
+'selfmounter.sh' automatically mounts any external USB-drive, eMMC and SD-Card once physically added to the system. As with mount_plugdrives.sh and mount_volumes.sh, an xterm window popup prompts for a password if required. Meant to act as a background daemon called from '$HOME/.sessionetc' (i.e the 'startup applications' file read by EMWM's session manager).
 
-'selfmounter.sh' is an alternative for using a 'udev'-rule for automounting - which I wasn't able to get working although I really tried hard, grrrr!!! :-C
+'selfmounter.sh' is an alternative for using a 'udev'-rule for automounting.
 
 ## splitpanes.sh
 
 'splitpanes.sh' does a 'splitting' of the active file-manager window into two side-by-side windows showing same directory, sharing same total
-area and position as a pair as before splitting. Repeated splitting is supported. It is meant to 'mimic' the 'split pane'-functionality found
+area and position as a pair as before splitting. Repeated splitting is supported. It's meant to mimic the 'split pane'-functionality found
 in some other file managers e.g. PCManFM, by actually generating two new windows replacing their parent window.
 
 The program takes the (current) directory (within the active file manager window) as an argument.
@@ -73,8 +72,7 @@ It keeps track of all windows that originated from the parent window by subseque
 Option -u 're-unites' all (recursively) split windows, in the current directory of the active window, in size and position of the original
 window, out of which the full splitting sequence started and which didn't originate by splitting itself.
 
-'splitpanes.sh' is meant to be launched as an item from XFile's tools-menu, where it could e.g. be accelerated by assigning F8 and F9 
-function keys respectively for easy toggling between 'splitting' and 're-uniting'.
+Meant to be launched as an item from XFile's tools-menu, where it could be accelerated e.g. by assigning F8 and F9 function keys respectively for easy toggling between 'splitting' and 're-uniting'.
 
 Prerequisites:
 - xfile

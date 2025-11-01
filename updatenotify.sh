@@ -63,6 +63,7 @@ while true; do
     sleep $checkcycle
     # Terminate the xterm popup before starting a new cycle:
     if (( popup )); then
-        kill -9 $pid 2>/dev/null
+        kill -9 $pid 2>/dev/null  # We assume that if pid was killed earlier, no another process has adopted it...
+        # https://superuser.com/questions/1864191/how-to-avoid-killing-the-wrong-process-caused-by-linux-pid-reuse
     fi
 done

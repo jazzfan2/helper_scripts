@@ -22,14 +22,14 @@ related (split) window panes. It does so by consulting and editing the latter pr
 
 'mount_plugdrives.sh' mounts all external USB-drives, eMMC's and SD-Cards that are physically added to the system.
 Meant to be launched as a menu-item from XFile's tools-menu. If a password is required for mounting a particular volume,
-'mount_volumes.sh' offers an xterm window popup prompting for it.
+'mount_plugdrives.sh' offers an xterm window popup prompting for it.
 
 ## mount_volumes.sh
 
 'mount_volumes.sh' mounts or unmounts volume(s) selected in the file manager.
 Mounting point(s) selected in the file manager by mouse button 1 ('primary X-selection') is/are taken by the program as argument(s).
 Meant to be launched as a menu-item from XFile's tools-menu,or as a mount/unmount command from its context menu.
-As with mount_plugdrives.sh, an xterm window popup prompts for a password if required.
+As with 'mount_plugdrives.sh', an xterm window popup prompts for a password if required.
 
 Unmounting takes option -u
 
@@ -42,18 +42,18 @@ fed to 'xterm -e', like:
 
 The problem is that undesired word-splitting is not prevented in that case, even if %n is surrounded by escaped quotes inside the quoted
 command string.
-I couldn't find a way to overcome this, preventing me to use above construct as a 'XFile.tools'-resource, so I chose to handle it inside a script.
+I couldn't find a way to overcome this, preventing me to use above construct as an 'XFile.tools'-resource, so I chose to handle it inside a script.
 
 ## newname.sh
 
 'newname.sh' is a rename-function, meant to be launched as a menu-item from XFile's tools-menu. A file selected in the file manager by mouse
 button 1 ('primary X-selection') is taken by the program as an argument.
-Unlike XFile's own rename-function (in the context menu), newname.sh allows using mouse button 2 for entering a new name obtained by
+Unlike XFile's own rename-function (in the context menu), 'newname.sh' allows using mouse button 2 for entering a new name obtained by
 doing a *new* primary X-selection by mouse button 1.
 
 ## selfmounter.sh
 
-'selfmounter.sh' automatically mounts any external USB-drive, eMMC and SD-Card once physically added to the system. As with mount_plugdrives.sh and mount_volumes.sh, an xterm window popup prompts for a password if required. Meant to act as a background daemon called from '$HOME/.sessionetc' (i.e the 'startup applications' file read by EMWM's session manager).
+'selfmounter.sh' automatically mounts any external USB-drive, eMMC and SD-Card once physically added to the system. As with 'mount_plugdrives.sh' and 'mount_volumes.sh', an xterm window popup prompts for a password if required. Meant to act as a background daemon called from '$HOME/.sessionetc' (i.e. the 'startup applications' file read by EMWM's session manager).
 
 'selfmounter.sh' is an alternative for using a 'udev'-rule for automounting.
 
@@ -92,7 +92,7 @@ The symbolic link gets the same name as the file pointed to.
 ## updatenotify.sh
 
 'updatenotify.sh' launches a notifying popup in case Ubuntu software updates are available. Meant to act as a background daemon,
-called from the $HOME/.sessionetc file (i.e the 'startup applications' file read by EMWM's session manager).
+called from the $HOME/.sessionetc file (i.e. the 'startup applications' file read by EMWM's session manager).
 
 # Credits:
 Thanks to Alexander Pampuchin (https://fastestcode.org/) for his wonderful project 'Enhanced Motif Window Manager' (EMWM) among which the 'XFile' file manager and many more applications.

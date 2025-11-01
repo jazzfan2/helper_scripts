@@ -28,14 +28,41 @@
 
 
 notificationfile="/var/lib/update-notifier/updates-available"
+# notificationfile="/tmp/ramdisk/updates-available"             # For diagnostics
 notificationtext="New updates are available for your computer (Ctrl-C to quit)."
 
-pid="foobar"    # First (= dummy-) xterm process
+monitorcycle=30
+checkcycle=3600
+
+
+monitor()
+{
+    processid=$1
+    while grep -q "^$processid$" <(ps aux | awk '{ print $2 }'); do
+        # Monitor if all available updates have been installed, if so terminate xterm pop-up and return:
+        if grep -q "^0 updates" "$notificationfile"; then
+            kill -9 $processid 2>/dev/null
+            return
+        fi
+        # Otherwise repeat the cycle:
+        sleep $monitorcycle
+    done
+}
+
+
 while true; do
-    kill -9 $pid 2>/dev/null
-    if ! grep -q "0 updates" "$notificationfile"; then
+    popup=0
+    # Check if there are new updates available, if so launch an xterm pop-up notifying this:
+    if ! grep -qE "^0 updates" "$notificationfile"; then
         xterm -bg purple -T "NEW UPDATES AVAILABLE" -geometry 44x3-0-0 -e \
         "echo \"$notificationtext\"; while read -sn 1 char; do echo \"$notificationtext\"; done" & pid=$!
+        # Monitor on the background if all the updates have been installed:
+        popup=1
+        monitor $pid &
     fi
-    sleep 60
+    sleep $checkcycle
+    # Terminate the xterm popup before starting a new cycle:
+    if (( popup )); then
+        kill -9 $pid 2>/dev/null
+    fi
 done

@@ -39,7 +39,7 @@ monitor()
 {
     processid=$1
     while grep -q "^$processid$" <(ps aux | awk '{ print $2 }'); do
-        # Monitor if all available updates have been installed, if so terminate xterm pop-up and return:
+        # Monitor if all available updates have been installed, if so terminate xterm popup and return:
         if grep -q "^0 updates" "$notificationfile"; then
             kill -9 $processid 2>/dev/null
             return
@@ -52,7 +52,7 @@ monitor()
 
 while true; do
     popup=0
-    # Check if there are new updates available, if so launch an xterm pop-up notifying this:
+    # Check if there are new updates available, if so launch an xterm popup notifying this:
     if ! grep -qE "^0 updates" "$notificationfile"; then
         xterm -bg purple -T "NEW UPDATES AVAILABLE" -geometry 44x3-0-0 -e \
         "echo \"$notificationtext\"; while read -sn 1 char; do echo \"$notificationtext\"; done" & pid=$!

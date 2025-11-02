@@ -16,11 +16,11 @@
 # - https://fastestcode.org/ - LGPLv3, MIT License).
 #
 # Option -u re-unites all (recursively) split panes in the directory of the selected pane,
-# in size and position of the original window (i.e. the first one, which did not originate
-# by splitting itself).
+# in size and position of the original window, i.e. the first one from which the splitting
+# sequence started, and not a result of splitting itself.
 #
-# XFile tools-menu items for splitting and uniting by splitpanes.sh could e.g. be
-# accelerated by assigning F8 and F9 keys respectively.
+# XFile tools-menu items for splitting and uniting by splitpanes.sh could be
+# accelerated by assigning e.g. F8 and F9 keys respectively.
 #
 # Prerequisites:
 # - xfile

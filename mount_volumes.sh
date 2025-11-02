@@ -2,7 +2,7 @@
 # Name: mount_volumes.sh
 # Author: R.J.Toscani
 # Date: 22 oktober 2025
-# Description: # Mount or unmount one or more volumes selected in the file manager.
+# Description: Mount or unmount one or more volumes selected in the file manager.
 # Mounting point(s) selected in the file manager by mouse button 1
 # ('primary X-selection') is/are taken by the program as argument(s).
 # An xterm window popup prompts for a password if this is required.

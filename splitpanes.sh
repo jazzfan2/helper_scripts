@@ -3,13 +3,18 @@
 # Author: R.J.Toscani
 # Date: 12th of October 2025
 # Description:
-# Splitting of selected file-manager window-pane into two side-by-side panes showing
+# 'splitting' of the active file-manager window into two side-by-side windows showing
 # same directory, sharing same total area and position as a pair as before splitting.
-# Repeated splitting is supported. Each pair of split panes is actually two new windows
+# Repeated splitting is supported. It mimics the 'split pane'-functionality found in
+# some other file managers e.g. PCManFM, by actually generating two new windows
 # replacing their parent window.
+#
 # The program takes the (current) directory (within the active file manager window)
-# as an argument. The active file manager window itself is being derived by the program
-# by finding its parent's process-ID and subsequently the related window-ID.
+# as an argument. It finds the active file manager window by its process- and window-ID,
+# and keeps track of all windows that originated from it subsequent splitting, even if
+# replaced by use of the program 'changedir.sh'. It does so by maintaining a so-called
+# 'relations-file' in RAM, by which it supervises all active sequences of window
+# splitting.
 #
 # Meant to be launched from the tools-menu of the file-manager named 'XFile' (part of
 # 'Enhanced Motif Window Manager' by Alexander Pampuchin

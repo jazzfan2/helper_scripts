@@ -56,8 +56,7 @@ area and position as a pair as before splitting. Repeated splitting is supported
 file managers e.g. PCManFM, by actually generating two new windows replacing their parent window.
 
 The program takes the (current) directory (within the active file manager window) as an argument.
-
-The program finds the active file manager window by its process- and window-ID, and keeps track of all windows that originated from it subsequent splitting,
+It finds the active file manager window by its process- and window-ID, and keeps track of all windows that originated from it subsequent splitting,
 even if replaced by use of the program 'changedir.sh'. It does so by maintaining a so-called 'relations-file' in RAM, by which it supervises all active
 sequences of window splitting.
 

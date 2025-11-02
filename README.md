@@ -43,7 +43,8 @@ doing a *new* primary X-selection by mouse button 1.
 ## selfmounter.sh
 
 'selfmounter.sh' automatically mounts any external USB-drive, eMMC and SD-Card once physically added to the system.
-As with 'mount_plugdrives.sh' and 'mount_volumes.sh', an xterm window popup prompts for a password if required.
+As with 'mount_plugdrives.sh' and 'mount_volumes.sh', an xterm window popup prompts for a password if this is 
+required.
 Meant to act as a background daemon called from '$HOME/.sessionetc' (i.e. the 'startup applications' file read by EMWM's session manager).
 
 'selfmounter.sh' is an alternative for using a 'udev'-rule for automounting.

@@ -3,7 +3,7 @@
 # Author: R.J.Toscani
 # Date: 9 October 2025
 # Description:
-# Alternative rename-function for the Tools-menu of file-manager named 'XFile' 
+# Alternative rename-function for the Tools-menu of file-manager named 'XFile'
 # (part of 'Enhanced Motif Window Manager' by Alexander Pampuchin
 # - https://fastestcode.org/ - LGPLv3, MIT License).
 # A file selected in the file manager by mouse button 1 ('primary X-selection')

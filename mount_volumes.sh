@@ -2,11 +2,14 @@
 # Name: mount_volumes.sh
 # Author: R.J.Toscani
 # Date: 22 oktober 2025
-# Description: Mount/unmount selected volume(s).
+# Description: # Mount or unmount one or more volumes selected in the file manager.
+# Mounting point(s) selected in the file manager by mouse button 1
+# ('primary X-selection') is/are taken by the program as argument(s).
+# An xterm window popup prompts for a password if this is required.
 #
 # Meant to be launched from the tools-menu of the file-manager named 'XFile
 # (p/o 'Enhanced Motif Window Manager' by Alexander Pampuchin - https://fastestcode.org/
-# - LGPLv3, MIT License).
+# - LGPLv3, MIT License), or as a mount/unmount command from its context menu.
 #
 # Reason for developing this program was to work around following bug(?):
 # Primary X-selected filenames containing spaces aren't properly handled by '%n'

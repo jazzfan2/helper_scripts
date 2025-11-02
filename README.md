@@ -28,23 +28,10 @@ Meant to be launched as a menu-item from XFile's tools-menu. If a password is re
 
 ## mount_volumes.sh
 
-'mount_volumes.sh' mounts or unmounts volume(s) selected in the file manager.
+'mount_volumes.sh' mounts or unmounts one or more volumes selected in the file manager.
 Mounting point(s) selected in the file manager by mouse button 1 ('primary X-selection') is/are taken by the program as argument(s).
-Meant to be launched as a menu-item from XFile's tools-menu,or as a mount/unmount command from its context menu.
-As with 'mount_plugdrives.sh', an xterm window popup prompts for a password if required.
-
-Unmounting takes option -u
-
-Reason for developing this program was to work around what I perceive as a bug, but might as well be undefined 'xterm -e' behaviour:
-Suppose that a mounting point (directory name) contains a space, and an xterm is needed to prompt for the password. 
-In that case the '%n' argument, corresponding with the X-selected mounting point(s), must be used inside the quoted command string
-fed to 'xterm -e', like:
-
-	xterm -e "sudo mount \"%n\""
-
-The problem is that undesired word-splitting is not prevented in that case, even if %n is surrounded by escaped quotes inside the quoted
-command string.
-As a consequence I couldn't use such a construct as an 'XFile.tools'-resource, so I decided to handle it as part of a script.
+Meant to be launched as a menu-item from XFile's tools-menu, or as a mount/unmount command from its context menu.
+As with 'mount_plugdrives.sh', an xterm window popup prompts for a password if this is required.
 
 ## newname.sh
 

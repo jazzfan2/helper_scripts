@@ -7,7 +7,7 @@ developed and maintained by Alexander Pampuchin.
 highly configurable and 'classic' looking graphical environment for UNIX-like systems, somewhat reminiscent of the Common Desktop Environment (CDE).
 Among other useful applications being part of EWMWM is a file-manager called 'XFile'.
 
-I like using it, and in an aim to contribute to its experience I developped a few small auxilliary shell scripts to extend and customize its behaviour,
+I like using it, and in an aim to contribute to its experience I developped a few small auxilliary shell scripts to customize and extend its behaviour,
 even trying to further advance its ease of use. As of now, the following tools are available (more to come!):
 
 ## changedir.sh
@@ -61,15 +61,10 @@ even if replaced by use of the program 'changedir.sh'. It does so by maintaining
 sequences of window splitting.
 
 Option -u 're-unites' all (recursively) split windows, in the current directory of the active window, in size and position of the original
-parent window, the first one in the sequence that was splitted from which the splitting started, itself not being a result of splitting.
+parent window, i.e. the first one from which the splitting sequence started, and not a result of splitting itself.
 
-'splitpanes.sh'  is meant to be launched as an item from XFile's tools-menu. In this menu, function keys could be assigned to 'splitting' and 're-uniting',
+'splitpanes.sh' is meant to be launched as an item from XFile's tools-menu. In this menu, function keys could be assigned to 'splitting' and 're-uniting',
 enabling easy toggling, e.g. F8 and F9 respectively.
-
-Prerequisites:
-- xfile
-- xdotool
-- wmctrl
 
 ## symlink.sh
 

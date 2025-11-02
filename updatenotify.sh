@@ -53,7 +53,7 @@ monitor()
 while true; do
     popup=0
     # Check if there are new updates available, if so launch an xterm popup notifying this:
-    if ! grep -qE "^0 updates" "$notificationfile"; then
+    if ! grep -q "^0 updates" "$notificationfile"; then
         xterm -bg purple -T "NEW UPDATES AVAILABLE" -geometry 44x3-0-0 -e \
         "echo \"$notificationtext\"; while read -sn 1 char; do echo \"$notificationtext\"; done" & pid=$!
         # Monitor on the background if all the updates have been installed:
@@ -63,7 +63,7 @@ while true; do
     sleep $checkcycle
     # Terminate the xterm popup before starting a new cycle:
     if (( popup )); then
-        kill -9 $pid 2>/dev/null  # We assume that if pid was killed earlier, no another process has adopted it...
+        kill -9 $pid 2>/dev/null  # We assume that if pid was killed earlier, no other process has adopted it...
         # https://superuser.com/questions/1864191/how-to-avoid-killing-the-wrong-process-caused-by-linux-pid-reuse
     fi
 done

@@ -2,17 +2,18 @@
 # Name: symlink.sh
 # Author: R.J.Toscani
 # Date: 7 October 2025
-# Description: Store an absolute symlink to the selected file into a RAM directory,
-# and present this in a popup from which the symlink can be moved to a desired directory.
-# The symlink gets the same name as the file pointed to.
+# Description: Store an absolute symbolic link to the file selected in the file manager into
+# a RAM directory. It presents this in a file manager window popping up, from which the link
+# can be moved or copied to a desired directory opened in another file manager window.
+# The symbolic link adopts the name of the file pointed to.
 #
 # Meant to be launched from the tools-menu of the file-manager named 'XFile' (part of 
 # 'Enhanced Motif Window Manager' by Alexander Pampuchin
 # - https://fastestcode.org/ - LGPLv3, MIT License).
 #
 # This program takes two arguments:
-#     1. full path to directory where selected file resides
-#     2. name of selected file
+#    1. the full path to the directory where the selected file resides
+#    2. the name of selected file
 #
 ########################################################################################
 #

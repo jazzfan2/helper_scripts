@@ -2,7 +2,9 @@
 # Name: mount_plugdrives.sh
 # Author: R.J.Toscani
 # Date: 5 september 2025
-# Description: Mount all present external USB-drives, eMMC's and SD-Cards.
+# Description: Mount all external USB-drives, eMMC's and SD-Cards, that are physically
+# added to the system. If a password is required for mounting a particular volume,
+# 'mount_plugdrives.sh' offers an xterm window popup prompting for it.
 #
 # Meant to be launched from the tools-menu of the file-manager named 'XFile
 # (p/o 'Enhanced Motif Window Manager' by Alexander Pampuchin - https://fastestcode.org/

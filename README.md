@@ -7,8 +7,7 @@ developed and maintained by Alexander Pampuchin.
 highly configurable and 'classic' looking graphical environment for UNIX-like systems, somewhat reminiscent of the Common Desktop Environment (CDE).
 Among other useful applications being part of EWMWM is a file-manager called 'XFile'.
 
-I like using it, and in an aim to contribute to its experience I developped a few small auxilliary shell scripts to customize and extend its behaviour,
-even trying to further advance its ease of use. As of now, the following tools are available (more to come!):
+I like using it, and using its configurability I developped a a set of auxilliary scripts that extend its behaviour by adding some more features. As of now, the following tools are available (more to come!):
 
 ## changedir.sh
 

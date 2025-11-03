@@ -61,8 +61,7 @@ even if replaced by use of the program 'changedir.sh'. It does so by maintaining
 Option -u 're-unites' all (recursively) split windows, in the current directory of the active window, in size and position of the original
 parent window, i.e. the first one from which the splitting sequence started, and not a result of splitting itself.
 
-'splitpanes.sh' is meant to be launched as an item from XFile's tools-menu. In this menu, function keys could be assigned to 'splitting' and 're-uniting',
-enabling easy toggling, e.g. F8 and F9 respectively.
+'splitpanes.sh' is meant to be launched as an item from XFile's tools-menu. To accelerate splitting and uniting actions and to enable easy toggling, function keys such as F8 and F9 could be assigned respectively.
 
 ## symlink.sh
 

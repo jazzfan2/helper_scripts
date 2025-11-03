@@ -56,8 +56,7 @@ file managers e.g. PCManFM, by actually generating two new windows replacing the
 
 The program takes the (current) directory (within the active file manager window) as an argument.
 It finds the active file manager window by its process- and window-ID, and keeps track of all windows that originated from it by subsequent splitting,
-even if replaced by use of the program 'changedir.sh'. It does so by maintaining a so-called 'relations-file' in RAM, by which it supervises all started
-sequences of window splitting.
+even if replaced by use of the program 'changedir.sh'. It does so by maintaining a so-called 'relations-file' in RAM, by which it supervises all sequences of window splitting started after login.
 
 Option -u 're-unites' all (recursively) split windows, in the current directory of the active window, in size and position of the original
 parent window, i.e. the first one from which the splitting sequence started, and not a result of splitting itself.

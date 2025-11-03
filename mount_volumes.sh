@@ -115,13 +115,27 @@ function handle()
 options $@
 shift $(( OPTIND - 1 ))
 
+
+# Concatenate mountpoints (N.B.: w/o trailing '/' !) of all mounted devices into one string:
+mntpnts=""
+while read mntpnt; do
+    mntpnts="$mntpnts $mntpnt"
+done < <(lsblk -o MOUNTPOINT)
+
+ # Concatenate selected volume-names into a pipe-separated string:
 volumes=""
-for volume in "$@"; do           # Volumes (mount-points; N.B.: without trailing '/'!)
-    volumes="$volumes"$volume"|" # Concatenate volume-names into pipe-separated string
+for volume in "$@"; do
+    # Only if to-be-unmounted volumes are present, or if to-be-mounted volumes aren't:
+    if ( [[ $mode == "unmount" ]] &&   grep -q "$volume" <<< "$mntpnts" ) ||
+       ( [[ $mode == "mount"   ]] && ! grep -q "$volume" <<< "$mntpnts" ); then
+        volumes="$volumes"$volume"|"
+    fi
 done
 
-export -f handle                 # Export function to all child shells (xterm -e)
+# Export function to all child shells (xterm -e):
+export -f handle
 
+# Call xterm popup executing mount or unmount on all volumes in the catenated string:
 if [[ $mode == "mount" ]]; then
     xterm -geometry 50x2+0+0 -e "handle \"mount\"  \"$volumes\"; sleep 0.5"
 else # if mode == unmount

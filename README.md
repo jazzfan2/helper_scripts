@@ -7,7 +7,7 @@ developed and maintained by Alexander Pampuchin.
 Among other useful applications that are part of EMWM is a file-manager called 'XFile'.
 
 I like EMWM's configurability, which inspired me to develop a set of auxilliary scripts to customize and further
-extend its behaviour and ease of use. As of now, the following tools are available (more to come!):
+extend its behavior and ease of use. As of now, the following tools are available (more to come!):
 
 ## changedir.sh
 

@@ -1,5 +1,5 @@
 # Project’s Title: Helper scripts for EMWM and XFile
-A couple of helper scripts that I made to use in combination with the 'Enhanced Motif Window Manager' (EMWM) including its file manager 'XFile',
+A couple of helper scripts that I made for use in combination with the 'Enhanced Motif Window Manager' (EMWM) including its file manager 'XFile',
 developed and maintained by Alexander Pampuchin.
 
 # Description:

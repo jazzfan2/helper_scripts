@@ -4,7 +4,7 @@ developed and maintained by Alexander Pampuchin.
 
 # Description:
 'Enhanced Motif Window Manager' (EMWM) is a great project by Alexander Pampuchin (https://fastestcode.org/), under LGPLv3 and MIT Licenses, providing a functional and 'classic' looking graphical environment for UNIX-like systems, somewhat reminiscent of the Common Desktop Environment (CDE).
-Among other useful applications that are part of EWMWM is a file-manager called 'XFile'.
+Among other useful applications that are part of EMWM is a file-manager called 'XFile'.
 
 I like EMWM's configurability, which inspired me to develop a set of auxilliary scripts to customize and further
 extend its behaviour and ease of use. As of now, the following tools are available (more to come!):

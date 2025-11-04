@@ -2,9 +2,10 @@
 # Name: pickrgb.sh
 # Author: R.J.Toscani
 # Date: 27th of May 2025
-# Description: Take a sample of the screen including the color of interest, do a 
-# detailed selection of the color in XPaint, and obtain its hexadecimal RGB-value in 
-# "rgb:<red>/<green>/<blue>" format, as well as in "<red> <green> <blue>" format.
+# Description: 'pickrgb.sh' automates identification of colors taken from the screen.
+# Take a local screenshot including the color of interest, do a detailed selection of
+# the color in the XPaint canvas being opened, and obtain its hexadecimal RGB-value
+# in "rgb:<red>/<green>/<blue>" format, as well as in "<red> <green> <blue>" format.
 #
 # Prerequisites:
 # - scrot

@@ -33,6 +33,12 @@ Mounting point(s) selected in the file manager by mouse button 1 ('primary X-sel
 Meant to be launched as a menu-item from XFile's tools-menu, or as a mount/unmount command from its context menu.
 As with 'mount_plugdrives.sh', an xterm window popup prompts for a password if this is required.
 
+## negate_xbm.sh
+
+'negate_xbm.sh' produces the *negative* of an .xbm image file and sends the output to stdout. Purpose is to compensate a CDE
+ backdrop image (.xbm format) in case it flips to the negative if shown in certain colors by the 'xbackdrop' program by Alexander
+Pampuchin (see https://fastestcode.org/misc.html)
+
 ## newname.sh
 
 'newname.sh' is a rename-function, meant to be launched as a menu-item from XFile's tools-menu. A file selected in the file manager by mouse
@@ -46,7 +52,7 @@ doing a *new* primary X-selection by mouse button 1.
 do a detailed selection of the color in the XPaint canvas being opened, and obtain its hexadecimal RGB-value in
 "rgb:[red]/[green]/[blue]" format, as well as in "[red] [green] [blue]" format.
 
-## randombackdrop.sh and randombackdrop2.sh
+## randombackdrop.sh
 
 'randombackdrop.sh' generates a random-cycling of colors and Motif/X11(CDE)-backdrop images,
 particularly - but not limited to - (x)bm and (x)pm formats. Various options are available for setting color transition modes etc.

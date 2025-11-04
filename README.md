@@ -46,6 +46,14 @@ doing a *new* primary X-selection by mouse button 1.
 do a detailed selection of the color in the XPaint canvas being opened, and obtain its hexadecimal RGB-value in
 "rgb:[red]/[green]/[blue]" format, as well as in "[red] [green] [blue]" format.
 
+## randombackdrop.sh and randombackdrop2.sh
+
+'randombackdrop.sh' generates a random-cycling of colors and Motif/X11(CDE)-backdrop images,
+particularly - but not limited to - (x)bm and (x)pm formats. Various options available are to set e.g. the color transition modes.
+Its engine is the 'xbackdrop' program by Alexander Pampuchin (see https://fastestcode.org/misc.html), and it is meant to act as a
+background daemon called from the $HOME/.sessionetc file (i.e. the 'startup applications' file read by EMWM's session manager).
+'randombackdrop2.sh' is an interactive wrapper around 'randombackdrop.sh', meant to be launched as an item from the EMWM toolbox-menu.
+
 ## selfmounter.sh
 
 'selfmounter.sh' automatically mounts any external USB-drive, eMMC and SD-Card once physically added to the system.

@@ -10,7 +10,7 @@
 # - LGPLv3, MIT License), which as a prerequisite must have been installed in
 # order for this script to function.
 #
-# Meant to function as a background daemon called from the $HOME/.sessionetc
+# Meant to act as a background daemon called from the $HOME/.sessionetc
 # file (i.e. the 'startup applications' file read by EMWM's session manager).
 #
 #############################################################################

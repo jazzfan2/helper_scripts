@@ -40,6 +40,11 @@ button 1 ('primary X-selection') is taken by the program as an argument.
 Unlike XFile's own rename-function (in the context menu), 'newname.sh' allows using mouse button 2 for entering a new name obtained by
 doing a *new* primary X-selection by mouse button 1.
 
+## pickrgb.sh
+
+'pickrgb.sh' automates color-identification from the screen: Take a sample of the screen including the color of interest, do a detailed selection of the color in the XPaint cvanvas being opened, and obtain its hexadecimal RGB-value in "rgb:<red>/<green>/<blue>" format,
+as well as in "<red> <green> <blue>" format.
+
 ## selfmounter.sh
 
 'selfmounter.sh' automatically mounts any external USB-drive, eMMC and SD-Card once physically added to the system.

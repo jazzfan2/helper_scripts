@@ -20,6 +20,12 @@ The program finds the active file manager window by its process- and window-ID, 
 result of splitting by the program 'splitpanes.sh', enabling re-uniting with related (split) windows.
 It does so by consulting and editing the latter programs's so-called 'relations-file' if present.
 
+## image2halftone.sh
+
+'image2halftone.sh' creates a halftone dithered (dotted raster) image in .xpm format ("black and white - newspaper photograph")
+from an existing black and white- or color image. Application: to convert jpg- or png-images (or gif etc.) to a monochrome
+Motif-background to be set as a screen backround by the program 'xbackdrop' by Alexander Pampuchin (see https://fastestcode.org/misc.html).
+
 ## mount_plugdrives.sh
 
 'mount_plugdrives.sh' mounts all external USB-drives, eMMC's and SD-Cards that are physically added to the system.

@@ -115,7 +115,6 @@ function handle()
 options $@
 shift $(( OPTIND - 1 ))
 
-
 # Concatenate mountpoints (N.B.: w/o trailing '/' !) of all mounted devices into one string:
 mntpnts=""
 while read mntpnt; do

@@ -93,19 +93,21 @@ function handle()
         UUID="${device[0]/UUID=/}"
         parttype="${device[2]/-3g/}"
 
+        # If in /etc/fstab:
         if [[ -n "$UUID" ]]; then
-            # If in /etc/fstab and 'ext'-partition:
-            if grep -q "ext" <<<"$parttype"; then
-                [[  $mode == "mount"   ]] && (mount --target "$mountpoint" 2>/dev/null &) ||
-                ([[ $mode == "unmount" ]] && umount "$mountpoint" 2>/dev/null &)
-
-            # If in /etc/fstab and 'ntfs'-partition (then apparently sudo mount is needed ?!):
-            elif [[ "$parttype" == "ntfs" ]]; then
-                [[  $mode == "mount"   ]] && sudo mount --target "$mountpoint" 2>/dev/null ||
-                ([[ $mode == "unmount" ]] && umount "$mountpoint" 2>/dev/null &)
+            if [[  $mode == "mount" ]]; then
+                # With 'ext'-partition, no sudo is needed for mounting:
+                if grep -q "ext" <<<"$parttype"; then
+                    mount --target "$mountpoint" 2>/dev/null &
+                # With 'ntfs'-partition, apparently sudo is needed for mounting:
+                elif [[ "$parttype" == "ntfs" ]]; then
+                    sudo mount --target "$mountpoint" 2>/dev/null &
+                fi
+            elif [[ $mode == "unmount" ]]; then
+                umount "$mountpoint" 2>/dev/null &
             fi
+        # If not in /etc/fstab (USB sticks and SD-cards) only unmount:
         else
-            # Not in /etc/fstab (USB sticks and SD-cards); only unmount:
             device=($(df | grep "$mountpoint"))
             [[ $mode == "unmount" ]] && udisksctl unmount -b ${device[0]} 1>/dev/null &
         fi
@@ -136,7 +138,7 @@ export -f handle
 
 # Call xterm popup executing mount or unmount on all volumes in the catenated string:
 if [[ $mode == "mount" ]]; then
-    xterm -geometry 50x2+0+0 -e "handle \"mount\"  \"$volumes\"; sleep 0.5"
+    xterm -geometry 50x2+0+0 -e "handle \"mount\"  \"$volumes\"; wait"
 else # if mode == unmount
-    xterm -geometry 50x2+0+0 -e "handle \"unmount\" \"$volumes\"; sleep 0.5"
+    xterm -geometry 50x2+0+0 -e "handle \"unmount\" \"$volumes\"; wait"
 fi

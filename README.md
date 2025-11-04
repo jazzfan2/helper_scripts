@@ -37,7 +37,7 @@ As with 'mount_plugdrives.sh', an xterm window popup prompts for a password if t
 
 'negate_xbm.sh' produces the *negative* of an .xbm image file and sends the output to stdout. Purpose is to compensate a CDE
  backdrop image (.xbm format) in case it flips to the negative if shown in certain colors by the 'xbackdrop' program by Alexander
-Pampuchin (see https://fastestcode.org/misc.html)
+Pampuchin (see https://fastestcode.org/misc.html).
 
 ## newname.sh
 

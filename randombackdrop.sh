@@ -65,12 +65,12 @@ helptext()
 	cat <<-EOF
 		Usage: randombackdrop.sh [-icgGhnp] [-p PERIOD]
 
-		-i   Next (start) color is identical to previous (end) color
-		-c   Next (start) color complementary to previous (end) color.
-		     (Overrules -i.)
+		-i   Next (start) color is identical to previous (end) color.
+		-c   Next (start) color complementary to previous (end) color
+		     (Overrules -i).
 		-g   Gradual shift from start color to random end color.
-		     (= next start color if -c or -i not given.)
-		-G   Gradual shift from start color to complementary end color .
+		     (= next start color if -c or -i not given).
+		-G   Gradual shift from start color to complementary end color
 		     (= next start color if -c or -i not given). Overrules -g.
 		-h   Help (this output).
 		-n   Only backdrop colors, no images.

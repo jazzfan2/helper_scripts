@@ -69,7 +69,8 @@ EOF
 }
 
 
-function handle()
+handle()
+# Mount or unmount the given volume(s):
 {
     # 'Mount' or 'unmount' mode:
     mode=$1

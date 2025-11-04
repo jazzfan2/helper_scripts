@@ -41,16 +41,13 @@ fi
 
 sample="$tmpfiledir/sample$(date -Iminutes)_$RANDOM.png"
 
-
 # Abort after receiving an interrupt signal (Ctrl-C):
 trap "[[ -f $sample ]] && \rm $sample; pkill xpaint; exit" SIGINT SIGTERM
-
 
 # Take a local screenshot, including the color of interest:
 clear
 echo "Select a rectangular sample of the screen, including the color of interest."
 scrot -s -F $sample
-
 
 # The screenshot just taken is being opened as an image in Xpaint:
 xpaint $sample 2>/dev/null &
@@ -71,12 +68,10 @@ Enter <Ctrl-C> (2x) to interrupt
 EOF
 read red green blue
 
-
 # The decimal RGB-value is converted to hexadecimal:
 red_hex=$(printf "%02X" "$red")
 green_hex=$(printf "%02X" "$green")
 blue_hex=$(printf "%02X" "$blue")
-
 
 # The hexadecimal RGB-value is printed:
 echo -e "\nOf this decimal RGB-value, the hexadecimal equivalent is as follows:\n"

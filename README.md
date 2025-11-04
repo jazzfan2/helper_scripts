@@ -43,8 +43,8 @@ doing a *new* primary X-selection by mouse button 1.
 ## pickrgb.sh
 
 'pickrgb.sh' automates identification of colors taken from the screen: Take a sample of the screen including the color of interest,
-do a detailed selection of the color in the XPaint cvanvas being opened, and obtain its hexadecimal RGB-value in
-"rgb:<red>/<green>/<blue>" format, as well as in "<red> <green> <blue>" format.
+do a detailed selection of the color in the XPaint canvas being opened, and obtain its hexadecimal RGB-value in
+"rgb:[red]/[green]/[blue]" format, as well as in "[red] [green] [blue]" format.
 
 ## selfmounter.sh
 

@@ -128,7 +128,7 @@ if [[ $mode == "unite" ]]; then
     geom=${relatedpanes[0]}
 
     # Start new file-manager window with current directory and original (unsplit) geometry:
-    xfile -a -l -geometry "$geom" "$directory" &
+    xfile -a -l -geometry "$geom" "$directory"
 
     # Kill all process-IDs found in the same line, all being the related split windows:
     for i in ${!relatedpanes[@]}; do

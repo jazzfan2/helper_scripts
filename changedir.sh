@@ -115,7 +115,7 @@ geom="$w"x"$h"+"$x"+"$y"
 pre_pids="$(ps aux --sort start | grep xfile | awk '{ print $2 }')"
 
 # Launch a file-manager window:
-xfile -a -l -geometry "$geom" "$directory"
+xfile -a -l -geometry "$geom" "$directory" &
 
 # All related process-IDs after launching the new file-manager window:
 post_pids="$(ps aux --sort start | grep xfile | awk '{ print $2 }')"

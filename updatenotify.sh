@@ -4,7 +4,7 @@
 # Date: 13 October 2025
 # Description: Program that launches a notifying popup in case Ubuntu software
 # updates are available. Meant to act as a background daemon, called from the
-# $HOME/.sessionetc file (p/o 'Enhanced Motif Window Manager'
+# $HOME/.sessionetc file (part of the 'Enhanced Motif Window Manager (EMWM)'
 # by Alexander Pampuchin - https://fastestcode.org/ - LGPLv3, MIT License).
 #
 ######################################################################################

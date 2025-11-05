@@ -2,11 +2,12 @@
 # Name: negate_xbm.sh
 # Author: Rob Toscani
 # Date: 11th of June 2025
-# Description: This script produces the negative of an .xbm image file and sends the output
-# to stdout. Purpose is to compensate a CDE backdrop image (.xbm format) in case it flips
-# to the negative if shown in certain colors by the 'xbackdrop' program by Alexander
-# Pampuchin (part of the 'Enhanced Motif Window Manager (EMWM)' - https://fastestcode.org/
-# - LGPLv3, MIT License).
+# Description: This script produces the negative of an .xbm image file and
+# sends the output to stdout. Purpose is to compensate a CDE backdrop image
+# (.xbm format) in case it flips to the negative if shown in certain colors
+# by the 'xbackdrop' program by Alexander Pampuchin (part of the 'Enhanced
+# Motif Window Manager (EMWM)' - https://fastestcode.org/ - LGPLv3,
+# MIT License).
 #
 #######################################################################################
 #

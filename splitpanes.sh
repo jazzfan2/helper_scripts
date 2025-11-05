@@ -3,29 +3,32 @@
 # Author: R.J.Toscani
 # Date: 12th of October 2025
 # Description:
-# 'splitting' of the active file-manager window into two side-by-side windows showing
-# same directory, sharing same total area and position as a pair as before splitting.
-# Repeated splitting is supported. It mimics the 'split pane'-functionality found in
-# some other file managers e.g. PCManFM, by actually generating two new windows
+# 'splitting' of the active file-manager window into two side-by-side
+# windows showing same directory, sharing same total area and position
+# as a pair as before splitting. Repeated splitting is supported.
+# It mimics the 'split pane'-functionality found in some other file
+# managers e.g. PCManFM, by actually generating two new windows
 # replacing their parent window.
 #
-# The program takes the (current) directory (within the active file manager window)
-# as an argument. It finds the active file manager window by its process- and window-ID,
-# and keeps track of all windows that originated from it by subsequent splitting, even
-# if replaced by use of the program 'changedir.sh'. It does so by maintaining a
-# so-called 'relations-file' in RAM, by which it supervises all sequences of
-# window splitting started after login.
+# The program takes the (current) directory (within the active file
+# manager window) as an argument. It finds the active file manager
+# window by its process- and window-ID, and keeps track of all windows
+# that originated from it by subsequent splitting, even if replaced by
+# use of the program 'changedir.sh'. It does so by maintaining a
+# so-called 'relations-file' in RAM, by which it supervises all
+# sequences of window splitting started after login.
 #
-# Meant to be launched from the tools-menu of the file-manager named 'XFile' (part of
-# 'Enhanced Motif Window Manager' by Alexander Pampuchin
-# - https://fastestcode.org/ - LGPLv3, MIT License).
+# Meant to be launched from the tools-menu of the file-manager named
+# 'XFile' (part of the 'Enhanced Motif Window Manager (EMWM)' by
+# Alexander Pampuchin - https://fastestcode.org/ - LGPLv3, MIT License).
 #
-# Option -u re-unites all (recursively) split windows in the directory of the selected
-# window, in size and position of the original window, i.e. the first one from which
-# the splitting sequence started, and not a result of splitting itself.
+# Option -u re-unites all (recursively) split windows in the directory
+# of the selected window, in size and position of the original window,
+# i.e. the first one from which the splitting sequence started,
+# and not a result of splitting itself.
 #
-# XFile tools-menu items for splitting and uniting by splitpanes.sh could be
-# accelerated by assigning e.g. F8 and F9 keys respectively.
+# XFile tools-menu items for splitting and uniting by splitpanes.sh
+# could be accelerated by assigning e.g. F8 and F9 keys respectively.
 #
 # Prerequisites:
 # - xfile

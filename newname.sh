@@ -3,13 +3,13 @@
 # Author: R.J.Toscani
 # Date: 9 October 2025
 # Description:
-# Alternative rename-function for the Tools-menu of file-manager named 'XFile'
-# (part of 'Enhanced Motif Window Manager' by Alexander Pampuchin
-# - https://fastestcode.org/ - LGPLv3, MIT License).
-# A file selected in the file manager by mouse button 1 ('primary X-selection')
-# is taken by the program as an argument.
-# Unlike XFile's own rename-function, 'newname.sh' allows using MB2 for entering
-# a new name obtained by doing a new X-selection (MB1).
+# Alternative rename-function for the Tools-menu of file-manager named
+# 'XFile' (part of the 'Enhanced Motif Window Manager (EMWM)' by
+# Alexander Pampuchin - https://fastestcode.org/ - LGPLv3, MIT License).
+# A file selected in the file manager by mouse button 1 ('primary
+# X-selection') is taken by the program as an argument.
+# Unlike XFile's own rename-function, 'newname.sh' allows using MB2 for
+# entering a new name obtained by doing a new X-selection (MB1).
 #
 ###################################################################################
 #

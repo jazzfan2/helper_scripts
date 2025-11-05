@@ -2,14 +2,15 @@
 # Name: image2halftone.sh
 # Author: R.J.Toscani
 # Date: 5th of June 2025
-# Description: Create a halftone dithered (dotted raster) image in .xpm format
-# ("black and white newspaper photograph") from an existing black and white or color
-# image. See also: https://legacy.imagemagick.org/Usage/quantize/#diy_threshold
+# Description: Create a halftone dithered (dotted raster) image in .xpm
+# format ("black and white newspaper photograph") from an existing
+# black and white or color image.
+# See also: https://legacy.imagemagick.org/Usage/quantize/#diy_threshold
 #
-# Application: to convert a jpg- or png-image (or gif etc.) to a format suitable to be
-# set as a monochrome Motif/X11 screen-background by the program 'xbackdrop' by Alexander
-# Pampuchin (part of the 'Enhanced Motif Window Manager' - https://fastestcode.org/
-# - LGPLv3, MIT License).
+# Application: to convert a jpg- or png-image (or gif etc.) to a format
+# suitable to be set as a monochrome Motif/X11 screen-background by the
+# program 'xbackdrop' by Alexander Pampuchin (part of the 'Enhanced Motif
+# Window Manager (EMWM)' - https://fastestcode.org/ - LGPLv3, MIT License).
 #
 ######################################################################################
 #

@@ -3,23 +3,25 @@
 # Author: R.J.Toscani
 # Date: 14th of October 2025
 # Description:
-# Change to specified directory, seemingly in the same active file-manager window,
-# but actually by launching a new file-manager window of similar position and size as
-# before changing directory, replacing the previous window.
+# Change to specified directory, seemingly in the same active file-manager
+# window, but actually by launching a new file-manager window of similar
+# position and size as before changing directory, replacing the previous
+# window.
 #
-# The program takes the to-be-specified directory as an argument. The active
-# file-manager window is being derived by the program by finding its parent's process-ID
-# and subsequently the related window-ID.
+# The program takes the to-be-specified directory as an argument. The
+# active file-manager window is being derived by the program by finding
+# its parent's process-ID and subsequently the related window-ID.
 #
-# 'changedir.sh' finds the active file manager window by its process- and window-ID, and
-# keeps track of whether or not the window was a result of splitting by the program
-# 'splitpanes.sh', enabling re-uniting with related (split) windows. It does so by
-# consulting and editing the latter programs's so-called 'relations-file' if present.
+# 'changedir.sh' finds the active file manager window by its process-
+# and window-ID, and keeps track of whether or not the window was a
+# result of splitting by the program 'splitpanes.sh', enabling re-uniting
+# with related (split) windows. It does so by consulting and editing the
+# latter programs's so-called 'relations-file' if present.
 #
-# Meant to be launched from the tools-menu of the file-manager named 'XFile
-# (p/o 'Enhanced Motif Window Manager' by Alexander Pampuchin - https://fastestcode.org/
-# - LGPLv3, MIT License), one for each to-be-specified directory which is taken as the
-# argument.
+# Meant to be launched from the tools-menu of the file-manager named
+# 'XFile (part of the 'Enhanced Motif Window Manager (EMWM)' by Alexander
+# Pampuchin - https://fastestcode.org/ - LGPLv3, MIT License), one for
+# each to-be-specified directory which is taken as the argument.
 #
 # Prerequisites:
 # - xfile

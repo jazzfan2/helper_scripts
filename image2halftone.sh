@@ -3,7 +3,7 @@
 # Author: R.J.Toscani
 # Date: 5th of June 2025
 # Description: Create a halftone dithered (dotted raster) image in .xpm format
-# ("black and white - newspaper photograph") from an existing black and white- or color
+# ("black and white newspaper photograph") from an existing black and white or color
 # image. See also: https://legacy.imagemagick.org/Usage/quantize/#diy_threshold
 #
 # Application: to convert a jpg- or png-image (or gif etc.) to a format suitable to be

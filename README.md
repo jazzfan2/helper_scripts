@@ -22,9 +22,10 @@ It does so by consulting and editing the latter programs's so-called 'relations-
 
 ## image2halftone.sh
 
-'image2halftone.sh' creates a halftone dithered (dotted raster) image in .xpm format ("black and white - newspaper photograph")
-from an existing black and white- or color image. Application: to convert jpg- or png-images (or gif etc.) to a monochrome
-Motif-background to be set as a screen backround by the program 'xbackdrop' by Alexander Pampuchin (see https://fastestcode.org/misc.html).
+'image2halftone.sh' creates a halftone dithered (dotted raster) image in .xpm format ("black and white newspaper photograph") from
+an existing black and white or color image. Application: to convert a jpg- or png-image (or gif etc.) to a format suitable to be
+set as a monochrome Motif/X11 screen-background by the program 'xbackdrop' by Alexander Pampuchin
+(see https://fastestcode.org/misc.html).
 
 ## mount_plugdrives.sh
 

@@ -109,7 +109,7 @@ The symbolic link adopts the name of the file pointed to.
 called from the $HOME/.sessionetc file (i.e. the 'startup applications' file read by EMWM's session manager).
 
 # Credits:
-Thanks to Alexander Pampuchin (https://fastestcode.org/) for his wonderful project 'Enhanced Motif Window Manager' (EMWM) among which the 'XFile' file manager and many more applications.
+Thanks to Alexander Pampuchin (https://fastestcode.org/) for his wonderful project 'Enhanced Motif Window Manager' (EMWM) along with the 'XFile' file manager and many more applications.
 
 # Author
 Written by Rob Toscani (rob_toscani@yahoo.com). If you find any bugs or want to comment otherwise, please let me know.

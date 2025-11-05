@@ -133,7 +133,7 @@ if [[ $mode == "unite" ]]; then
     # Kill all process-IDs found in the same line, all being the related split windows:
     for i in ${!relatedpanes[@]}; do
          [[ $i == 0 ]] && continue
-         kill -9 ${relatedpanes[$i]} 2>/dev/null
+         kill -9 ${relatedpanes[$i]} 2>/dev/null &
     done
 
     # Terminate the program:

@@ -97,15 +97,15 @@ case $DESKTOP_SESSION in
             xfactor=2
             yfactor=2
             ;;
-    ubuntu)
+    ubuntu | ubuntu-wayland)
             xfactor=1
             yfactor=2
-            xshift=14
-            yshift=12
+            xshift=14   # might deviate in individual cases (screen-size/ratio?)
+            yshift=12   # ditto
             ;;
     *)
-            xfactor=1
-            yfactor=1
+            xfactor=1   # might deviate in individual cases
+            yfactor=1   # ditto
             ;;
 esac
 

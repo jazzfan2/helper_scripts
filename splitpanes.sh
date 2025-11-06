@@ -102,6 +102,9 @@ fi
 # Current directory:
 directory="$1"
 
+# Time lapse to improve seamless window transition in case of a slow machine:
+lapse=0.5
+
 # Keep track of any split file-manager windows and their common parent window's geometry:
 relationsfile="$tmpfiledir/split_relations.txt"
 
@@ -131,7 +134,7 @@ if [[ $mode == "unite" ]]; then
     xfile -a -l -geometry "$geom" "$directory" &
 
     # Kill all process-IDs found in the same line, all being the related split windows:
-    sleep 0.5
+    sleep $lapse
     for i in ${!relatedpanes[@]}; do
          [[ $i == 0 ]] && continue
          kill -9 ${relatedpanes[$i]} 2>/dev/null
@@ -210,6 +213,6 @@ new_pids=$(comm -23 <(echo "$post_pids" | sort) <(echo "$pre_pids" | sort) | tr 
 sed -i "s/$process_id/$new_pids/" $relationsfile
 
 # Kill the active (parent) file-manager window:
-sleep 0.5
+sleep $lapse
 kill -9 $process_id 2>/dev/null
 

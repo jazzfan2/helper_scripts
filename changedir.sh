@@ -60,6 +60,9 @@ fi
 # Specified directory:
 directory="$1"
 
+# Time lapse to improve seamless window transition in case of a slow machine:
+lapse=0.5
+
 # Keep track of any split file-manager windows and their common parent window's geometry:
 relationsfile="$tmpfiledir/split_relations.txt"
 
@@ -131,6 +134,6 @@ if [[ -f "$relationsfile" ]]; then
 fi
 
 # Kill the active (parent) file-manager window:
-sleep 0.5
+sleep $lapse
 kill -9 $process_id
 

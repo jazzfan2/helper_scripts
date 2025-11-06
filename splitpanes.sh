@@ -168,7 +168,7 @@ case $DESKTOP_SESSION in
             xfactor=2
             yfactor=2
             ;;
-    ubuntu)
+    ubuntu | ubuntu-wayland)
             xfactor=1
             yfactor=2
             xshift=14

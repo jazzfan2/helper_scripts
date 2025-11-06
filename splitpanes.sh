@@ -57,8 +57,9 @@
 
 mode="split"
 
-options(){
+options()
 # Specify options:
+{
     while getopts "hu" OPTION; do
         case $OPTION in
             h) helptext
@@ -86,10 +87,11 @@ Usage: splitpanes.sh [-hu] DIRECTORY
 EOF
 }
 
-lapse(){
+lapse()
 # Wait until the (file manager) window with given window ID has fully started up. Source:
 # https://stackoverflow.com/questions/19441379/wait-for-a-gui-application-to-fully-startup-before-running-script
-winrep=""
+{
+    winrep=""
     while [[ ! "$(echo $winrep | grep -l 'Map State: IsViewable')" ]] ; do
         winrep=$(xwininfo -id "0x$windowid_hex")
         sleep 0.1

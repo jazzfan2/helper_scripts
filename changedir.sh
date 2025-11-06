@@ -131,5 +131,6 @@ if [[ -f "$relationsfile" ]]; then
 fi
 
 # Kill the active (parent) file-manager window:
+sleep 0.5
 kill -9 $process_id
 

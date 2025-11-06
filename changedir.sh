@@ -60,8 +60,8 @@ fi
 # Specified directory:
 directory="$1"
 
-# Time lapse to improve seamless window transition in case of a slow machine:
-lapse=0.5
+# Time lapse to achieve seamless window transition in case of a slow machine:
+lapse=0.8
 
 # Keep track of any split file-manager windows and their common parent window's geometry:
 relationsfile="$tmpfiledir/split_relations.txt"

@@ -86,9 +86,19 @@ Usage: splitpanes.sh [-hu] DIRECTORY
 EOF
 }
 
+lapse(){
+# Wait until the (file manager) window with given window ID has fully started up. Source:
+# https://stackoverflow.com/questions/19441379/wait-for-a-gui-application-to-fully-startup-before-running-script
+winrep=""
+    while [[ ! "$(echo $winrep | grep -l 'Map State: IsViewable')" ]] ; do
+        winrep=$(xwininfo -id "0x$windowid_hex")
+        sleep 0.1
+    done
+}
+
+
 options $@
 shift $(( OPTIND - 1 ))
-
 
 # Determine storage location of the relations-file (preferrably RAM):
 if [[ -d /tmp/ramdisk/ ]]; then
@@ -102,21 +112,12 @@ fi
 # Current directory:
 directory="$1"
 
-# Time lapse to improve seamless window transition in case of a slow machine:
-lapse=0.5
-
 # Keep track of any split file-manager windows and their common parent window's geometry:
 relationsfile="$tmpfiledir/split_relations.txt"
 
 # Process ID of parent window:
 process_id=$(ps -o ppid= $$)
 process_id=${process_id// /}  # (Apparently necessary, but variable still doesn't print ?)
-
-# Window ID (decimal) of active parent window:
-windowid_dec=$(xdotool getactivewindow)
-
-# Window ID (hexadecimal) of active parent window:
-windowid_hex=$(printf '%x\n' $windowid_dec)
 
 # Determine whether we will be splitting or uniting:
 if [[ $mode == "unite" ]]; then
@@ -133,8 +134,16 @@ if [[ $mode == "unite" ]]; then
     # Start new file-manager window with current directory and original (unsplit) geometry:
     xfile -a -l -geometry "$geom" "$directory" &
 
+    # Window ID (decimal) of just started active window:
+    windowid_dec=$(xdotool getactivewindow)
+
+    # Window ID (hexadecimal) of just started active window:
+    windowid_hex=$(printf '%x\n' $windowid_dec)
+
+    # Time lapse to achieve seamless window transition in case of a slow machine:
+    lapse $windowid_hex
+
     # Kill all process-IDs found in the same line, all being the related split windows:
-    sleep $lapse
     for i in ${!relatedpanes[@]}; do
          [[ $i == 0 ]] && continue
          kill -9 ${relatedpanes[$i]} 2>/dev/null
@@ -146,6 +155,13 @@ if [[ $mode == "unite" ]]; then
 fi
 
 # ############ "Splitting"-code starts here: ############
+
+
+# Window ID (decimal) of active parent window:
+windowid_dec=$(xdotool getactivewindow)
+
+# Window ID (hexadecimal) of active parent window:
+windowid_hex=$(printf '%x\n' $windowid_dec)
 
 # Get geometric properties of the active (parent) file-manager window:
 geom=($(wmctrl -lG | grep "$windowid_hex" | awk '{ print $5, $6, $3, $4 }'))
@@ -203,16 +219,24 @@ pre_pids="$(ps aux --sort start | grep xfile | awk '{ print $2 }')"
 xfile -a -l -geometry "$geom1" "$directory" &
 xfile -a -l -geometry "$geom2" "$directory" &
 
-# All related process-IDs after launching the new split file-manager windows:
+# Window ID (decimal) of newest (= active) split window:
+windowid_dec=$(xdotool getactivewindow)
+
+# Window ID (hexadecimal) of newest (= active) split window:
+windowid_hex=$(printf '%x\n' $windowid_dec)
+
+# All related process-IDs after launching both new split file-manager windows:
 post_pids="$(ps aux --sort start | grep xfile | awk '{ print $2 }')"
 
-# The new PID(s) related to the new split file-manager windows:
+# The new PID(s) related to both new split file-manager windows:
 new_pids=$(comm -23 <(echo "$post_pids" | sort) <(echo "$pre_pids" | sort) | tr '\n' ' ')
 
 # In the relations-file, replace active (parent) PID by the PIDs of both new split windows:
 sed -i "s/$process_id/$new_pids/" $relationsfile
 
+# Time lapse to achieve seamless window transition in case of a slow machine:
+lapse $windowid_hex
+
 # Kill the active (parent) file-manager window:
-sleep $lapse
 kill -9 $process_id 2>/dev/null
 

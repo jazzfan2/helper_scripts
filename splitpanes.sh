@@ -143,7 +143,7 @@ if [[ $mode == "unite" ]]; then
     windowid_hex=$(printf '%x\n' $windowid_dec)
 
     # Time lapse to achieve seamless window transition in case of a slow machine:
-    lapse $windowid_hex
+    lapse $windowid_hex &&
 
     # Kill all process-IDs found in the same line, all being the related split windows:
     for i in ${!relatedpanes[@]}; do
@@ -237,7 +237,7 @@ new_pids=$(comm -23 <(echo "$post_pids" | sort) <(echo "$pre_pids" | sort) | tr 
 sed -i "s/$process_id/$new_pids/" $relationsfile
 
 # Time lapse to achieve seamless window transition in case of a slow machine:
-lapse $windowid_hex
+lapse $windowid_hex &&
 
 # Kill the active (parent) file-manager window:
 kill -9 $process_id 2>/dev/null

@@ -76,7 +76,7 @@ As with 'mount_plugdrives.sh' and 'mount_volumes.sh', an xterm window popup prom
 required.
 Meant to act as a background daemon called from '$HOME/.sessionetc' (i.e. the 'startup applications' file read by EMWM's session manager).
 
-'selfmounter.sh' is an alternative for using a 'udev'-rule for automounting.
+'selfmounter.sh' is an alternative for udevil() or using a udev-rule for automounting.
 
 ## splitpanes.sh
 

@@ -10,7 +10,7 @@
 # file (part of the 'Enhanced Motif Window Manager (EMWM)' by
 # Alexander Pampuchin - https://fastestcode.org/ - LGPLv3, MIT License).
 #
-# Alternative for udevil() or using a udev-rule for automounting.
+# Alternative for using udevil() or a udev-rule for automounting.
 #
 ######################################################################################
 #

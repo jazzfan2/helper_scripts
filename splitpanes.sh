@@ -89,7 +89,6 @@ EOF
 options $@
 shift $(( OPTIND - 1 ))
 
-
 # Determine storage location of the relations-file (preferrably RAM):
 if [[ -d /tmp/ramdisk/ ]]; then
     tmpfiledir="/tmp/ramdisk"

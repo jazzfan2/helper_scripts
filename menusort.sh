@@ -50,11 +50,13 @@
 ######################################################################################
 
 
-# Determine where the temporary Xfile copy can be created:
+# Determine the temporary (preferrably RAM)-directory:
 if [[ -d /tmp/ramdisk/ ]]; then
-    tmpfiledir="/tmp/ramdisk/"
+    tmpfiledir="/tmp/ramdisk"
 elif [[ -d /dev/shm/ ]]; then
-    tmpfiledir="/dev/shm/"
+    tmpfiledir="/dev/shm"
+else
+    tmpfiledir="."
 fi
 
 xfile="$HOME/.app-defaults/XFile"
@@ -97,9 +99,9 @@ xfile_options="-a -l"  # These are the options specified for xfile in my own $HO
 \cp "$xfile" "$xfile"_
 sed -Ei 's/positionIndex: [0-9]+/positionIndex: 0/' "$xfile"
 
-# Store <action>.<labelString> lines (in labelString order of appearance) into 'menulist1':
+# Store <action>@<labelString> lines (in labelString order of appearance) into 'menulist1':
 grep "^XFile.*labelString" "$xfile" |
-sed -E 's/.*toolsMenu\.(.+)\.labelString:( |	)*(.*)/\1.\3/' > $menulist1
+sed -E 's/.*toolsMenu\.(.+)\.labelString:( |	)*(.*)/\1@\3/' > $menulist1
 
 # Count the number of actions:
 actioncount=$(wc -l $menulist1 | awk '{ print $1 }')
@@ -109,7 +111,7 @@ clear
 while read line; do
     echo $line
 done << EOF
-Menusort.sh - by Rob Toscani (2025 GPL3)
+Menusort.sh - by Rob Toscani (C) 2025 GPL3
 
 Proceed as follows:
 
@@ -119,7 +121,7 @@ Proceed as follows:
 
 3. In Flameshot:
 -  Click on: "Mouse - Select screenshot area";
--  Select SMALLEST POSSIBLE AREA around all toolsmenu-labels;
+-  Select SMALLEST POSSIBLE AREA around all tools-menu labels;
 -  Press <ENTER> or tick the box.
 
 (Enter <Ctrl-C> (2x) to interrupt)
@@ -154,10 +156,10 @@ i=0
 while read menuline2; do
     smallest=100000
     while read menuline1; do
-        distance=$(levenshtein "${menuline1/*./}" "$menuline2")
+        distance=$(levenshtein "${menuline1/*@/}" "$menuline2")
         if (( distance < smallest )); then
             smallest=$distance
-            action=${menuline1/.*/}
+            action="${menuline1/@*/}"
         fi
         screen_order[i]=$action
     done < "$menulist1"
@@ -169,7 +171,7 @@ done < "$menulist2"
 declare -A desired_order
 i=0
 while read menuline1; do
-    desired_order[${menuline1/.*/}]=$i
+    desired_order[${menuline1/@*/}]=$i
     (( i += 1 ))
 done < $menulist1
 

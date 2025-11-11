@@ -50,7 +50,7 @@
 ######################################################################################
 
 
-# Determine the temporary (preferrably RAM)-directory:
+# Determine the (preferrably RAM-) directory for temporary files:
 if [[ -d /tmp/ramdisk/ ]]; then
     tmpfiledir="/tmp/ramdisk"
 elif [[ -d /dev/shm/ ]]; then

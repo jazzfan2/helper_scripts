@@ -66,7 +66,7 @@ image="$tmpfiledir/toolsmenu.png"
 
 
 levenshtein()
-# Measure the so-called 'levenshtein-distance' between two text strings taken as two arguments:
+# Measure the so-called 'Levenshtein-distance' between two text strings, taken as arguments:
 {
     python3 -c "import sys;                            \
                 sys.path.insert(0, \"$HOME/scripts\"); \
@@ -90,7 +90,7 @@ flamewatch()
 }
 
 # Set Xfile-options to reflect those being used typically (e.g. in $HOME/.toolboxrc):
-xfile_options="-a -l"  # These are the options specified for xfile in my own $HOME/.toolboxrc)
+xfile_options="-a -l"  # These are options specified for xfile in my own $HOME/.toolboxrc)
 
 # Delete previous tools-menu image if present:
 [[ -f $image ]] && \rm $image
@@ -99,7 +99,7 @@ xfile_options="-a -l"  # These are the options specified for xfile in my own $HO
 \cp "$xfile" "$xfile"_
 sed -Ei 's/positionIndex: [0-9]+/positionIndex: 0/' "$xfile"
 
-# Store <action>@<labelString> lines (in labelString order of appearance) into 'menulist1':
+# Store <action>@<labelString> lines, in 'labelString' order of appearance:
 grep "^XFile.*labelString" "$xfile" |
 sed -E 's/.*toolsMenu\.(.+)\.labelString:( |	)*(.*)/\1@\3/' > $menulist1
 
@@ -139,7 +139,7 @@ flameshot gui -d 10000 -p $image 2>/dev/null
 # Close Xfile window:
 kill -9 $xfilepid 2>/dev/null
 
-# Do a text-recognition on the tools-menu popup just screen-captured, and save results to 'menulist2':
+# Perform text-recognition on screen-captured tools-menu popup, and save results:
 gocr -l 90 -a 70 -C A-Za-z\(\)-- $image | grep -v "^[^a-zA-Z0-9]*$" > "$menulist2"
 # (Lines without alphanumerical characters have been filtered away.)
 
@@ -149,27 +149,29 @@ linecount=$(wc -l "$menulist2" | awk '{ print $1 }')
 # Number of lines should be the same as the number of actions, otherwise exit:
 (( $linecount != $actioncount )) && echo "Wrong line count" && exit 1
 
-# Create array containing actions in same sequence as their *captured* labels appear on the screen:
-echo -e "\e[1A\e[KJust a moment please, the sequence is being calculated...\n"
+# Non-associative array of actions in same sequence as their screen-captured labels appear:
 screen_order=()
 i=0
+echo -e "\e[1A\e[KJust a moment please, the sequence is being calculated...\n"
 while read menuline2; do
     smallest=100000
     while read menuline1; do
+        # Get the 'Levenshtein-distance' betw. screen-captured label and each labelString: 
         distance=$(levenshtein "${menuline1/*@/}" "$menuline2")
+        # The smaller the distance, the closer the simularity ('fuzzy comparison'):
         if (( distance < smallest )); then
             smallest=$distance
-            # Action of labelString matched closest to this screen-captured line so far:
+            # Action of labelString with closest match to screen-captured label so far:
             action="${menuline1/@*/}"
         fi
-        # Place action of closest-matching labelString in the same position as on the screen:
+        # Place action of closest-matching labelString in same position as on the screen:
         screen_order[i]=$action
     done < "$menulist1"
-    echo -e "\e[1A\e[K$(( i + 1 )) of $actioncount items calculated"  # Actually: "recognized"!
+    echo -e "\e[1A\e[K$(( i + 1 )) of $actioncount items calculated"  # Or: "recognized"!
     ((i += 1 ))
 done < "$menulist2"
 
-# Create associative array in which key = action, and value = (desired) ranking-position (0 = top):
+# Associative array with key = action, and value = (desired) ranking-position (0 = top):
 declare -A ranking_positions
 i=0
 while read menuline1; do
@@ -177,10 +179,10 @@ while read menuline1; do
     (( i += 1 ))
 done < $menulist1
 
-# Create non-associative array of all ranking-positions already visited:
+# Non-associative array of all ranking-positions already visited:
 visited_rankings=()
 
-# Create associative array in which key = action, and value = stack-position (0 = bottom):
+# Associative array in which key = action, and value = stack-position (0 = bottom):
 declare -A stack_positions
 ((i = linecount - 1 ))
 k=0
@@ -189,14 +191,14 @@ while ((i >= 0 )); do
     stackpos=0
     # Iterate over the actions, starting with the one at the bottom screen-position:
     action=${screen_order[$i]}
-    # Count how many previously-visited actions have a smaller ranking-position than this action:
+    # Count how many previously-visited actions have ranking-position < this action:
     while (( j < ${#visited_rankings[@]} )); do
         if (( visited_rankings[$j] < ranking_positions[$action] )); then
             (( stackpos += 1 ))
         fi
         (( j += 1 ))
     done
-    # Assign to action a stack-position = number of visited actions w/ smaller ranking-position:
+    # Assign to action a stack-position = number of visited actions w/ smaller ranking:
     (( stack_positions[$action] = stackpos        ))
     (( visited_rankings[$k] = ranking_positions[$action] ))
     (( i -= 1 ))

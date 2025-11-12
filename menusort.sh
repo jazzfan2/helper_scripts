@@ -198,7 +198,7 @@ while ((i >= 0 )); do
     (( k += 1 ))
 done
 
-# For all actions, substitute position index value (= 0) by stack-position value:
+# For all actions, substitute positionIndex value (= 0) by stack-position value:
 for action in ${!stack_positions[@]}; do
     sed -Ei "/$action\.positionIndex/s/: 0/: ${stack_positions[$action]}/" "$xfile"
 done

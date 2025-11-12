@@ -169,8 +169,8 @@ while read menuline2; do
             # Action of labelString with closest match to screen-captured label so far:
             action="${menuline1/@*/}"
         fi
-        # Place action of closest-matching labelString in same position as on the screen:
     done < "$menulist1"
+    # Place action of closest-matching labelString in same position as on the screen:
     screen_order[i]=$action
     echo -e "\e[1A\e[K$(( i + 1 )) of $actioncount items calculated"  # Or: "recognized"!
     ((i += 1 ))

@@ -152,7 +152,7 @@ gocr -l 90 -a 70 -C A-Za-z\(\)-- $image | grep -v "^[^a-zA-Z0-9]*$" > "$menulist
 linecount=$(wc -l "$menulist2" | awk '{ print $1 }')
 
 # Number of lines should be the same as the number of actions, otherwise exit:
-(( $linecount != $actioncount )) && echo "Wrong line count" && exit 1
+(( $linecount != $actioncount )) && echo -e "\e[1A\e[KWrong line count" && exit 1
 
 # Non-associative array of actions in same sequence as their screen-captured labels appear:
 screen_order=()

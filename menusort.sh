@@ -11,7 +11,7 @@
 # $HOME/.app-defaults/Xfile as to achieve the desired sorting order ('ranking')
 # in the XFile tools-menu *), as derived (by convention) from the sequence in which
 # the 'labelString' resources appear in above-mentioned file.
-# (*) as this can not be set in a direct manner
+#         (*) since this can not be set in a more direct manner
 #
 # Caveat: sorting is dependant upon the options given to XFile. This means that
 # sorting takes effect as intended *only if* the 'xfile_options' variable set in

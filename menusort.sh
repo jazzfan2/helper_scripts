@@ -170,8 +170,8 @@ while read menuline2; do
             action="${menuline1/@*/}"
         fi
         # Place action of closest-matching labelString in same position as on the screen:
-        screen_order[i]=$action
     done < "$menulist1"
+    screen_order[i]=$action
     echo -e "\e[1A\e[K$(( i + 1 )) of $actioncount items calculated"  # Or: "recognized"!
     ((i += 1 ))
 done < "$menulist2"

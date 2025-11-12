@@ -7,11 +7,11 @@
 # called 'XFile' (part of the 'Enhanced Motif Window Manager (EMWM)'
 # by Alexander Pampuchin - https://fastestcode.org/ - LGPLv3, MIT License).
 #
-# It calculates the values for the 'positionIndex' resources in
-# $HOME/.app-defaults/Xfile as to achieve the correct items-sequence in the
-# XFile tools-menu. That is: resembling the sequence in which the 'labelString'
-# resources appear in above-mentioned file - the convention for desired order
-# of appearance or 'ranking position' as used by this program.
+# It calculates how to manipulate the values for the 'positionIndex' resources in
+# $HOME/.app-defaults/Xfile as to achieve the desired sorting order ('ranking')
+# in the XFile tools-menu *), as derived (by convention) from the sequence in which
+# the 'labelString' resources appear in above-mentioned file.
+# (*) as this can not be set in a direct manner
 #
 # Caveat: sorting is dependant upon the options given to XFile. This means that
 # sorting takes effect as intended *only if* the 'xfile_options' variable set in

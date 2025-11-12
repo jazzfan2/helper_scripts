@@ -30,9 +30,9 @@ set as a monochrome Motif/X11 screen-background by the program 'xbackdrop' by Al
 
 ## menusort.sh
 
-'menusort.sh' calculates the values for the 'positionIndex' resources in $HOME/.app-defaults/Xfile as to achieve the correct
-items-sequence in the XFile tools-menu. That is: resembling the sequence in which the 'labelString' resources appear in
-above-mentioned file - the convention for desired order of appearance or 'ranking position' as used by this program.
+'menusort.sh' calculates how to manipulate the values for the 'positionIndex' resources in $HOME/.app-defaults/Xfile as to
+achieve the desired sorting order ('ranking') in the XFile tools-menu, as derived (by convention) from the sequence in which
+the 'labelString' resources appear in above-mentioned file.
 The program uses screen-capturing (flameshot) and text-recognition (gocr) in combination with a sorting routine described
 in the file 'Algorithm correction index-positions toolsmenu.pdf'.
 

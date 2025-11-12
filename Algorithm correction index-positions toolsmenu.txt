@@ -12,10 +12,10 @@ desired (and previously set) order:
 
 5. Now iterate through the item list, moving up one position at a time, and perform steps 6 and 7 for each item.
 
-6. Compare the ranking of the item under consideration to that of all previously passed items in the list.
+6. Compare the ranking of the item in question to that of all previously passed items in the list.
 
-7. Assign the item under consideration a (current) STACK POSITION equal to the number of previously passed items with a *smaller* RANKING POSITION.
+7. Assign to the item in question a (current) STACK POSITION equal to the number of previously passed items with a *smaller* RANKING POSITION.
 
-8. Once all toolsMenu items have been passed through, enter the found STACK POSITION for each item in $HOME/.app-defaults/XFile as the new positionIndex.
+8. Once all toolsMenu items have been visited, enter the found STACK POSITION for each item in $HOME/.app-defaults/XFile as the new positionIndex.
 
-Note: ToolsMenu items can have the same stack position, as this is a current value.
+Note: Different ToolsMenu items may have the same stack position, as this is a current value.

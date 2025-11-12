@@ -15,7 +15,7 @@
 #
 # Caveat: sorting is dependant upon the options given to XFile. This means that
 # sorting takes effect as intended *only if* the 'xfile_options' variable set in
-# this program ressembles the (combination of) XFile options given to your
+# this program resembles the (combination of) XFile options given to your
 # typical use (e.g. as set in $HOME/.toolboxrc). By default in this program,
 # options -a and -l are used, but as a consequence to the above these may have to
 # be modified dependant upon your typical use.

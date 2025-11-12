@@ -74,7 +74,7 @@ levenshtein()
                 print(int(levenshtein.levenshtein(sys.argv[1], sys.argv[2])))" "$1" "$2"
 }
 
-flamecheck()
+flamewatch()
 # Have flameshot quit upon finishing its job. Necessary because of the "flameshot delay":
 {
      while true; do
@@ -131,7 +131,7 @@ EOF
 xfile $xfile_options -geometry 400x800+0+0 $HOME/PDF & xfilepid=$!
 
 # Make sure that flameshot doesn't delay the program:
-flamecheck &
+flamewatch &
 
 # Take a sceenschot of the tools-menu popup:
 flameshot gui -d 10000 -p $image 2>/dev/null

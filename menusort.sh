@@ -8,10 +8,12 @@
 # by Alexander Pampuchin - https://fastestcode.org/ - LGPLv3, MIT License).
 #
 # It calculates how to manipulate the values for the 'positionIndex' resources in
-# $HOME/.app-defaults/Xfile as to achieve the desired sorting order ('ranking')
-# in the XFile tools-menu *), as derived (by convention) from the sequence in which
-# the 'labelString' resources appear in above-mentioned file.
-#         (*) since this can not be set in a more direct manner
+# ~/.app-defaults/Xfile or ~/.Xresources, as to achieve the desired sorting order
+# ('ranking') in the XFile tools-menu (is this can not be set in a more direct
+# manner).
+# The sequence in which the 'labelString' resources appear in any of the 
+# above-mentioned files is taken by 'menusort.sh' as the basis for the desired
+# ranking.
 #
 # Caveat: sorting is dependant upon the options given to XFile. This means that
 # sorting takes effect as intended *only if* the 'xfile_options' variable set in
@@ -27,6 +29,9 @@
 # - levenshtein.py (Copyright Jamiel Rahi GPL 2019), to be downloaded from:
 #     https://github.com/jamfromouterspace/levenshtein/blob/master/levenshtein.py
 #     to $HOME/scripts/ and make executable.
+#
+# The specified number of 'action'-, 'labelString'- and positionIndex'-resources
+# in ~/.app-defaults/Xfile or ~/.Xresources must be equal.
 #
 # (Considering converting this program into python or awk for better speed.)
 #

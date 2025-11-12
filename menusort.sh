@@ -187,8 +187,9 @@ k=0
 while ((i >= 0 )); do
     j=0
     stackpos=0
+    # Iterate through the actions, starting with the one at the bottom screen position:
     action=${screen_order[$i]}
-    # Compare the action's ranking to that of all previously visited actions:
+    # Count how many previously-visited actions have a smaller ranking position than this action:
     while (( j < ${#visited_rankings[@]} )); do
         if (( visited_rankings[$j] < ranking_positions[$action] )); then
             (( stackpos += 1 ))

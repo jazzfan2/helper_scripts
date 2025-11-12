@@ -10,12 +10,12 @@
 # It calculates the values for the 'positionIndex' resources in
 # $HOME/.app-defaults/Xfile as to achieve the correct items-sequence in the
 # XFile tools-menu. That is: resembling the sequence in which the 'labelString'
-# resources appear in above mentioned-file - the convention for 'desired order'
-# of appearance as used by this program.
+# resources appear in above mentioned-file - the convention for desired order
+# of appearance or 'ranking position' as used by this program.
 #
 # Caveat: sorting is dependant upon the options given to XFile. This means that
-# desired sorting takes effect as intended *only if* the 'xfile_options' variable
-# set in this program ressembles the (combination of) XFile options given to your
+# sorting takes effect as intended *only if* the 'xfile_options' variable set in
+# this program ressembles the (combination of) XFile options given to your
 # typical use (e.g. as set in $HOME/.toolboxrc). By default in this program,
 # options -a and -l are used, but as a consequence to the above these may have to
 # be modified dependant upon your typical use.
@@ -167,16 +167,16 @@ while read menuline2; do
     ((i += 1 ))
 done < "$menulist2"
 
-# Create associative array in which key = action, and value = desired order-position (0 = top):
-declare -A desired_order
+# Create associative array in which key = action, and value = ranking-position (0 = top):
+declare -A ranking_positions
 i=0
 while read menuline1; do
-    desired_order[${menuline1/@*/}]=$i
+    ranking_positions[${menuline1/@*/}]=$i
     (( i += 1 ))
 done < $menulist1
 
-# Create non-associative array of all desired order-positions already visited:
-visited_orders=()
+# Create non-associative array of all ranking-positions already visited:
+visited_rankings=()
 
 # Create associative array in which key = action, and value = stack-position (0 = bottom):
 declare -A stack_positions
@@ -186,14 +186,14 @@ while ((i >= 0 )); do
     j=0
     stackpos=0
     action=${screen_order[$i]}
-    while (( j < ${#visited_orders[@]} )); do
-        if (( visited_orders[$j] < desired_order[$action] )); then
+    while (( j < ${#visited_rankings[@]} )); do
+        if (( visited_rankings[$j] < ranking_positions[$action] )); then
             (( stackpos += 1 ))
         fi
         (( j += 1 ))
     done
     (( stack_positions[$action] = stackpos        ))
-    (( visited_orders[$k] = desired_order[$action] ))
+    (( visited_rankings[$k] = ranking_positions[$action] ))
     (( i -= 1 ))
     (( k += 1 ))
 done

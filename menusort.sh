@@ -120,7 +120,7 @@ Menusort.sh - by Rob Toscani (C) 2025 GPL3
 
 Proceed as follows:
 
-1. Within 10 seconds, click on 'Tools' in the 'XFile'-window just started on the top left...
+1. Within 5 seconds, click on 'Tools' in the 'XFile'-window just started on the top left...
 
 2. Wait for Flameshot (transparent) to open...
 
@@ -139,7 +139,7 @@ xfile $xfile_options -geometry 400x800+0+0 $HOME/PDF & xfilepid=$!
 flamewatch &
 
 # Take a sceenschot of the tools-menu popup:
-flameshot gui -d 10000 -p $image 2>/dev/null
+flameshot gui -d 5000 -p $image 2>/dev/null
 
 # Close Xfile window:
 kill -9 $xfilepid 2>/dev/null

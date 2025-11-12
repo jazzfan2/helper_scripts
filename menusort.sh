@@ -8,7 +8,7 @@
 # by Alexander Pampuchin - https://fastestcode.org/ - LGPLv3, MIT License).
 #
 # It calculates how to manipulate the values for the 'positionIndex' resources in
-# ~/.app-defaults/Xfile or ~/.Xresources, as to achieve the desired sorting order
+# ~/.app-defaults/XFile or ~/.Xresources, as to achieve the desired sorting order
 # ('ranking') in the XFile tools-menu (is this can not be set in a more direct
 # manner).
 # The sequence in which the 'labelString' resources appear in any of the 
@@ -31,7 +31,7 @@
 #     to $HOME/scripts/ and make executable.
 #
 # The specified number of 'action'-, 'labelString'- and positionIndex'-resources
-# in ~/.app-defaults/Xfile or ~/.Xresources must be equal.
+# in ~/.app-defaults/XFile or ~/.Xresources must be equal.
 #
 # (Considering converting this program into python or awk for better speed.)
 #

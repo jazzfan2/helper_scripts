@@ -159,15 +159,17 @@ while read menuline2; do
         distance=$(levenshtein "${menuline1/*@/}" "$menuline2")
         if (( distance < smallest )); then
             smallest=$distance
+            # Action of labelString matched closest to this screen-captured line so far:
             action="${menuline1/@*/}"
         fi
+        # Place action of closest-matching labelString in the same position as on the screen:
         screen_order[i]=$action
     done < "$menulist1"
     echo -e "\e[1A\e[K$(( i + 1 )) of $actioncount items calculated"  # Actually: "recognized"!
     ((i += 1 ))
 done < "$menulist2"
 
-# Create associative array in which key = action, and value = ranking-position (0 = top):
+# Create associative array in which key = action, and value = (desired) ranking-position (0 = top):
 declare -A ranking_positions
 i=0
 while read menuline1; do
@@ -186,12 +188,14 @@ while ((i >= 0 )); do
     j=0
     stackpos=0
     action=${screen_order[$i]}
+    # Compare the action's ranking to that of all previously visited actions:
     while (( j < ${#visited_rankings[@]} )); do
         if (( visited_rankings[$j] < ranking_positions[$action] )); then
             (( stackpos += 1 ))
         fi
         (( j += 1 ))
     done
+    # Assign to action a stack position = number of visited actions w/ smaller ranking position:
     (( stack_positions[$action] = stackpos        ))
     (( visited_rankings[$k] = ranking_positions[$action] ))
     (( i -= 1 ))

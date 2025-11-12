@@ -10,7 +10,7 @@
 # It calculates the values for the 'positionIndex' resources in
 # $HOME/.app-defaults/Xfile as to achieve the correct items-sequence in the
 # XFile tools-menu. That is: resembling the sequence in which the 'labelString'
-# resources appear in above mentioned-file - the convention for desired order
+# resources appear in above-mentioned file - the convention for desired order
 # of appearance or 'ranking position' as used by this program.
 #
 # Caveat: sorting is dependant upon the options given to XFile. This means that

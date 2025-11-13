@@ -43,7 +43,6 @@ with open(sys.argv[2]) as menu2:
 
 # Arrange actions in same sequence as their screen-captured labels appear into a text line:
 screen_order = ""
-i = 0
 for line2 in menulist2:
     smallest = 100000
     for line1 in menulist1:
@@ -60,6 +59,5 @@ for line2 in menulist2:
 
     # Place action of closest-matching labelString in same position as on the screen:
     screen_order = screen_order + action + " "
-    i += 1
 
 print(screen_order)

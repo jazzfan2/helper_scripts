@@ -3,7 +3,7 @@
 # Author: Rob Toscani
 # Date  : 12-11-2025
 # Description:
-# This programm is called by 'menusort2.sh'
+# This program is called by 'menusort2.sh'
 # Prerequisite for this program:
 # levenshtein.py (Copyright Jamiel Rahi GPL 2019), to be downloaded from:
 #     https://github.com/jamfromouterspace/levenshtein/blob/master/levenshtein.py

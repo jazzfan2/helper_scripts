@@ -1,5 +1,5 @@
 #!/bin/bash
-# Name: menusort2.sh
+# Name: menusort3.sh
 # Author: R.J.Toscani
 # Date: November 11, 2025
 # Description:
@@ -26,7 +26,7 @@
 # - python3
 # - flameshot
 # - gocr
-# - screenorder2.py
+# - screenorder.py
 # - levenshtein.py (Copyright Jamiel Rahi GPL 2019), to be downloaded from:
 #     https://github.com/jamfromouterspace/levenshtein/blob/master/levenshtein.py
 #     to $HOME/scripts/ and made executable.
@@ -148,44 +148,5 @@ linecount=$(wc -l "$menulist2" | awk '{ print $1 }')
 
 # Non-associative array of actions in same sequence as their screen-captured labels appear:
 echo -e "\e[1A\e[KJust a moment please, the sequence is being calculated...\n"
-screen_order=($($HOME/scripts/screenorder2.py $menulist1 $menulist2))
-
-# Associative array with key = action, and value = (desired) ranking-position (0 = top):
-declare -A ranking_positions
-i=0
-while read menuline1; do
-    ranking_positions[${menuline1/@*/}]=$i
-    (( i += 1 ))
-done < $menulist1
-
-# Non-associative array of all ranking-positions already visited:
-visited_rankings=()
-
-# Associative array in which key = action, and value = stack-position (0 = bottom):
-declare -A stack_positions
-((i = linecount - 1 ))
-k=0
-while ((i >= 0 )); do
-    j=0
-    stackpos=0
-    # Iterate over the actions, starting with the one at the bottom screen-position:
-    action=${screen_order[$i]}
-    # Count how many previously-visited actions have ranking-position < this action:
-    while (( j < ${#visited_rankings[@]} )); do
-        if (( visited_rankings[$j] < ranking_positions[$action] )); then
-            (( stackpos += 1 ))
-        fi
-        (( j += 1 ))
-    done
-    # Assign to action a stack-position = number of visited actions w/ smaller ranking:
-    (( stack_positions[$action] = stackpos        ))
-    (( visited_rankings[$k] = ranking_positions[$action] ))
-    (( i -= 1 ))
-    (( k += 1 ))
-done
-
-# For all actions, substitute positionIndex value (= 0) by stack-position value:
-for action in ${!stack_positions[@]}; do
-    sed -Ei "/$action\.positionIndex/s/: 0/: ${stack_positions[$action]}/" "$xfile"
-done
-echo "Done!"
+$HOME/scripts/screenorder3.py $menulist1 $menulist2
+"

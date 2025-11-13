@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-# Name  : screenorder.py
+# Name  : screenorder2.py
 # Author: Rob Toscani
 # Date  : 12-11-2025
 # Description:
@@ -16,12 +16,12 @@
 #
 # Copyright (C) 2025 Rob Toscani <rob_toscani@yahoo.com>
 #
-# screenorder.py is free software: you can redistribute it and/or modify
+# screenorder2.py is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
 # the Free Software Foundation, either version 3 of the License, or
 # (at your option) any later version.
 #
-# screenorder.py is distributed in the hope that it will be useful,
+# screenorder2.py is distributed in the hope that it will be useful,
 # but WITHOUT ANY WARRANTY; without even the implied warranty of
 # MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 # GNU General Public License for more details.

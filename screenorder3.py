@@ -97,7 +97,3 @@ regex = regex + "\" "
 os.system("sed -Ei" + regex + "$HOME/.app-defaults/XFile")
 
 print("Done!")
-
-
-
-

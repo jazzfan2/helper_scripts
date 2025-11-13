@@ -29,7 +29,7 @@
 # - screenorder.py
 # - levenshtein.py (Copyright Jamiel Rahi GPL 2019), to be downloaded from:
 #     https://github.com/jamfromouterspace/levenshtein/blob/master/levenshtein.py
-#     to $HOME/scripts/ and make executable.
+#     to $HOME/scripts/ and made executable.
 #
 # The specified number of 'action'-, 'labelString'- and positionIndex'-resources
 # in ~/.app-defaults/XFile or ~/.Xresources must be equal.

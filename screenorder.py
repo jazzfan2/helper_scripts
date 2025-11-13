@@ -7,7 +7,7 @@
 # Prerequisite for this program:
 # levenshtein.py (Copyright Jamiel Rahi GPL 2019), to be downloaded from:
 #     https://github.com/jamfromouterspace/levenshtein/blob/master/levenshtein.py
-#     to $HOME/scripts/ and make executable.
+#     to $HOME/scripts/ and made executable.
 #
 # Temporary solution for enhanced speed.
 # Planning to fully convert menusort.sh into Python3.

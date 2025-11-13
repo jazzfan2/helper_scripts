@@ -149,4 +149,3 @@ linecount=$(wc -l "$menulist2" | awk '{ print $1 }')
 # Non-associative array of actions in same sequence as their screen-captured labels appear:
 echo -e "\e[1A\e[KJust a moment please, the sequence is being calculated...\n"
 $HOME/scripts/screenorder3.py $menulist1 $menulist2
-"

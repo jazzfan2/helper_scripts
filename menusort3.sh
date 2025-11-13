@@ -26,7 +26,7 @@
 # - python3
 # - flameshot
 # - gocr
-# - screenorder.py
+# - screenorder3.py
 # - levenshtein.py (Copyright Jamiel Rahi GPL 2019), to be downloaded from:
 #     https://github.com/jamfromouterspace/levenshtein/blob/master/levenshtein.py
 #     to $HOME/scripts/ and made executable.

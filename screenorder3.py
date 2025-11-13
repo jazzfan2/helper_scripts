@@ -92,10 +92,9 @@ for action in reversed(screen_order):
 # For all actions, substitute positionIndex value (= 0) by stack-position value:
 regex = " \""
 for action in stack_positions:
-    regex = regex + "/" + action + "\\.positionIndex/s/: 0/: " + str(stack_positions[action]) + "/ ; "
+    regex = regex + "/" + action + "\\.positionIndex/s/: 0/: " + str(stack_positions[action]) + "/;"
 regex = regex + "\" "
-
-os.system("sed -Ei" + regex + "/home/rob/.app-defaults/XFile")
+os.system("sed -Ei" + regex + "$HOME/.app-defaults/XFile")
 
 print("Done!")
 

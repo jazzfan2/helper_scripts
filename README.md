@@ -36,8 +36,8 @@ appear is taken by 'menusort.sh' as the basis for the desired ranking.
 The program uses screen-capturing (flameshot) and text-recognition (gocr) in combination with a sorting routine described
 in the file 'Algorithm correction index-positions toolsmenu.pdf'.
 
-Known bug: too slow. The combination 'menusort2.sh' + 'screenorder.py' provides a fast version of the program as an intermediate
-solution. Full conversion of 'menusort.sh' into Python3 is planned.
+Known bug: too slow. The combination 'menusort2.sh' + 'screenorder.py' however provides a fast version of the program as an
+intermediate solution. Full conversion of 'menusort.sh' into Python3 is planned.
 
 ## mount_plugdrives.sh
 

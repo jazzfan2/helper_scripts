@@ -112,9 +112,9 @@ Proceed as follows:
 (Enter <Ctrl-C> (2x) to interrupt)
 """)
 
-# Open Xfile window with SAME OPTIONS as typically used:
-os.system('/usr/bin/xfile ' + xfile_options + ' -geometry 400x800+0+0 $HOME/PDF & echo $! > ' \
-           + xfile_pid)
+# Open Xfile window with SAME OPTIONS as typically used, and store its process-id:
+os.system('/usr/bin/xfile ' + xfile_options + ' -geometry 400x800+0+0 $HOME/PDF & \
+           echo $! > ' + xfile_pid)
 
 # Have flameshot quit upon finishing its job. Necessary because of the "flameshot delay":
 os.system('                                                                       \
@@ -135,7 +135,7 @@ flamewatch &')
 # Take a sceenschot of the tools-menu popup:
 os.system('flameshot gui -d 5000 -p ' + image + ' 2>/dev/null')
 
-# Close Xfile window:
+# Close Xfile window by killing the process-id stored earlier:
 os.system('kill -9 $(cat ' + xfile_pid  + ') 2>/dev/null')
 
 # Perform text-recognition on screen-captured tools-menu popup, and save results:

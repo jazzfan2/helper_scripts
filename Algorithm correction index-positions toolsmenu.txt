@@ -8,7 +8,7 @@ desired (and previously set) order:
 
 3. After each item, enter the *desired* "RANKING POSITION" in the ToolsMenu, with 0 for the top position;
 
-4. Give the item found at the bottom a "STACKING POSITION" of 0, and determine the ranking position assigned to this item;
+4. Give the item found at the bottom a "STACKING POSITION" of 0, and lookup the ranking position assigned to this item;
 
 5. Now iterate through the item list, moving up one position at a time, and perform steps 6 and 7 for each item;
 

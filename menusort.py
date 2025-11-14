@@ -54,7 +54,6 @@
 import sys
 import os
 import random
-import signal
 sys.path.insert(0, "$HOME/scripts")
 from levenshtein import levenshtein; 
 
@@ -73,11 +72,6 @@ menufile2      = tmpfiledir + "/menufile2_" + str(random.randint(1,10000))
 image          = tmpfiledir + "/toolsmenu.png"
 xfile_pid      = tmpfiledir + "/pid" + str(random.randint(1,10000))
 
-def signal_handler(signal, frame):
-    print('You pressed Ctrl+C!')
-    os.system('\\cp '+ resources_copy + " " + resources)
-    sys.exit(1)
-
 # Set Xfile-options to reflect those being used typically (e.g. in $HOME/.toolboxrc):
 xfile_options = "-a -l"  # These are options specified for xfile in my own $HOME/.toolboxrc)
 
@@ -88,9 +82,6 @@ if os.path.exists(image):
 # Backup $HOME/.app-defaults/XFile, and modify it by setting all positionIndex values to 0:
 os.system('\\cp '+ resources + " " + resources_copy)
 os.system('sed -Ei \"s/positionIndex: [0-9]+/positionIndex: 0/\" ' + resources)
-
-# Handling an interrupt signal (Ctrl-C):
-signal.signal(signal.SIGINT, signal_handler)
 
 # Store <action>@<labelString> lines, in 'labelString' order of appearance:
 os.system('grep \"^XFile.*labelString\" ' + resources + ' |                   \
@@ -152,7 +143,7 @@ os.system('flameshot gui -d 5000 -p ' + image + ' 2>/dev/null')
 os.system('kill -9 $(cat ' + xfile_pid  + ') 2>/dev/null')
 
 # Perform text-recognition on screen-captured tools-menu popup, and save results:
-os.system('gocr -l 90 -a 70 -C A-Za-z\\(\\)-- ' + image + ' | \
+os.system('gocr -l 90 -a 70 -C A-Za-z\\(\\)-- ' + image + ' 2>/dev/null | \
            grep -v \"^[^a-zA-Z0-9]*$\" > ' + menufile2)
 # (Lines without alphanumerical characters have been filtered away.)
 

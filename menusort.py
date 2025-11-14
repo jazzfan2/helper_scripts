@@ -54,6 +54,7 @@
 import sys
 import os
 import random
+import signal
 sys.path.insert(0, "$HOME/scripts")
 from levenshtein import levenshtein; 
 
@@ -65,12 +66,17 @@ elif os.path.exists("/dev/shm/"):
 else:
     tmpfiledir = "."
 
-resources      = "$HOME/.app-defaults/XFile"   # Could also be: $HOME/.Xresources
+resources      = "$HOME/.app-defaults/XFile"   # Could also be: "$HOME/.Xresources"
 resources_copy = resources + "_"
 menufile1      = tmpfiledir + "/menufile1_" + str(random.randint(1,10000))
 menufile2      = tmpfiledir + "/menufile2_" + str(random.randint(1,10000))
 image          = tmpfiledir + "/toolsmenu.png"
 xfile_pid      = tmpfiledir + "/pid" + str(random.randint(1,10000))
+
+def signal_handler(signal, frame):
+    print('You pressed Ctrl+C!')
+    os.system('\\cp '+ resources_copy + " " + resources)
+    sys.exit(1)
 
 # Set Xfile-options to reflect those being used typically (e.g. in $HOME/.toolboxrc):
 xfile_options = "-a -l"  # These are options specified for xfile in my own $HOME/.toolboxrc)
@@ -82,6 +88,9 @@ if os.path.exists(image):
 # Backup $HOME/.app-defaults/XFile, and modify it by setting all positionIndex values to 0:
 os.system('\\cp '+ resources + " " + resources_copy)
 os.system('sed -Ei \"s/positionIndex: [0-9]+/positionIndex: 0/\" ' + resources)
+
+# Handling an interrupt signal (Ctrl-C):
+signal.signal(signal.SIGINT, signal_handler)
 
 # Store <action>@<labelString> lines, in 'labelString' order of appearance:
 os.system('grep \"^XFile.*labelString\" ' + resources + ' |                   \
@@ -114,8 +123,11 @@ Proceed as follows:
 """)
 
 # Open Xfile window with SAME OPTIONS as typically used, and store its process-id:
-os.system('/usr/bin/xfile ' + xfile_options + ' -geometry 400x800+0+0 $HOME/PDF & \
+os.system('/usr/bin/xfile ' + xfile_options + ' -geometry 400x800+0+0 / & \
            echo $! > ' + xfile_pid)
+
+# Restore the original positionIndex values in case the program terminates prematurely:
+os.system('(sleep 1; \\cp '+ resources_copy + " " + resources + ' &)')
 
 # Have flameshot quit upon finishing its job. Necessary because of the "flameshot delay":
 os.system('                                                                       \
@@ -206,7 +218,8 @@ for action in reversed(screen_order):
 # For all actions, substitute positionIndex value (= 0) by stack-position value:
 regex = " \""
 for action in stack_positions:
-    regex = regex + "/" + action + "\\.positionIndex/s/: 0/: " + str(stack_positions[action]) + "/;"
+    regex = regex + \
+    "/" + action + "\\.positionIndex/s/: [0-9]+/: " + str(stack_positions[action]) + "/;"
 regex = regex + "\" "
 os.system("sed -Ei" + regex + resources)
 

@@ -116,19 +116,19 @@ Proceed as follows:
 os.system('/usr/bin/xfile ' + xfile_options + ' -geometry 400x800+0+0 $HOME/PDF & echo $! > ' + pid)
 
 # Have flameshot quit upon finishing its job. Necessary because of the "flameshot delay":
-os.system('                                                           \
-flamewatch(){                                                         \
-     while true; do                                                   \
-         if ps aux | grep -v \"grep\" | grep -q \"flameshot\"; then   \
-             if [ -f ' + image + ' ]; then                            \
-                 sleep 1;                                             \
-                 pkill flameshot 2>/dev/null;                         \
-                 return;                                              \
-             fi;                                                      \
-         fi;                                                          \
-         sleep 1;                                                     \
-     done;                                                            \
-};                                                                    \
+os.system('                                                                       \
+flamewatch(){                                                                     \
+     while true; do                                                               \
+         if ps aux | grep -v \"grep\" 2>/dev/null | grep -q \"flameshot\"; then   \
+             if [ -f ' + image + ' ]; then                                        \
+                 sleep 1;                                                         \
+                 pkill flameshot 2>/dev/null;                                     \
+                 return;                                                          \
+             fi;                                                                  \
+         fi;                                                                      \
+         sleep 1;                                                                 \
+     done;                                                                        \
+};                                                                                \
 flamewatch &')
 
 # Take a sceenschot of the tools-menu popup:

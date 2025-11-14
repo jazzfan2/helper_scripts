@@ -84,8 +84,9 @@ os.system('\\cp '+ resources + " " + resources_copy)
 os.system('sed -Ei \"s/positionIndex: [0-9]+/positionIndex: 0/\" ' + resources)
 
 # Store <action>@<labelString> lines, in 'labelString' order of appearance:
-os.system('grep \"^XFile.*labelString\" ' + resources + ' |  \
-           sed -E \"s/.*toolsMenu\\.(.+)\\.labelString:( |	)*(.*)/\\1@\\3/\" > ' + menufile1)
+os.system('grep \"^XFile.*labelString\" ' + resources + ' |                   \
+           sed -E \"s/.*toolsMenu\\.(.+)\\.labelString:( |	)*(.*)/\\1@\\3/\" \
+           > ' + menufile1)
 
 with open(menufile1) as menu1:
     menulist1 = [ x for x in menu1.read().splitlines() ]
@@ -139,8 +140,8 @@ os.system('flameshot gui -d 5000 -p ' + image + ' 2>/dev/null')
 os.system('kill -9 $(cat ' + xfile_pid  + ') 2>/dev/null')
 
 # Perform text-recognition on screen-captured tools-menu popup, and save results:
-os.system('gocr -l 90 -a 70 -C A-Za-z\\(\\)-- ' + image + ' | grep -v \"^[^a-zA-Z0-9]*$\" > ' \
-           + menufile2)
+os.system('gocr -l 90 -a 70 -C A-Za-z\\(\\)-- ' + image + ' | \
+           grep -v \"^[^a-zA-Z0-9]*$\" > ' + menufile2)
 # (Lines without alphanumerical characters have been filtered away.)
 
 with open(menufile2) as menu2:

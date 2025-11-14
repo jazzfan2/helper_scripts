@@ -57,7 +57,6 @@ import random
 sys.path.insert(0, "$HOME/scripts")
 import levenshtein; 
 
-
 # Determine the (preferrably RAM-) directory for temporary files:
 if os.path.exists("/tmp/ramdisk/"):
     tmpfiledir = "/tmp/ramdisk"
@@ -66,14 +65,12 @@ elif os.path.exists("/dev/shm/"):
 else:
     tmpfiledir = "."
 
-
 xfile     = "$HOME/.app-defaults/XFile"
 xfilecopy = xfile + "_"
 menufile1 = tmpfiledir + "/menufile1_" + str(random.randint(1,10000))
 menufile2 = tmpfiledir + "/menufile2_" + str(random.randint(1,10000))
 image     = tmpfiledir + "/toolsmenu.png"
 pid       = tmpfiledir + "/pid" + str(random.randint(1,10000))
-
 
 # Set Xfile-options to reflect those being used typically (e.g. in $HOME/.toolboxrc):
 xfile_options = "-a -l"  # These are options specified for xfile in my own $HOME/.toolboxrc)

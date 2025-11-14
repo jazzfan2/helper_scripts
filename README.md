@@ -28,16 +28,13 @@ an existing black and white or color image. Application: to convert a jpg- or pn
 set as a monochrome Motif/X11 screen-background by the program 'xbackdrop' by Alexander Pampuchin
 (see https://fastestcode.org/misc.html).
 
-## menusort.sh
+## menusort.py
 
-'menusort.sh' calculates how to manipulate the values for the 'positionIndex' resources in ~/.app-defaults/XFile or ~/.Xresources,
+'menusort.py' calculates how to manipulate the values for the 'positionIndex' resources in ~/.app-defaults/XFile or ~/.Xresources,
 as to achieve the desired sorting order ('ranking') in the XFile tools-menu. The sequence in which the 'labelString' resources
 appear is taken by 'menusort.sh' as the basis for the desired ranking.
 The program uses screen-capturing (flameshot) and text-recognition (gocr) in combination with a sorting routine described
 in the file 'Algorithm correction index-positions toolsmenu.pdf'.
-
-Known bug: too slow. The combination 'menusort3.sh' + 'screenorder3.py' however provides a fast version of the program as an
-intermediate solution. Full conversion of 'menusort.sh' into Python3 is planned.
 
 ## mount_plugdrives.sh
 

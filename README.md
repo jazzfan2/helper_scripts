@@ -33,8 +33,8 @@ set as a monochrome Motif/X11 screen-background by the program 'xbackdrop' by Al
 'menusort.py' calculates how to manipulate the values for the 'positionIndex' resources in ~/.app-defaults/XFile or ~/.Xresources,
 as to achieve the desired sorting order ('ranking') in the XFile tools-menu. The sequence in which the 'labelString' resources
 appear is taken by 'menusort.sh' as the basis for the desired ranking.
-The program uses screen-capturing (flameshot) and text-recognition (gocr) in combination with a sorting routine described
-in the file 'Algorithm correction index-positions toolsmenu.pdf'.
+The program uses screen-capturing (flameshot) and text-recognition (gocr + Levenshtein-algorithm) in combination with a sorting
+routine described in the file 'Algorithm correction index-positions toolsmenu.pdf'.
 
 ## mount_plugdrives.sh
 

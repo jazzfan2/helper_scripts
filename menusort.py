@@ -55,7 +55,7 @@ import sys
 import os
 import random
 sys.path.insert(0, "$HOME/scripts")
-import levenshtein; 
+from levenshtein import levenshtein; 
 
 # Determine the (preferrably RAM-) directory for temporary files:
 if os.path.exists("/tmp/ramdisk/"):
@@ -160,7 +160,7 @@ for line2 in menulist2:
     for line1 in menulist1:
 
         # Get the 'Levenshtein-distance' betw. screen-captured label and each labelString:
-        distance = int(levenshtein.levenshtein((line1.split('@'))[1], line2))
+        distance = int(levenshtein((line1.split('@'))[1], line2))
 
         # The smaller the distance, the closer the simularity ('fuzzy comparison'):
         if distance < smallest:

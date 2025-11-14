@@ -65,12 +65,12 @@ elif os.path.exists("/dev/shm/"):
 else:
     tmpfiledir = "."
 
-xfile     = "$HOME/.app-defaults/XFile"
-xfilecopy = xfile + "_"
-menufile1 = tmpfiledir + "/menufile1_" + str(random.randint(1,10000))
-menufile2 = tmpfiledir + "/menufile2_" + str(random.randint(1,10000))
-image     = tmpfiledir + "/toolsmenu.png"
-pid       = tmpfiledir + "/pid" + str(random.randint(1,10000))
+resources      = "$HOME/.app-defaults/XFile"   # Could also be: $HOME/.Xresources
+resources_copy = resources + "_"
+menufile1      = tmpfiledir + "/menufile1_" + str(random.randint(1,10000))
+menufile2      = tmpfiledir + "/menufile2_" + str(random.randint(1,10000))
+image          = tmpfiledir + "/toolsmenu.png"
+xfile_pid      = tmpfiledir + "/pid" + str(random.randint(1,10000))
 
 # Set Xfile-options to reflect those being used typically (e.g. in $HOME/.toolboxrc):
 xfile_options = "-a -l"  # These are options specified for xfile in my own $HOME/.toolboxrc)
@@ -80,11 +80,11 @@ if os.path.exists(image):
     os.remove(image)
 
 # Backup $HOME/.app-defaults/XFile, and modify it by setting all positionIndex values to 0:
-os.system('\\cp '+ xfile + " " + xfilecopy)
-os.system('sed -Ei \"s/positionIndex: [0-9]+/positionIndex: 0/\" ' + xfile)
+os.system('\\cp '+ resources + " " + resources_copy)
+os.system('sed -Ei \"s/positionIndex: [0-9]+/positionIndex: 0/\" ' + resources)
 
 # Store <action>@<labelString> lines, in 'labelString' order of appearance:
-os.system('grep \"^XFile.*labelString\" ' + xfile + ' |  \
+os.system('grep \"^XFile.*labelString\" ' + resources + ' |  \
            sed -E \"s/.*toolsMenu\\.(.+)\\.labelString:( |	)*(.*)/\\1@\\3/\" > ' + menufile1)
 
 with open(menufile1) as menu1:
@@ -113,7 +113,8 @@ Proceed as follows:
 """)
 
 # Open Xfile window with SAME OPTIONS as typically used:
-os.system('/usr/bin/xfile ' + xfile_options + ' -geometry 400x800+0+0 $HOME/PDF & echo $! > ' + pid)
+os.system('/usr/bin/xfile ' + xfile_options + ' -geometry 400x800+0+0 $HOME/PDF & echo $! > ' \
+           + xfile_pid)
 
 # Have flameshot quit upon finishing its job. Necessary because of the "flameshot delay":
 os.system('                                                                       \
@@ -135,10 +136,11 @@ flamewatch &')
 os.system('flameshot gui -d 5000 -p ' + image + ' 2>/dev/null')
 
 # Close Xfile window:
-os.system('kill -9 $(cat ' + pid  + ') 2>/dev/null')
+os.system('kill -9 $(cat ' + xfile_pid  + ') 2>/dev/null')
 
 # Perform text-recognition on screen-captured tools-menu popup, and save results:
-os.system('gocr -l 90 -a 70 -C A-Za-z\\(\\)-- ' + image + ' | grep -v \"^[^a-zA-Z0-9]*$\" > ' + menufile2)
+os.system('gocr -l 90 -a 70 -C A-Za-z\\(\\)-- ' + image + ' | grep -v \"^[^a-zA-Z0-9]*$\" > ' \
+           + menufile2)
 # (Lines without alphanumerical characters have been filtered away.)
 
 with open(menufile2) as menu2:
@@ -205,6 +207,6 @@ regex = " \""
 for action in stack_positions:
     regex = regex + "/" + action + "\\.positionIndex/s/: 0/: " + str(stack_positions[action]) + "/;"
 regex = regex + "\" "
-os.system("sed -Ei" + regex + xfile)
+os.system("sed -Ei" + regex + resources)
 
 print("Done!")

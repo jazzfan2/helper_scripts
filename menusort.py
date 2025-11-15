@@ -121,19 +121,17 @@ os.system('/usr/bin/xfile ' + xfile_options + ' -geometry 400x800+0+0 / & \
 os.system('(sleep 1; \\cp '+ resources_copy + " " + resources + ' &)')
 
 # Have flameshot quit upon finishing its job. Necessary because of the "flameshot delay":
-os.system('                                                                      \
-flamewatch(){                                                                    \
-    while true; do                                                               \
-        if ps aux | grep -v \"grep\" 2>/dev/null | grep -q \"flameshot\"; then   \
-            if [ -f ' + image + ' ]; then                                        \
-                sleep 1;                                                         \
-                pkill flameshot 2>/dev/null;                                     \
-                return;                                                          \
-            fi;                                                                  \
-        fi;                                                                      \
-        sleep 1;                                                                 \
-    done;                                                                        \
-};                                                                               \
+os.system('                               \
+flamewatch(){                             \
+    while true; do                        \
+        if [ -f ' + image + ' ]; then     \
+            sleep 1;                      \
+            pkill flameshot 2>/dev/null;  \
+            return;                       \
+        fi;                               \
+        sleep 1;                          \
+    done;                                 \
+};                                        \
 flamewatch &')
 
 # Take a sceenschot of the tools-menu popup:

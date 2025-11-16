@@ -91,9 +91,6 @@ os.system('grep \"^XFile.*labelString\" ' + resources + ' |                   \
 with open(menufile1) as menu1:
     menulist1 = [ x for x in menu1.read().splitlines() ]
 
-# Count the number of actions:
-actioncount = len(menulist1)
-
 # Print the instruction for screen-capturing the tools-menu pop-up:
 os.system('clear')
 print("""
@@ -149,7 +146,7 @@ with open(menufile2) as menu2:
     menulist2 = [ x for x in menu2.read().splitlines() ]
 
 # Number of screen-captured labels should equal the number of actions, otherwise exit:
-if len(menulist2) != actioncount:
+if len(menulist2) != len(menulist1):
     print(f"\033[FWrong line count")
     sys.exit(1)
 
@@ -179,8 +176,6 @@ i = 0
 for line1 in menulist1:
     ranking_positions[line1.split('@')[0]] = i
     i += 1
-
-# print(ranking_positions)
 
 # List of all ranking-positions already visited:
 visited_rankings = []

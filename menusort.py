@@ -54,7 +54,7 @@
 import sys
 import os
 import random
-sys.path.insert(0, "$HOME/scripts")
+sys.path.insert(0, "/home/rob/scripts")
 from levenshtein import levenshtein; 
 
 # Determine the (preferrably RAM-) directory for temporary files:

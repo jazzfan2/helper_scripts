@@ -148,22 +148,19 @@ os.system('gocr -l 90 -a 70 -C A-Za-z\\(\\)-- ' + image + ' 2>/dev/null | \
 with open(menufile2) as menu2:
     menulist2 = [ x for x in menu2.read().splitlines() ]
 
-# Count its number of lines:
-linecount = len(menulist2)
-
-# Number of lines should be the same as the number of actions, otherwise exit:
-if linecount != actioncount:
+# Number of screen-captured labels should equal the number of actions, otherwise exit:
+if len(menulist2) != actioncount:
     print(f"\033[FWrong line count")
     sys.exit(1)
 
-# Arrange actions in same sequence as their screen-captured labels appear into a text line:
+# Arrange actions into a list in same sequence as their screen-captured labels appear:
 print(f"\033[FJust a moment please, the sequence is being calculated...")
 screen_order = []
 for line2 in menulist2:
     smallest = 100000
     for line1 in menulist1:
 
-        # Get the 'Levenshtein-distance' betw. screen-captured label and each labelString:
+        # Get the 'Levenshtein-distance' betw. each labelString and screen-captured label:
         distance = int(levenshtein((line1.split('@'))[1], line2))
 
         # The smaller the distance, the closer the simularity ('fuzzy comparison'):

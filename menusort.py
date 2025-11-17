@@ -180,13 +180,13 @@ for line1 in menulist1:
 # List of all ranking-positions already visited:
 visited_rankings = []
 
-# Dictionary with key = action, and value = stack-position (0 = bottom):
+# Dictionary with key = action, and value = stack-position:
 stack_positions = {}
 
-# Iterate over the actions, starting with the one at the bottom screen-position:
+# Iterate over the actions, start w/ bottom pos. on the screen, give it stack-position 0:
 for action in reversed(screen_order):
 
-    # Count how many previously-visited actions have ranking-position < this action:
+    # Count how many previously-visited actions have a ranking-position < this action:
     stackpos = 0
     for visited_rank in visited_rankings:
         if visited_rank < ranking_positions[action]:

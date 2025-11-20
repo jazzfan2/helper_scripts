@@ -204,4 +204,4 @@ for action in stack_positions:
 regex = regex + "\" "
 os.system("sed -Ei" + regex + resources)
 
-print("Done! - Changes will take effect in a new XFIle window.")
+print("Done! - Changes will take effect in a new XFile window.")

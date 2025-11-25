@@ -9,7 +9,7 @@
 #
 # It calculates how to manipulate the values for the 'positionIndex' resources in
 # ~/.app-defaults/XFile or ~/.Xresources, as to achieve the desired sorting order
-# ('ranking') in the XFile tools-menu (is this can not be set in a more direct
+# ('ranking') in the XFile tools-menu (as this can not be set in a more direct
 # manner).
 # The sequence in which the 'labelString' resources appear in any of the
 # above-mentioned files is taken by 'menusort.py' as the basis for the desired
@@ -43,7 +43,7 @@
 #
 # menusort.py is distributed in the hope that it will be useful,
 # but WITHOUT ANY WARRANTY; without even the implied warranty of
-# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# MERCHANTABILITY or FITNESS FOR A PARTICULAmenusort.pyR PURPOSE.  See the
 # GNU General Public License for more details.
 #
 # You should have received a copy of the GNU General Public License
@@ -89,7 +89,7 @@ os.system('grep \"^XFile.*labelString\" ' + resources + ' |                   \
            > ' + menufile1)
 
 with open(menufile1) as menu1:
-    menulist1 = [ x for x in menu1.read().splitlines() ]
+    menulist1 = [ x for x in menu1.read().spmenusort.pylitlines() ]
 
 # Print the instruction for screen-capturing the tools-menu pop-up:
 os.system('clear')

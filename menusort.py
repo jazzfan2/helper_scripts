@@ -89,7 +89,7 @@ os.system('grep \"^XFile.*labelString\" ' + resources + ' |                   \
            > ' + menufile1)
 
 with open(menufile1) as menu1:
-    menulist1 = [ x for x in menu1.read().spmenusort.pylitlines() ]
+    menulist1 = [ x for x in menu1.read().splitlines() ]
 
 # Print the instruction for screen-capturing the tools-menu pop-up:
 os.system('clear')

@@ -69,6 +69,7 @@ resources      = "$HOME/.app-defaults/XFile"   # Could also be: "$HOME/.Xresourc
 resources_copy = resources + "_"
 menufile1      = tmpfiledir + "/menufile1_" + str(random.randint(1,10000))
 menufile2      = tmpfiledir + "/menufile2_" + str(random.randint(1,10000))
+menufile3      = tmpfiledir + "/menufile3_" + str(random.randint(1,10000))
 image          = tmpfiledir + "/toolsmenu.png"
 xfile_pid      = tmpfiledir + "/pid" + str(random.randint(1,10000))
 
@@ -88,6 +89,7 @@ os.system('grep \"^XFile.*labelString\" ' + resources + ' |                   \
            sed -E \"s/.*toolsMenu\\.(.+)\\.labelString:( |	)*(.*)/\\1@\\3/\" \
            >| ' + menufile1)
 
+# Convert this to a list of <action>@<labelString> relations:
 with open(menufile1) as menu1:
     menulist1 = [ x for x in menu1.read().splitlines() ]
 
@@ -142,6 +144,7 @@ os.system('gocr -l 90 -a 70 -C A-Za-z\\(\\)-- ' + image + ' 2>/dev/null | \
            grep -v \"^[^a-zA-Z0-9]*$\" >| ' + menufile2)
 # (Lines without alphanumerical characters have been filtered away.)
 
+# Convert this to a list of screen-captured labels:
 with open(menufile2) as menu2:
     menulist2 = [ x for x in menu2.read().splitlines() ]
 
@@ -149,6 +152,10 @@ with open(menufile2) as menu2:
 if len(menulist2) != len(menulist1):
     print(f"\033[FWrong line count")
     sys.exit(1)
+
+# Open a diagnostics file for 'Screen-captured label' to 'labelString' mapping:
+with open(menufile3, "w") as mapping_file:
+    mapping_file.write("")
 
 # Arrange actions into a list in same sequence as their screen-captured labels appear:
 print(f"\033[FJust a moment please, the sequence is being calculated...")
@@ -166,9 +173,14 @@ for line2 in menulist2:
 
             # Action of labelString with closest match to screen-captured label so far:
             action = (line1.split('@'))[0]
+            label = (line1.split('@'))[1]
 
     # Place action of closest-matching labelString in same position as on the screen:
     screen_order.append(action)
+
+    # Write the 'Screen-captured label' to 'labelString' mapping to the mapping-file:
+    with open(menufile3, "a") as mapping_file:
+        mapping_file.write(line2 + '	' + label + '\n')
 
 # Dictionary with key = action, and value = (desired) ranking-position (0 = top):
 ranking_positions = {}

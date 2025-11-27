@@ -90,8 +90,8 @@ os.system('grep \"^XFile.*labelString\" ' + resources + ' |                   \
            >| ' + menufile1)
 
 # Convert this to a list of <action>@<labelString> relations:
-with open(menufile1) as menu1:
-    menulist1 = [ x for x in menu1.read().splitlines() ]
+with open(menufile1) as f:
+    menulist1 = [ x for x in f.read().splitlines() ]
 
 # Print the instruction for screen-capturing the tools-menu pop-up:
 os.system('clear')
@@ -145,8 +145,8 @@ os.system('gocr -l 90 -a 70 -C A-Za-z\\(\\)-- ' + image + ' 2>/dev/null | \
 # (Lines without alphanumerical characters have been filtered away.)
 
 # Convert this to a list of screen-captured labels:
-with open(menufile2) as menu2:
-    menulist2 = [ x for x in menu2.read().splitlines() ]
+with open(menufile2) as f:
+    menulist2 = [ x for x in f.read().splitlines() ]
 
 # Number of screen-captured labels should equal the number of actions, otherwise exit:
 if len(menulist2) != len(menulist1):
@@ -154,8 +154,8 @@ if len(menulist2) != len(menulist1):
     sys.exit(1)
 
 # Open a diagnostics file for 'Screen-captured label' to 'labelString' mapping:
-with open(menufile3, "w") as mapping_file:
-    mapping_file.write("")
+with open(menufile3, "w") as f:
+    f.write("")
 
 # Arrange actions into a list in same sequence as their screen-captured labels appear:
 print(f"\033[FJust a moment please, the sequence is being calculated...")
@@ -179,8 +179,8 @@ for line2 in menulist2:
     screen_order.append(action)
 
     # Write the 'Screen-captured label' to 'labelString' mapping to the mapping-file:
-    with open(menufile3, "a") as mapping_file:
-        mapping_file.write(line2 + '	' + label + '\n')
+    with open(menufile3, "a") as f:
+        f.write(line2 + '	' + label + '\n')
 
 # Dictionary with key = action, and value = (desired) ranking-position (0 = top):
 ranking_positions = {}

@@ -36,14 +36,13 @@ gomount(){
     device=${devpath[$UUID]}
     parttype=${parttype[$UUID]}
     (echo -n "	"; date) >> $HOME/mountlog
-    if [[ "$parttype" == "vfat" || "$parttype" == "ntfs" ]]; then
+    if [[ "$parttype" == "vfat" || "$parttype" == "ntfs" || "$parttype" == "exfat" ]]; then
         if grep -q "^UUID=$UUID" /etc/fstab; then
             xterm -geometry 60x5+0+0 -e "sudo mount $device 2>&1 1>>$HOME/mountlog"
         else
             udisksctl mount -o umask=0077 --block-device $device 2>&1 1>>$HOME/mountlog
         fi
-    elif [[ "$parttype" == "ext2" || "$parttype" == "ext3" || "$parttype" == "ext4" || \
-            "$parttype" == "exfat" ]]; then
+    elif [[ "$parttype" == "ext2" || "$parttype" == "ext3" || "$parttype" == "ext4" ]]; then
         udisksctl mount --block-device $device 2>&1 1>>$HOME/mountlog
     fi
 }

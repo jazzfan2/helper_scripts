@@ -42,7 +42,8 @@ gomount(){
         else
             udisksctl mount -o umask=0077 --block-device $device 2>&1 1>>$HOME/mountlog
         fi
-    elif [[ "$parttype" == "ext2" || "$parttype" == "ext3" || "$parttype" == "ext4" ]]; then
+    elif [[ "$parttype" == "ext2" || "$parttype" == "ext3" || "$parttype" == "ext4" || \
+            "$parttype" == "exfat" ]]; then
         udisksctl mount --block-device $device 2>&1 1>>$HOME/mountlog
     fi
 }

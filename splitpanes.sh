@@ -86,7 +86,7 @@ Usage: splitpanes.sh [-hu] DIRECTORY
 EOF
 }
 
-options $@
+options "$@"
 shift $(( OPTIND - 1 ))
 
 # Determine storage location of the relations-file (preferrably RAM):

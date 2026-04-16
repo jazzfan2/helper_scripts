@@ -13,6 +13,8 @@
 # Meant to act as a background daemon called from the $HOME/.sessionetc
 # file (i.e. the 'startup applications' file read by EMWM's session manager).
 #
+# Note that this isn't going to work with EMWM v2 and higher.
+#
 #############################################################################
 #
 # Copyright (C) 2025 Rob Toscani <rob_toscani@yahoo.com>

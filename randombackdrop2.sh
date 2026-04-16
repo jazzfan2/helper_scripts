@@ -8,6 +8,8 @@
 # which as a prerequisite must have been installed in order for this script
 # to function. Intended to be launched as an item from the EMWM toolbox-menu.
 #
+# Note that this isn't going to work with EMWM v2 and higher.
+#
 ##############################################################################
 #
 # Copyright (C) 2025 Rob Toscani <rob_toscani@yahoo.com>

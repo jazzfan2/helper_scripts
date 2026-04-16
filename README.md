@@ -77,7 +77,7 @@ background daemon called from the $HOME/.sessionetc file (i.e. the 'startup appl
 
 'randombackdrop2.sh' is an interactive wrapper around 'randombackdrop.sh', meant to be launched as an item from the EMWM toolbox-menu.
 
-Note that both scripts aren't going to work with EMWM v2 and higher.
+Note that both scripts aren't going to work with EMWM v2 and higher. A fix for this is not available yet.
 
 ## selfmounter.sh
 

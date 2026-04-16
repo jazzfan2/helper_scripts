@@ -77,6 +77,8 @@ background daemon called from the $HOME/.sessionetc file (i.e. the 'startup appl
 
 'randombackdrop2.sh' is an interactive wrapper around 'randombackdrop.sh', meant to be launched as an item from the EMWM toolbox-menu.
 
+Note that both scripts aren't going to work with EMWM v2 and higher.
+
 ## selfmounter.sh
 
 'selfmounter.sh' automatically mounts any external USB-drive, eMMC and SD-Card once physically added to the system.

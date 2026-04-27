@@ -81,7 +81,7 @@ It runs 'xmbackdrop.sh' - that can optionally calculate foregound color from giv
 
 'randombackdropmenu.sh' is an interactive wrapper around 'randombackdrop.sh', meant to be launched as an item from the EMWM toolbox-menu.
 
-Note: all of these scripts only work with EMWM v2.0 and higher. Older versions for pre EMWM v2.0 are available on request.
+Note: all of these scripts only work with EMWM v2.0 and higher. Older versions for pre EMWM v2.0 are available on request though.
 
 ## selfmounter.sh
 

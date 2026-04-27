@@ -1,11 +1,12 @@
 #!/bin/bash
 # Name: randombackdrop.sh
 # Author: R.J.Toscani
-# Date: 29th of June 2025
+# Date: 17th of April 2026
 # Description: Random-cycling of colors and Motif/X11(CDE)-backdrop images,
 # particularly - but not limited to - (x)bm and (x)pm formats.
 #
-# Wrapper script around the 'xbackdrop' program by Alexander Pampuchin
+# Wrapper around the 'xmbackdrop.sh' script.
+# Engine: the 'tellmwm' program 'tellmwm' program by Alexander Pampuchin
 # (part of the 'Enhanced Motif Window Manager (EMWM)' - https://fastestcode.org/
 # - LGPLv3, MIT License), which as a prerequisite must have been installed in
 # order for this script to function.
@@ -13,11 +14,11 @@
 # Meant to act as a background daemon called from the $HOME/.sessionetc
 # file (i.e. the 'startup applications' file read by EMWM's session manager).
 #
-# Note that this isn't going to work with EMWM v2 and higher.
+# Version for EMWM v2 and higher.
 #
 #############################################################################
 #
-# Copyright (C) 2025 Rob Toscani <rob_toscani@yahoo.com>
+# Copyright (C) 2026 Rob Toscani <rob_toscani@yahoo.com>
 #
 # randombackdrop.sh is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -103,9 +104,9 @@ backdrop()
     color="rgb:$red_hex/$green_hex/$blue_hex"
 
     if (( image )); then
-        xbackdrop -c "$color" "$tmpfiledir/${imagelist[index]}"
+        $HOME/scripts/xmbackdrop.sh -f "$tmpfiledir/${imagelist[index]}" "$color"
     else
-        xbackdrop -c "$color"
+        $HOME/scripts/xmbackdrop.sh "none" "$color"
     fi
     # For debug purposes (uncomment for output to logfile):
     echo -e "$color\t$tmpfiledir/${imagelist[index]}" >> $HOME/backdroplog.txt

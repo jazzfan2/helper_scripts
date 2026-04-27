@@ -183,7 +183,7 @@ if (( convert_xpm )) && grep -qE "\.x?pm$" <<< "$1"; then
    convert "$1" xbm:- >| "$image"
 fi
 
-# Get foreground color (and background color if nog given) for current workspace:
+# Get foreground color (and background color if not given) for current workspace:
 if (( calculate_fgcolor )) && (( $# >= 2 )); then
     fgcolor=$(get_fgcolor "$bgcolor")
 elif (( $# == 2 )); then

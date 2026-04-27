@@ -104,7 +104,7 @@ backdrop()
     color="rgb:$red_hex/$green_hex/$blue_hex"
 
     if (( image )); then
-        $HOME/scripts/xmbackdrop.sh -f "$tmpfiledir/${imagelist[index]}" "$color"
+        $HOME/scripts/xmbackdrop.sh -fx "$tmpfiledir/${imagelist[index]}" "$color"
     else
         $HOME/scripts/xmbackdrop.sh "none" "$color"
     fi

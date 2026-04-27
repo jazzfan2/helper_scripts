@@ -194,7 +194,7 @@ elif (( $# == 1 )); then
     fgcolor="$(tellrgb "Foreground")"
 fi
 
-# If combination results in a flat white backdrop, slightly change background-color:
+# If combination will result in a flat white backdrop, slightly change background-color:
 (( $(testwhite "$image" "$bgcolor" "$fgcolor") )) && bgcolor="$(shiftcolor "$bgcolor")"
 
 # Set desired image and color(s) as backdrop for current workspace:

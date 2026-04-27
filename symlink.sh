@@ -55,4 +55,4 @@ rm "$tmpfiledir"/.* "$tmpfiledir"/* 2>/dev/null
 ln -s "$1"/"$2" "$tmpfiledir"/"$2"
 
 # Open temporary RAM directory - containing the symlink - in XFile:
-/usr/bin/xfile -geometry 500x130+0+0 -a "$tmpfiledir"
+/usr/bin/xfile -geometry 500x130+0-0 -a "$tmpfiledir"

@@ -21,7 +21,8 @@
 #
 # BUG (tellmwm): with .xpm images, rendering is sometimes not monochrome as
 # with xbackdrop but includes black, white and grey-shades as well,
-# as tellmwm() doesn't use foreground-color with (X)PM (only background-color).
+# as tellmwm() doesn't use foreground-color with (X)PM (only background-color),
+# contrary to the previous program 'xbackdrop()'.
 #
 #############################################################################
 #

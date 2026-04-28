@@ -156,7 +156,7 @@ testwhite()
 }
 
 shiftcolor()
-# Slightly change 'rgb:redhex/greenhex/bluehex'-color by incrementing blue component:
+# Slightly change 'rgb:redhex/greenhex/bluehex'-color by in/decrementing blue component:
 {
     rgb="$1"
     awk '\
@@ -164,7 +164,10 @@ shiftcolor()
     {
         red   = $1
         green = $2
-        blue  = sprintf("%02x", strtonum("0x" $3) + 0x01)
+        if ($3 == “FF” || $3 == “ff”)
+            blue = sprintf("%02x", strtonum("0x" $3) - 0x01)
+        else
+            blue = sprintf("%02x", strtonum("0x" $3) + 0x01)
         print "rgb:"red"/"green"/"blue
     }' <<< "${rgb/*:/}"
 }

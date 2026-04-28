@@ -164,7 +164,7 @@ shiftcolor()
     {
         red   = $1
         green = $2
-        if ($3 == “FF” || $3 == “ff”)
+        if ($3 == "FF" || $3 == "ff")
             blue = sprintf("%02x", strtonum("0x" $3) - 0x01)
         else
             blue = sprintf("%02x", strtonum("0x" $3) + 0x01)

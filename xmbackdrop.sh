@@ -156,7 +156,7 @@ testwhite()
 }
 
 shiftcolor()
-# Slightly change 'rgb:redhex/greenhex/bluehex'-color by in/decrementing blue component:
+# Slightly change 'rgb:redhex/greenhex/bluehex'-color by incrementing blue component:
 {
     rgb="$1"
     awk '\
@@ -164,10 +164,7 @@ shiftcolor()
     {
         red   = $1
         green = $2
-        if ($3 == "FF" || $3 == "ff")
-            blue = sprintf("%02x", strtonum("0x" $3) - 0x01)
-        else
-            blue = sprintf("%02x", strtonum("0x" $3) + 0x01)
+        blue = sprintf("%02x", strtonum("0x" $3) + 0x01)
         print "rgb:"red"/"green"/"blue
     }' <<< "${rgb/*:/}"
 }
@@ -197,7 +194,7 @@ elif (( $# == 1 )); then
     fgcolor="$(tellrgb "Foreground")"
 fi
 
-# If combination will result in a flat white backdrop, slightly change background-color:
+# If combination will result in a flat white backdrop, slightly change foreground-color:
 (( $(testwhite "$image" "$bgcolor" "$fgcolor") )) && fgcolor="$(shiftcolor "$fgcolor")"
 
 # Set desired colors and image as backdrop for current workspace:

@@ -198,7 +198,7 @@ elif (( $# == 1 )); then
 fi
 
 # If combination will result in a flat white backdrop, slightly change background-color:
-(( $(testwhite "$image" "$bgcolor" "$fgcolor") )) && bgcolor="$(shiftcolor "$bgcolor")"
+(( $(testwhite "$image" "$bgcolor" "$fgcolor") )) && fgcolor="$(shiftcolor "$fgcolor")"
 
 # Set desired colors and image as backdrop for current workspace:
 tellmwm backdrop $workspace -b "$bgcolor" -f "$fgcolor" "$image"

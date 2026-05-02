@@ -1,7 +1,7 @@
 #!/bin/bash
 # Name: xmbackdrop.sh
 # Author: Rob Toscani
-# Date: 26 april 2026
+# Date: 2nd May 2026
 # Description: Set backdrop image and optional color(s) for current EMWM workspace.
 #
 # Wrapper script around the 'tellmwm()' program by Alexander Pampuchin
@@ -18,11 +18,6 @@
 # BUG: foreground-color calculation function only supports
 # "rgb:<red>/<green>/<blue>" color-notation for now,
 # Color *names* aren´t supported as of yet (under development).
-#
-# BUG (tellmwm): with .xpm images, rendering is sometimes not monochrome as
-# with xbackdrop but includes black, white and grey-shades as well,
-# as tellmwm() doesn't use foreground-color with (X)PM (only background-color),
-# contrary to the previous program 'xbackdrop()'.
 #
 #############################################################################
 #
@@ -44,19 +39,30 @@
 ############################################################################
 #
 
-convert_xpm=0       # Initial state: no conversion from (X)PM image to (X)BM format
 calculate_fgcolor=0 # Initial state: no calculation of foreground color
+
+# Determine where the modified pixmap file can be stored in RAM temporarily:
+if [[ -d /tmp/ramdisk/ ]]; then
+    tempdir="/tmp/ramdisk"
+elif [[ -d /dev/shm/ ]]; then
+    tempdir="/dev/shm"
+else
+    tempdir="."               # (No RAM, serves as fall back scenario)
+fi
+
+# Names of RAM-subdirectory and modified pixmap file:
+subdir="subdir_$RANDOM$RANDOM"
+new_image="image_$RANDOM$RANDOM"
 
 # Determine current workspace:
 workspace=$(tellmwm | tail -n 1 | awk '{ print $NF }')
 
+
 options(){
 # Specify options:
-    while getopts "fxh" OPTION; do
+    while getopts "fh" OPTION; do
         case $OPTION in
             f) calculate_fgcolor=1  # Calculate foreground- from background-color
-               ;;
-            x) convert_xpm=1        # Convert (X)PM image to (X)BM format
                ;;
             *) helptext>&2
                exit 1
@@ -69,16 +75,15 @@ helptext()
 # Text printed if -h option (help) or a non-existent option has been given:
 {
 	cat <<-EOF
-		Usage: xmbackdrop.sh [-fxh] IMAGE [BACKGROUNDCOLOR [FOREGROUNDCOLOR]]
+		Usage: xmbackdrop.sh [-fh] IMAGE [BACKGROUNDCOLOR [FOREGROUNDCOLOR]]
 
 		-f   Calculate foreground-color from background-color if given
-		-x   Convert (X)PM image to (X)BM format
 		-h   Help (this output).
 	EOF
 }
 
 get_fgcolor()
-# Calculate foreground-color RGB from given background-color RGB and brightness:
+# Calculate foreground color RGB from given background RGB and brightness:
 {
     rgb="$1"
     awk '\
@@ -93,30 +98,25 @@ get_fgcolor()
 
         brightness = 100 * (0.299 * red + 0.587 * green + 0.114 * blue) / 255
 
-        printf ("%f\t%s\t", brightness, "-b rgb:"$1"/"$2"/"$3) > "/dev/stderr"
+        # Calculate foreground and selectColor RGB-values from background RGB- and brightness-values:
+        factor_fg     = 1
+        offset_red_fg = offset_green_fg = offset_blue_fg  = 0
 
-        # Calculate foreground RGB-values from background RGB- and brightness-values:
-        factor       = 1
-        offset_red   = 0
-        offset_green = 0
-        offset_blue  = 0
         if ( brightness < DarkThreshold ){
-            offset_red   = 0.2 * (255 - red)
-            offset_green = 0.2 * (255 - green)
-            offset_blue  = 0.2 * (255 - blue)
+            offset_red_fg   = 0.2 * (255 - red)
+            offset_green_fg = 0.2 * (255 - green)
+            offset_blue_fg  = 0.2 * (255 - blue)
         }
         else if ( brightness > LightThreshold )
-            factor = 0.5
+            factor_fg = 0.5
         else
-            factor = 0.6
+            factor_fg = 0.6
 
-        redfg   = sprintf("%02x", red   * factor + offset_red)
-        greenfg = sprintf("%02x", green * factor + offset_green)
-        bluefg  = sprintf("%02x", blue  * factor + offset_blue)
+        red_fg   = sprintf("%02x", red   * factor_fg + offset_red_fg)
+        green_fg = sprintf("%02x", green * factor_fg + offset_green_fg)
+        blue_fg  = sprintf("%02x", blue  * factor_fg + offset_blue_fg)
 
-        printf ("%s\n", "-f rgb:"redfg"/"greenfg"/"bluefg) > "/dev/stderr"
-
-        print "rgb:"redfg"/"greenfg"/"bluefg
+        printf ("%s\n", "rgb:"red_fg"/"green_fg"/"blue_fg)
     }' <<< "${rgb/*:/}"
 }
 
@@ -124,8 +124,8 @@ tellrgb()
 # Report rgb of argument-string "Background" or "Foreground":
 {
     (( nr = ${workspace/ws/} + 1 ))
-    rgb=$(tellmwm | grep "$1" | head -n $nr | tail -n -1 | awk '{ print $NF }')
-    echo "rgb:${rgb:1:2}/${rgb:3:2}/${rgb:5:2}"
+    tellmwm | grep "$1" | head -n $nr | tail -n -1 |
+    awk '{ print "rgb:"substr($NF,1,3)"/"substr($NF,4,2)"/"substr($NF,6,2) }'
 }
 
 combinecolor()
@@ -145,14 +145,16 @@ combinecolor()
 testwhite()
 # Test if background/foreground combination results in a white backdrop (Motif-bug!):
 {
-    image="$1"
-    bg=$(combinecolor "$2")
-    fg=$(combinecolor "$3")
-
-    mod=31
-    (( remainder = bg % mod ))
-    (( badfg = 65805 + (remainder >= 13) * mod - remainder ))
-    (( (fg - badfg) % mod == 0 )) && echo 1 || echo 0  # Remainder = 0 gives white result
+    awk -v bg=$(combinecolor "$1") -v fg=$(combinecolor "$2") '\
+    BEGIN {
+        mod=31
+        remainder = bg % mod
+        badfg = 65805 + (remainder >= 13) * mod - remainder
+        if ((fg - badfg) % mod == 0)
+            print 1           # Remainder = 0 gives white result
+        else
+            print 0
+    }'
 }
 
 shiftcolor()
@@ -169,6 +171,55 @@ shiftcolor()
     }' <<< "${rgb/*:/}"
 }
 
+convert_xpm()
+# Add monochrome shades in the XPM-file, based on the background- and foregound-colors, by:
+# 1. Calculating 'selectColor' & 'topShadowColor' RGB values from background- and foregound-colors,
+# 2. Updating the 'c'-field by these values in the color strings containing these symbolic color names,
+# 3. Renaming the 's'-field named 'bottomShadowColor' to 'foreground':
+{
+    awk -v bgcolor=$bgcolor -v fgcolor=$fgcolor '\
+    function min(a, b){
+        if (a <= b)
+            return a
+        else
+            return b
+    }
+    BEGIN {
+        red_bg   = sprintf("%d", strtonum("0x" substr(bgcolor, 5, 2)))
+        green_bg = sprintf("%d", strtonum("0x" substr(bgcolor, 8, 2)))
+        blue_bg  = sprintf("%d", strtonum("0x" substr(bgcolor, 11, 2)))
+
+        red_fg   = sprintf("%d", strtonum("0x" substr(fgcolor, 5, 2)))
+        green_fg = sprintf("%d", strtonum("0x" substr(fgcolor, 8, 2)))
+        blue_fg  = sprintf("%d", strtonum("0x" substr(fgcolor, 11, 2)))
+
+        # Calculate selectColor RGB-values by interpolating background- and foreground-color RGBs:
+        red_sl   = sprintf("%02x", (red_bg   + red_fg)   / 2)
+        green_sl = sprintf("%02x", (green_bg + green_fg) / 2)
+        blue_sl  = sprintf("%02x", (blue_bg  + blue_fg)  / 2)
+        slcolor  = "#" red_sl green_sl blue_sl
+
+        # Calculate topShadowColor RGB-values from background-color RGB (or extrapolate?):
+        red_ts   = sprintf("%02x", min(255, 1.4 * red_bg))   # Or should we extrapolate beyond fg & bg gradient?
+        green_ts = sprintf("%02x", min(255, 1.4 * green_bg)) # Same question
+        blue_ts  = sprintf("%02x", min(255, 1.4 * blue_bg))  # Same question
+        tscolor  = "#" red_ts green_ts blue_ts
+    }
+    /selectColor/ {\
+        sub(/( |	)+c( |	)+[^ ",	]+/, "") # Remove existing "c"-field
+        sub(/(",$)/, " c " slcolor "\",")    # Add new "c"-field with given slcolor
+    }
+    /topShadowColor/ {\
+        sub(/( |	)+c( |	)+[^ ",	]+/, "") # Remove existing "c"-field
+        sub(/(",$)/, " c " tscolor "\",")    # Add new "c"-field with given tscolor
+    }
+    {
+        sub(/bottomShadowColor/, "foreground")
+        print
+    }' "$1"
+}
+
+
 # Execute the options:
 options "$@"
 shift $(( OPTIND - 1 ))
@@ -178,15 +229,9 @@ image="$1"
 (( $# >= 2 )) && bgcolor="$2"
 (( $# == 3 )) && fgcolor="$3"
 
-# With option -x, if image is (X)PM, convert to (X)BM to get real monochrome result:
-if (( convert_xpm )) && grep -qE "\.x?pm$" <<< "$1"; then
-   image="/tmp/ramdisk/backdrop.xbm" # Waarom werkt het met $RANDOM in de naam niet?
-   convert "$1" xbm:- >| "$image"
-fi
-
 # Get foreground color (and background color) if not given for current workspace:
 if (( calculate_fgcolor )) && (( $# >= 2 )); then
-    fgcolor=$(get_fgcolor "$bgcolor")
+    fgcolor="$(get_fgcolor "$bgcolor")"
 elif (( $# == 2 )); then
     fgcolor="$(tellrgb "Foreground")"
 elif (( $# == 1 )); then
@@ -195,7 +240,16 @@ elif (( $# == 1 )); then
 fi
 
 # If combination will result in a flat white backdrop, slightly change foreground-color:
-(( $(testwhite "$image" "$bgcolor" "$fgcolor") )) && fgcolor="$(shiftcolor "$fgcolor")"
+(( $(testwhite "$bgcolor" "$fgcolor") )) && fgcolor="$(shiftcolor "$fgcolor")"
+
+# If image is an XPM, derive a modified version with adapted 's'- and 'c'-fields in color string:
+if grep -qE "\.x?pm$" <<< "$image"; then
+    mkdir "$tempdir/$subdir"
+    convert_xpm $image >| "$tempdir/$subdir/$new_image"
+    image="$tempdir/$subdir/$new_image"
+fi
 
 # Set desired colors and image as backdrop for current workspace:
 tellmwm backdrop $workspace -b "$bgcolor" -f "$fgcolor" "$image"
+
+[[ -d "$tempdir/$subdir" ]] && rm -rf "$tempdir/$subdir"

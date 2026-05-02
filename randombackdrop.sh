@@ -35,6 +35,19 @@
 #
 ############################################################################
 
+
+if [[ -d /tmp/ramdisk/ ]]; then
+    ramdir="/tmp/ramdisk"
+elif [[ -d /dev/shm/ ]]; then
+    ramdir="/dev/shm"
+else
+    ramdir="."         # (No RAM, serves as fall back scenario)
+fi
+
+# Copy 'xmbackdrop.sh' script to RAM-memory if possible in order to run it from there:
+cp $HOME/scripts/xmbackdrop.sh $ramdir/xmbackdrop.sh
+
+
 options(){
 # Specify options:
     while getopts "cgGhnp:i" OPTION; do
@@ -104,9 +117,9 @@ backdrop()
     color="rgb:$red_hex/$green_hex/$blue_hex"
 
     if (( image )); then
-        $HOME/scripts/xmbackdrop.sh -fx "$tmpfiledir/${imagelist[index]}" "$color"
+        $ramdir/xmbackdrop.sh -f "$tmpfiledir/${imagelist[index]}" "$color"
     else
-        $HOME/scripts/xmbackdrop.sh "none" "$color"
+        $ramdir/xmbackdrop.sh "none" "$color"
     fi
     # For debug purposes (uncomment for output to logfile):
     echo -e "$color\t$tmpfiledir/${imagelist[index]}" >> $HOME/backdroplog.txt
@@ -135,15 +148,8 @@ if (grep -q [^0-9] <<< "$period" || [[ $period < 1 ]]); then
     period=1
 fi
 
-
-# Determine where the bitmaps and pixmaps must be stored in RAM temporarily:
-if [[ -d /tmp/ramdisk/ ]]; then
-    tmpfiledir="/tmp/ramdisk/backdrops$RANDOM"
-elif [[ -d /dev/shm/ ]]; then
-    tmpfiledir="/dev/shm/backdrops$RANDOM"
-else
-    tmpfiledir="./backdrops$RANDOM"
-fi
+# Create subdirectory in RAM where the bitmaps and pixmaps will be strored temporarily:
+tmpfiledir="$ramdir/backdrops$RANDOM"
 
 # Stop the program in case of an interrupt (Ctrl-C) or terminate signal:
 trap "[[ -d $tmpfiledir ]] && \rm -rf $tmpfiledir; exit" SIGINT SIGTERM

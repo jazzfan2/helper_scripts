@@ -253,7 +253,7 @@ fi
 if grep -qE "\.x?pm$" <<< "$image"; then
     mkdir "$tempdir/$subdir"                            # New subdir essential for tellmwm() to show the image
     convert_xpm $image >| "$tempdir/$subdir/$new_image" # tellmwm doesn't allow process substitution for image
-    image="$tempdir/$subdir/$new_image"                 # Full path
+    image="$tempdir/$subdir/$new_image"                 # Full path essential
 fi
 
 # Set desired colors and image as backdrop for current workspace:

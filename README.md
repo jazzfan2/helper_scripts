@@ -77,7 +77,7 @@ EMWM's session manager).
 
 It runs 'xmbackdrop.sh' which offers the following functionality:
 - calculation of foregound-color as the 'topShadowColor' based on given background-color - as an option;
-- enabling foreground-color setting for XPM images - in addition to background color - and (re-)activating the intermediate gradations;
+- enabling foreground-color setting for XPM images - in addition to background color - and (re-)activating 'selectColor' and 'topShadowColor' as additional gradations in between/beyond;
 - a fix for the (Motif) 'Flat White Backdrop Bug' if certain background-/foreground-color combinations are used with XBM images;
 - setting of the desired backdrop image and color(s) for the current workspace;
 Its engine is the 'tellmwm' program by Alexander Pampuchin (see https://fastestcode.org/misc.html).

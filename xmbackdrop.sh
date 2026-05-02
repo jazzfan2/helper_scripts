@@ -82,8 +82,8 @@ helptext()
 
         Arguments:
         IMAGE            Full path to image file
-        BACKGROUNDCOLOR  Hexadecimal background RGB in format "rgb:1C/87/fa" (example)
-        FOREGROUNDCOLOR  Hexadecimal foregorund RGB in format "rgb:08/66/9f" (example)
+        BACKGROUNDCOLOR  Hexadecimal RGB-value in format "rgb:1C/87/fa" (example)
+        FOREGROUNDCOLOR  Idem
 	EOF
 }
 
@@ -130,7 +130,7 @@ tellrgb()
 {
     (( nr = ${workspace/ws/} + 1 ))
     tellmwm | grep "$1" | head -n $nr | tail -n -1 |
-    awk '{ print "rgb:"substr($NF,1,3)"/"substr($NF,4,2)"/"substr($NF,6,2) }'
+    awk '{ print "rgb:"substr($NF,2,2)"/"substr($NF,4,2)"/"substr($NF,6,2) }'
 }
 
 combinecolor()

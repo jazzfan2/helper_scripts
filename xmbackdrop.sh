@@ -177,10 +177,10 @@ shiftcolor()
 }
 
 convert_xpm()
-# Add monochrome shades in the XPM-file, based on the background- and foregound-colors, by:
+# Re-activate the color-gradations between/beyond foregound- & background-colors in the XPM-file, by:
 # 1. Calculating 'selectColor' & 'topShadowColor' RGB values from background- and foregound-colors,
-# 2. Updating the 'c'-field by these values in the color strings containing these symbolic color names,
-# 3. Renaming the 's'-field named 'bottomShadowColor' to 'foreground':
+# 2. Updating the 'c'-field accordingly in the color-strings containing above two symbolic color names,
+# 3. Renaming the 's'-field called 'bottomShadowColor' to 'foreground':
 {
     awk -v bgcolor=$bgcolor -v fgcolor=$fgcolor '\
     function min(a, b){

@@ -84,7 +84,8 @@ Its engine is the 'tellmwm' program by Alexander Pampuchin (see https://fastestc
 
 'randombackdropmenu.sh' is an interactive wrapper around 'randombackdrop.sh', meant to be launched as an item from the EMWM toolbox-menu.
 
-Note: all scripts exclusively work with EMWM v2.0 and higher. Older versions for pre-EMWM v2.0 are available on request though.
+Note: all scripts mentioned exclusively work with EMWM v2.0 and higher.
+Older versions for pre-EMWM v2.0 are available on request though.
 
 ## selfmounter.sh
 

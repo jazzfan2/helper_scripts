@@ -197,7 +197,6 @@ startred=$(  randomgrade); red=startred
 startgreen=$(randomgrade); green=startgreen
 startblue=$( randomgrade); blue=startblue
 
-
 # Periodically generate a random RGB-combination and a random array index-number,
 # each defining temporary color and image for the root window backdrop,
 # or only the color in case of the -n option:

@@ -75,9 +75,12 @@ do a detailed selection of the color in the XPaint canvas popping up, and obtain
 It is meant to act as a background daemon called from the $HOME/.sessionetc file (i.e. the 'startup applications' file read by
 EMWM's session manager).
 
-It runs 'xmbackdrop.sh' - that can optionally calculate foregound color from given background color and/or convert (x)pm to
-(x)bm format, and sets backdrop and colors for current workspace. Its engine is the 'tellmwm' program by Alexander Pampuchin
-(see https://fastestcode.org/misc.html).
+It runs 'xmbackdrop.sh' which offers the following functionality:
+- calculation of foregound-color from given background-color - as an option;
+- activation of foreground-color and colored monochrome shades in XPM images, in addition to background color;
+- a fix for the (Motif) 'white backdrop bug' if certain background-/foreground-color combinations are used with XBM images;
+- setting of desired backdrop image and color(s) for current workspace;
+Its engine is the 'tellmwm' program by Alexander Pampuchin (see https://fastestcode.org/misc.html).
 
 'randombackdropmenu.sh' is an interactive wrapper around 'randombackdrop.sh', meant to be launched as an item from the EMWM toolbox-menu.
 

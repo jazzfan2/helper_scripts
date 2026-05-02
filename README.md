@@ -71,7 +71,7 @@ do a detailed selection of the color in the XPaint canvas popping up, and obtain
 ## randombackdrop.sh
 
 'randombackdrop.sh' generates a random-cycling of colors and Motif/X11(CDE)-backdrop images, particularly - but not limited to -
-(x)bm and (x)pm formats. Various options are available for setting color transition modes etc.
+(X)BM and (X)PM formats. Various options are available for setting color transition modes etc.
 It is meant to act as a background daemon called from the $HOME/.sessionetc file (i.e. the 'startup applications' file read by
 EMWM's session manager).
 
@@ -84,7 +84,7 @@ Its engine is the 'tellmwm' program by Alexander Pampuchin (see https://fastestc
 
 'randombackdropmenu.sh' is an interactive wrapper around 'randombackdrop.sh', meant to be launched as an item from the EMWM toolbox-menu.
 
-Note: all of these scripts only work with EMWM v2.0 and higher. Older versions for pre-EMWM v2.0 are available on request though.
+Note: all scripts exclusively work with EMWM v2.0 and higher. Older versions for pre-EMWM v2.0 are available on request though.
 
 ## selfmounter.sh
 

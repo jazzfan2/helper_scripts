@@ -244,14 +244,16 @@ elif (( $# == 1 )); then
     fgcolor="$(tellrgb "Foreground")"
 fi
 
-# If combination will result in a flat white backdrop, slightly change foreground-color:
-(( $(testwhite "$bgcolor" "$fgcolor") )) && fgcolor="$(shiftcolor "$fgcolor")"
+#  If image is an XBM, and bg/fg-combination causes a flat white backdrop, slightly change fgcolor:
+if grep -qE "\.x?bm$" <<< "$image"; then
+    (( $(testwhite "$bgcolor" "$fgcolor") )) && fgcolor="$(shiftcolor "$fgcolor")"
+fi
 
 # If image is an XPM, derive a modified version with adapted 's'- and 'c'-fields in color string:
 if grep -qE "\.x?pm$" <<< "$image"; then
-    mkdir "$tempdir/$subdir"
-    convert_xpm $image >| "$tempdir/$subdir/$new_image"
-    image="$tempdir/$subdir/$new_image"
+    mkdir "$tempdir/$subdir"                            # New subdir essential for tellmwm() to show the image
+    convert_xpm $image >| "$tempdir/$subdir/$new_image" # tellmwm doesn't allow process substitution for image
+    image="$tempdir/$subdir/$new_image"                 # Full path
 fi
 
 # Set desired colors and image as backdrop for current workspace:

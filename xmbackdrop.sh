@@ -75,10 +75,15 @@ helptext()
 # Text printed if -h option (help) or a non-existent option has been given:
 {
 	cat <<-EOF
-		Usage: xmbackdrop.sh [-fh] IMAGE [BACKGROUNDCOLOR [FOREGROUNDCOLOR]]
+        Usage: xmbackdrop.sh [-fh] IMAGE [BACKGROUNDCOLOR [FOREGROUNDCOLOR]]
 
-		-f   Calculate foreground-color from background-color if given
-		-h   Help (this output).
+        -f   Calculate foreground-color from background-color if given
+        -h   Help (this output).
+
+        Arguments:
+        IMAGE            Full path to image file
+        BACKGROUNDCOLOR  Hexadecimal background RGB in format "rgb:1C/87/fa" (example)
+        FOREGROUNDCOLOR  Hexadecimal foregorund RGB in format "rgb:08/66/9f" (example)
 	EOF
 }
 

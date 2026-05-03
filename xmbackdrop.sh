@@ -148,7 +148,7 @@ combinecolor()
 }
 
 testwhite()
-# Test if background/foreground combination results in a white backdrop (Motif-bug!):
+# Test if background/foreground combination causes a white backdrop (Motif-bug!):
 {
     awk -v bg=$(combinecolor "$1") -v fg=$(combinecolor "$2") '\
     BEGIN {

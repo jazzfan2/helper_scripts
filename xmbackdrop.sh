@@ -205,9 +205,9 @@ convert_xpm()
         slcolor  = "#" red_sl green_sl blue_sl
 
         # Calculate topShadowColor RGB-values from background-color RGB (or extrapolate?):
-        red_ts   = sprintf("%02x", min(255, 1.4 * red_bg))   # Or should we extrapolate beyond fg & bg gradient?
-        green_ts = sprintf("%02x", min(255, 1.4 * green_bg)) # Same question
-        blue_ts  = sprintf("%02x", min(255, 1.4 * blue_bg))  # Same question
+        red_ts   = sprintf("%02x", min(255, 1.4 * red_bg))   # Or should we extrapolate beyond 
+        green_ts = sprintf("%02x", min(255, 1.4 * green_bg)) # ... foreground -> background
+        blue_ts  = sprintf("%02x", min(255, 1.4 * blue_bg))  # ... gradient?
         tscolor  = "#" red_ts green_ts blue_ts
     }
     /selectColor/ {\

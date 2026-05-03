@@ -50,7 +50,7 @@ cp $HOME/scripts/xmbackdrop.sh $ramdir/xmbackdrop.sh
 
 options(){
 # Specify options:
-    while getopts "cgGhnp:Pi" OPTION; do
+    while getopts "cgGhnp:i" OPTION; do
         case $OPTION in
             c) complementarynext=1 # Next color complementary to previous (end) color
                ;;
@@ -66,8 +66,6 @@ options(){
                ;;
             p) period="$OPTARG"    # Specify period
                ;;
-            P) filetype="\.x?pm$"  # Accept XPM-files only, no XBM-files
-               ;;
             i) identicalnext=1     # Next color identical to previous (end) color
                ;;
             *) helptext>&2
@@ -81,7 +79,7 @@ helptext()
 # Text printed if -h option (help) or a non-existent option has been given:
 {
 	cat <<-EOF
-		Usage: randombackdrop.sh [-icgGhnpP] [-p PERIOD]
+		Usage: randombackdrop.sh [-icgGhnp] [-p PERIOD]
 
 		-i   Next (start) color is identical to previous (end) color.
 		-c   Next (start) color complementary to previous (end) color
@@ -93,7 +91,6 @@ helptext()
 		-h   Help (this output).
 		-n   Only backdrop colors, no images.
 		-p   Specify period (default = 60 seconds).
-        -P   Accept XPM-files only, no XBM-files
 	EOF
 }
 
@@ -143,9 +140,6 @@ gradual=0
 crossover=0
 identicalnext=0
 
-# As a default, accept both XPM- and XBM-files:
-filetype="\.x?(p|b)m$"
-
 # Execute the options:
 options $@
 
@@ -163,41 +157,28 @@ trap "[[ -d $tmpfiledir ]] && \rm -rf $tmpfiledir; exit" SIGINT SIGTERM
 # In case the -n option is not given, copy the CDE backdrop-images (bitmap and
 # pixmap) to the temporary directory:
 if (( image )); then
-    mkdir $tmpfiledir
-    while read path; do
-        if ! grep -qE "$filetype" <<< "$path"; then
-            continue
-        fi
-        \cp $path $tmpfiledir
-    done << EOF
-/usr/dt/share/backdrops/*.bm
-/usr/dt/share/backdrops/*.pm
-$HOME/Documenten/Ubuntu-Linux/EMWM/wallpapers/cde/*.xbm
-$HOME/Documenten/Ubuntu-Linux/EMWM/wallpapers/cde/*.xpm
-$HOME/Documenten/Ubuntu-Linux/EMWM/wallpapers/sun/*.xbm
-$HOME/Documenten/Ubuntu-Linux/EMWM/wallpapers/cde/*.pm
-EOF
     # Sources: https://sourceforge.net/projects/cdesktopenv/
     # http://cs.gettysburg.edu/~duncjo01/archive/patterns/cde/
     # http://cs.gettysburg.edu/~duncjo01/archive/patterns/OEM/Sun/texture/
-
-    # Remove some non-desired backdrops from the temporary directory
-    # (either because of lack of figuration, insufficient height or negative
-    # representation w/ most colors):
-    while read omissions; do
-        \rm $tmpfiledir/$omissions
-    done << EOF
-Background.*
-Foreground.*
-black.*
-white.*
-Gray*
-NoBackdrop.*
-SkyDark.*pm
-SkyLight.*pm
-Toronto.*bm
-BrickWall.*bm
-EOF
+    mkdir $tmpfiledir
+    cp /usr/dt/share/backdrops/*.bm $tmpfiledir
+    \cp /usr/dt/share/backdrops/*.pm $tmpfiledir
+    \cp $HOME/Documenten/Ubuntu-Linux/EMWM/wallpapers/cde/*bm $tmpfiledir
+    \cp $HOME/Documenten/Ubuntu-Linux/EMWM/wallpapers/cde/*pm $tmpfiledir
+    \cp $HOME/Documenten/Ubuntu-Linux/EMWM/wallpapers/sun/*bm $tmpfiledir
+    \cp $HOME/Documenten/Ubuntu-Linux/EMWM/wallpapers/sun/*pm $tmpfiledir
+    # Remove some non-desired backdrops from the temporary directory:
+    \rm $tmpfiledir/Background.*     # This only provides color, no figuration
+    \rm $tmpfiledir/Foreground.*     # This only provides color, no figuration
+    \rm $tmpfiledir/black.*          # This only provides color, no figuration
+    \rm $tmpfiledir/white.*          # This only provides color, no figuration
+    \rm $tmpfiledir/Gray*            # This only provides color, no figuration
+    \rm $tmpfiledir/NoBackdrop.*     # This only gives a black screen
+    \rm $tmpfiledir/SkyDark.*pm      # Unmodified version w/ insufficient height
+    \rm $tmpfiledir/SkyLight.*pm     # Unmodified version w/ insufficient height
+    \rm $tmpfiledir/Toronto.*bm      # Negative representation w/ most colors
+    \rm $tmpfiledir/BrickWall.*bm    # Negative representation w/ most colors
+#   \rm $tmpfiledir/SunLogo.*pm      # Doesn´t adapt to color
 
     # Make an array in which all image names are to be stored:
     declare -a imagelist

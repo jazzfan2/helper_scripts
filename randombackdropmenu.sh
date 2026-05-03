@@ -43,6 +43,12 @@ read -p "Include CDE-images [y/N]? " -n 1 "reply"
 
 if ! grep -qi "y" <<< $reply; then
     options="-n $options"
+else
+    echo
+    read -p "Exclude XBM-files [y/N]? " -n 1 "reply"
+    if grep -qi "y" <<< $reply; then
+        options="-P $options"
+    fi
 fi
 
 echo

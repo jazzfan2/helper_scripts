@@ -209,8 +209,8 @@ convert_xpm()
         green_ts = sprintf("%02x", min(255, 1.4 * green_bg))
         blue_ts  = sprintf("%02x", min(255, 1.4 * blue_bg))
         tscolor  = "#" red_ts green_ts blue_ts
-        # Or should we invert the topShadowColor formulas if brightness < DarkThreshold?
-        # In that case e.g. blue_ts  = sprintf("%02x", max(0, 255-(1.4*(255-blue_bg))))
+        # Or should we "invert" the topShadowColor formulas if brightness < DarkThreshold?
+        # In that case we could opt for e.g.: blue_ts  = sprintf("%02x", 0.7 * blue_bg)
     }
     /selectColor/ {
         sub(/( |	)+c( |	)+[^ ",	]+/, "") # Remove existing "c"-field

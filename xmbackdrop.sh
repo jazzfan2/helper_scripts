@@ -212,11 +212,11 @@ convert_xpm()
         # Or should we invert the topShadowColor formulas if brightness < DarkThreshold?
         # In that case e.g. blue_ts  = sprintf("%02x", max(0, 255-(1.4*(255-blue_bg))))
     }
-    /selectColor/ {\
+    /selectColor/ {
         sub(/( |	)+c( |	)+[^ ",	]+/, "") # Remove existing "c"-field
         sub(/(",$)/, " c " slcolor "\",")    # Add new "c"-field with given slcolor
     }
-    /topShadowColor/ {\
+    /topShadowColor/ {
         sub(/( |	)+c( |	)+[^ ",	]+/, "") # Remove existing "c"-field
         sub(/(",$)/, " c " tscolor "\",")    # Add new "c"-field with given tscolor
     }

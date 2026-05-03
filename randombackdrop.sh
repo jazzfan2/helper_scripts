@@ -66,7 +66,7 @@ options(){
                ;;
             p) period="$OPTARG"    # Specify period
                ;;
-            P) filetype="\.x?pm$"  # Accept XPM-files only, no XBM-files
+            P) filetype="\.x?pm$"  # Accept XPM-files only, omit XBM-files
                ;;
             i) identicalnext=1     # Next color identical to previous (end) color
                ;;
@@ -93,7 +93,7 @@ helptext()
 		-h   Help (this output).
 		-n   Only backdrop colors, no images.
 		-p   Specify period (default = 60 seconds).
-        -P   Accept XPM-files only, no XBM-files
+        -P   Accept XPM-files only, omit XBM-files
 	EOF
 }
 

@@ -205,10 +205,12 @@ convert_xpm()
         slcolor  = "#" red_sl green_sl blue_sl
 
         # Calculate topShadowColor RGB-values from background-color RGB:
-        red_ts   = sprintf("%02x", min(255, 1.4 * red_bg))   # Or should we invert this formula
-        green_ts = sprintf("%02x", min(255, 1.4 * green_bg)) # ... if brightness < DarkThreshold?
-        blue_ts  = sprintf("%02x", min(255, 1.4 * blue_bg))  # So: max(0, 255-(1.4*(255-blue_bg)))
+        red_ts   = sprintf("%02x", min(255, 1.4 * red_bg))
+        green_ts = sprintf("%02x", min(255, 1.4 * green_bg))
+        blue_ts  = sprintf("%02x", min(255, 1.4 * blue_bg))
         tscolor  = "#" red_ts green_ts blue_ts
+        # Or should we invert the topShadowColor formulas if brightness < DarkThreshold?
+        # In that case e.g. blue_ts  = sprintf("%02x", max(0, 255-(1.4*(255-blue_bg))))
     }
     /selectColor/ {\
         sub(/( |	)+c( |	)+[^ ",	]+/, "") # Remove existing "c"-field

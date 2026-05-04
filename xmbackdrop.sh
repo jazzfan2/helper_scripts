@@ -40,6 +40,9 @@
 #
 
 calculate_fgcolor=0 # Initial state: no calculation of foreground color
+DarkThreshold=15    # Motif value
+LightThreshold=93   # Motif value
+
 
 # Determine where the modified pixmap file can be stored in RAM temporarily:
 if [[ -d /tmp/ramdisk/ ]]; then
@@ -91,12 +94,9 @@ get_fgcolor()
 # Calculate foreground color RGB from given background RGB and brightness:
 {
     rgb="$1"
-    awk '\
+    awk -v DarkThreshold=$DarkThreshold -v LightThreshold=$LightThreshold '\
     BEGIN { FS = "/" }
     {
-        DarkThreshold  = 15
-        LightThreshold = 93
-
         red   = sprintf("%d", strtonum("0x" $1))
         green = sprintf("%d", strtonum("0x" $2))
         blue  = sprintf("%d", strtonum("0x" $3))
@@ -182,7 +182,7 @@ convert_xpm()
 # 2. Updating the 'c'-field accordingly in the color-strings containing above two symbolic color names,
 # 3. Renaming the 's'-field called 'bottomShadowColor' to 'foreground':
 {
-    awk -v bgcolor=$bgcolor -v fgcolor=$fgcolor '\
+    awk -v bgcolor=$bgcolor -v fgcolor=$fgcolor -v DarkThreshold=$DarkThreshold '\
     function min(a, b){
         if (a <= b)
             return a
@@ -204,13 +204,18 @@ convert_xpm()
         blue_sl  = sprintf("%02x", (blue_bg  + blue_fg)  / 2)
         slcolor  = "#" red_sl green_sl blue_sl
 
+        brightness = 100 * (0.299 * red_bg + 0.587 * green_bg + 0.114 * blue_bg) / 255
+
+        if ( brightness > DarkThreshold )
+            factor = 1.4    # default value
+        else
+            factor = 0.7    # "inverted" value (proposed)
+
         # Calculate topShadowColor RGB-values from background-color RGB:
-        red_ts   = sprintf("%02x", min(255, 1.4 * red_bg))
-        green_ts = sprintf("%02x", min(255, 1.4 * green_bg))
-        blue_ts  = sprintf("%02x", min(255, 1.4 * blue_bg))
+        red_ts   = sprintf("%02x", min(255, factor * red_bg))
+        green_ts = sprintf("%02x", min(255, factor * green_bg))
+        blue_ts  = sprintf("%02x", min(255, factor * blue_bg))
         tscolor  = "#" red_ts green_ts blue_ts
-        # Or should we "invert" the topShadowColor formulas if brightness < DarkThreshold?
-        # In that case we could opt for e.g.: blue_ts  = sprintf("%02x", 0.7 * blue_bg)
     }
     /selectColor/ {
         sub(/( |	)+c( |	)+[^ ",	]+/, "") # Remove existing "c"-field
@@ -253,9 +258,9 @@ fi
 
 # If image is an XPM, derive a modified version with adapted 's'- and 'c'-fields in color string:
 if grep -qE "\.x?pm$" <<< "$image"; then
-    mkdir "$tempdir/$subdir"                            # New subdir essential for tellmwm() to show the image
-    convert_xpm $image >| "$tempdir/$subdir/$new_image" # tellmwm ignores image as a process-substitution stream
-    image="$tempdir/$subdir/$new_image"                 # Full path is essential
+    mkdir "$tempdir/$subdir"                            # New subdir needed for tellmwm() to show image
+    convert_xpm $image >| "$tempdir/$subdir/$new_image" # tellmwm ignores image if process-substitution
+    image="$tempdir/$subdir/$new_image"                 # Full path needed
 fi
 
 # Set desired colors and image as backdrop for current workspace:

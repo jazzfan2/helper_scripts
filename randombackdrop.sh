@@ -108,8 +108,8 @@ helptext()
 		-h   Help (this output).
 		-n   Only backdrop colors, no images (overrules option -f).
 		-p   Specify period (default = 60 seconds).
-        -P   Accept XPM-files only, omit XBM-files
-        -s   Strong color-contrast by complementary foreground-color
+		-P   Accept XPM-files only, omit XBM-files
+		-s   Strong color-contrast by complementary foreground-color
 	EOF
 }
 

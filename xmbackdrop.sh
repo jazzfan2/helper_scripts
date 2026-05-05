@@ -88,7 +88,7 @@ helptext()
 
         Arguments:
         IMAGE            Full path to image file
-        BACKGROUNDCOLOR  Hexadecimal RGB-value in format "rgb:1C/87/fa" (example)
+        BACKGROUNDCOLOR  Hexadecimal RGB-string "rgb:1C/87/fa" (example)
         FOREGROUNDCOLOR  Idem
 	EOF
 }

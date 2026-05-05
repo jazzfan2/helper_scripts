@@ -74,7 +74,7 @@ options(){
                ;;
             p) period="$OPTARG"    # Specify period
                ;;
-            P) filetype="\.x?pm\>"  # Accept XPM-files only, omit XBM-files
+            P) xpm_only=1          # Accept XPM-files only, omit XBM-files
                ;;
             i) identicalnext=1     # Next color identical to previous (end) color
                ;;
@@ -170,7 +170,7 @@ crossover=0
 identicalnext=0
 
 # As a default, accept both XPM- and XBM-files:
-filetype="\.x?(p|b)m\>"
+xpm_only=0
 
 # Execute the options:
 options $@
@@ -186,19 +186,19 @@ tmpfiledir="$ramdir/backdrops$RANDOM"
 # Stop the program in case of an interrupt (Ctrl-C) or terminate signal:
 trap "[[ -d $tmpfiledir ]] && \rm -rf $tmpfiledir; exit" SIGINT SIGTERM
 
-# In case the -n option is not given, copy the CDE backdrop-images (bitmap and
-# pixmap) to the temporary directory:
+# In case the -n option is not given, copy the CDE backdrop-images (pixmap and
+# bitmap) to the temporary directory:
 if (( image )); then
     mkdir $tmpfiledir
     while read path; do
-        if ! grep -qE "$filetype" <<< "$path"; then
-            continue
+        \cp $path/{*.pm,*.xpm} $tmpfiledir
+        if (( ! xpm_only )); then
+            \cp $path/{*.bm,*.xbm} $tmpfiledir
         fi
-        \cp $path $tmpfiledir
     done << EOF
-$imagedir1/*.bm $imagedir1/*.pm $imagedir1/*.xbm $imagedir1/*.xpm
-$imagedir2/*.bm $imagedir2/*.pm $imagedir2/*.xbm $imagedir2/*.xpm
-$imagedir3/*.bm $imagedir3/*.pm $imagedir3/*.xbm $imagedir3/*.xpm
+$imagedir1
+$imagedir2
+$imagedir3
 EOF
     # Remove some non-desired backdrops from the temporary directory
     # (either because of lack of figuration, insufficient height or negative

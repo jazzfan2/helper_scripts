@@ -1,7 +1,7 @@
 #!/bin/bash
 # Name: randombackdrop.sh
 # Author: R.J.Toscani
-# Date: 3rd of May 2026
+# Date: 5th of May 2026
 # Description: Random-cycling of colors and Motif/X11(CDE)-backdrop images,
 # particularly - but not limited to - (x)bm and (x)pm formats.
 #
@@ -56,9 +56,12 @@ imagedir2="$HOME/Documenten/Ubuntu-Linux/EMWM/wallpapers/cde"
 imagedir3="$HOME/Documenten/Ubuntu-Linux/EMWM/wallpapers/sun"
 
 
+#=============================== FUNCTIONS ================================#
+
+
 options(){
 # Specify options:
-    while getopts "cgGhnp:Pi" OPTION; do
+    while getopts "cgGhnp:Psi" OPTION; do
         case $OPTION in
             c) complementarynext=1 # Next color complementary to previous (end) color
                ;;
@@ -70,11 +73,15 @@ options(){
             h) helptext>&2
                exit 0
                ;;
-            n) image=0             # No CDE backdrop images
+            n) image=0             # No CDE backdrop images (overrules option -f)
+               strongcontrast=0
                ;;
             p) period="$OPTARG"    # Specify period
                ;;
             P) xpm_only=1          # Accept XPM-files only, omit XBM-files
+               ;;
+            s) strongcontrast=1    # Strong color contrast by complementary foreground
+               (( ! image )) && strongcontrast=0
                ;;
             i) identicalnext=1     # Next color identical to previous (end) color
                ;;
@@ -89,7 +96,7 @@ helptext()
 # Text printed if -h option (help) or a non-existent option has been given:
 {
 	cat <<-EOF
-		Usage: randombackdrop.sh [-icgGhnpP] [-p PERIOD]
+		Usage: randombackdrop.sh [-icgGhnpPs] [-p PERIOD]
 
 		-i   Next (start) color is identical to previous (end) color.
 		-c   Next (start) color complementary to previous (end) color
@@ -99,42 +106,97 @@ helptext()
 		-G   Gradual shift from start color to complementary end color
 		     (= next start color if -c or -i not given). Overrules -g.
 		-h   Help (this output).
-		-n   Only backdrop colors, no images.
+		-n   Only backdrop colors, no images (overrules option -f).
 		-p   Specify period (default = 60 seconds).
         -P   Accept XPM-files only, omit XBM-files
+        -s   Strong color contrast by complementary foreground color
 	EOF
 }
 
-
 randomgrade()
-# Return random grade of red, green or blue color component:
+# Return random grade of rgb-component:
 {
-    echo "$(shuf --random-source=/dev/urandom -i 0-255 -n 1)"
+    shuf --random-source=/dev/urandom -i 0-255 -n 1
+}
+
+random_rgb()
+# Return random rgb-combination:
+{
+    echo "$(randomgrade)/$(randomgrade)/$(randomgrade)"
 }
 
 complement()
 # Return complementary grade of red, green or blue color component:
 {
-    echo $((255 - $1))
+    awk '\
+    BEGIN { FS = "/" }
+    {
+        red_comp   = 255 - $1
+        green_comp = 255 - $2
+        blue_comp  = 255 - $3
+        print red_comp"/"green_comp"/"blue_comp
+    }' <<< "$1"
+}
+
+gradualshift()
+# Gradually shift from start-color to end-color:
+{
+    startcolor="$1"
+    endcolor="$2"
+
+    awk -v period=$period '\
+    BEGIN { FS = "/" }
+    {
+        startred   = $1
+        startgreen = $2
+        startblue  = $3
+        redrange   = $4 - $1
+        greenrange = $5 - $2
+        bluerange  = $6 - $3
+
+        elapsed = 0
+        while (elapsed < 2*period){
+            red   = startred   + elapsed * redrange   / (2 * period)
+            green = startgreen + elapsed * greenrange / (2 * period)
+            blue  = startblue  + elapsed * bluerange  / (2 * period)
+            print red "/" green "/" blue
+            elapsed += 1
+        }
+    }' <<< "$startcolor/$endcolor"
+}
+
+dec2hex()
+# Convert color from decimal 'red/green/blue' to hexadecimal 'rgb:redx/greenx/bluex' notation:
+{
+    awk '\
+    BEGIN { FS = "/" }
+    {
+        redx   = sprintf("%02x", $1)
+        greenx = sprintf("%02x", $2)
+        bluex  = sprintf("%02x", $3)
+        print "rgb:" redx "/" greenx "/" bluex
+    }' <<< "$1"
 }
 
 backdrop()
 # Set color and optionally the image of window 0 backdrop:
 {
-    red_hex=$(  printf "%02X" "$red")
-    green_hex=$(printf "%02X" "$green")
-    blue_hex=$( printf "%02X" "$blue")
+    color=$(dec2hex $1)
+    compcolor=$(dec2hex $(complement $1))
 
-    color="rgb:$red_hex/$green_hex/$blue_hex"
-
-    if (( image )); then
+    if (( image && strongcontrast )); then
+        $ramdir/xmbackdrop.sh "$tmpfiledir/${imagelist[index]}" "$color" "$compcolor"
+    elif (( image )); then
         $ramdir/xmbackdrop.sh -f "$tmpfiledir/${imagelist[index]}" "$color"
-    else
+    elif (( ! image )); then
         $ramdir/xmbackdrop.sh "none" "$color"
     fi
     # For debug purposes (uncomment for output to logfile):
     echo -e "$color\t$tmpfiledir/${imagelist[index]}" >> $HOME/backdroplog.txt
 }
+
+
+#======================== MAIN FUNCTION STARTS HERE ========================#
 
 
 # Stop any other "randombackdrop"-process already running:
@@ -143,16 +205,15 @@ while read process; do
 done < <(ps aux | grep "/bin/bash $HOME/scripts/randombackdrop.sh" | \
          awk '{ print $2 }')
 
-# Default period = 60 seconds, and default include CDE backdrop images:
-period=60
-image=1
-complementarynext=0
-gradual=0
-crossover=0
-identicalnext=0
-
-# As a default, accept both XPM- and XBM-files:
-xpm_only=0
+# Defaults:
+period=60            # period = 60 seconds
+image=1              # include CDE backdrop images
+complementarynext=0  # Next color not complementary to previous color
+gradual=0            # No gradual shift to end color
+crossover=0          # End color not complementary to startcolor
+identicalnext=0      # Next color not identical to previous (end) color
+strongcontrast=0     # No strong color contrast by complementary foreground color
+xpm_only=0           # Accept both XPM- and XBM-files
 
 # Execute the options:
 options $@
@@ -168,14 +229,14 @@ tmpfiledir="$ramdir/backdrops$RANDOM"
 # Stop the program in case of an interrupt (Ctrl-C) or terminate signal:
 trap "[[ -d $tmpfiledir ]] && \rm -rf $tmpfiledir; exit" SIGINT SIGTERM
 
-# In case the -n option is not given, copy the CDE backdrop-images (pixmap and
-# bitmap) to the temporary directory:
+# Copy the CDE backdrop-images (pixmap and bitmap) to the temporary directory
+# (except in if -n option is given):
 if (( image )); then
     mkdir $tmpfiledir
     while read path; do
-        \cp $path/{*.pm,*.xpm} $tmpfiledir
+        \cp $path/{*.pm,*.xpm} $tmpfiledir 2>/dev/null
         if (( ! xpm_only )); then
-            \cp $path/{*.bm,*.xbm} $tmpfiledir
+            \cp $path/{*.bm,*.xbm} $tmpfiledir 2>/dev/null
         fi
     done << EOF
 $imagedir1
@@ -214,9 +275,7 @@ EOF
     (( maxindex = ${#imagelist[@]} - 1 ))
 fi
 
-startred=$(  randomgrade); red=startred
-startgreen=$(randomgrade); green=startgreen
-startblue=$( randomgrade); blue=startblue
+start=$(random_rgb); color=start
 
 # Periodically generate a random RGB-combination and a random array index-number,
 # each defining temporary color and image for the root window backdrop,
@@ -232,52 +291,35 @@ while true; do
 
         # End color is complementary to start color:
         if (( crossover )); then
-            endred=$(  complement $startred)
-            endgreen=$(complement $startgreen)
-            endblue=$( complement $startblue)
+            end=$(complement $start)
 
         # End color is randomly chosen:
         else
-            endred=$(  randomgrade)
-            endgreen=$(randomgrade)
-            endblue=$( randomgrade)
+            end=$(random_rgb)
         fi
 
-        elapsed=0
-        while (( elapsed < 2*period )); do
-            (( red   = startred   + elapsed * (endred   - startred)   / (2*period) ))
-            (( green = startgreen + elapsed * (endgreen - startgreen) / (2*period) ))
-            (( blue  = startblue  + elapsed * (endblue  - startblue)  / (2*period) ))
-            backdrop
-            (( elapsed += 1 ))
-            sleep 0.5
-        done
+       gradualshift "$start" "$end" |
+       while read color; do
+           backdrop $color
+           sleep 0.5
+       done
 
        # Next shifting start color is complementary to previous end color:
         if (( complementarynext )); then
-            startred=$(  complement $endred)
-            startgreen=$(complement $endgreen)
-            startblue=$( complement $endblue)
+            start=$(complement $end)
 
         # Next shifting start color is identical to previous end color:
         elif (( identicalnext )); then
-            startred=$endred
-            startgreen=$endgreen
-            startblue=$endblue
+            start=$end
 
         # Next shifting start color is randomly chosen (= default gradual behaviour):
         else
-            startred=$(  randomgrade)
-            startgreen=$(randomgrade)
-            startblue=$( randomgrade)
+            start=$(random_rgb)
         fi
 
    # Static color switching to complementary color after every $period:
     elif (( complementarynext )); then
-        red=$(  complement $red)
-        green=$(complement $green)
-        blue=$( complement $blue)
-        backdrop
+        backdrop $(complement $color)
         sleep $period
 
     # Static color remaining identical:
@@ -286,10 +328,7 @@ while true; do
 
     # Static color switching to random color after every $period (= default static behaviour):
     else
-        red=$(  randomgrade)
-        green=$(randomgrade)
-        blue=$( randomgrade)
-        backdrop
+        backdrop $(random_rgb)
         sleep $period
     fi
 

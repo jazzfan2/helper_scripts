@@ -61,6 +61,9 @@ new_image="image_$RANDOM$RANDOM"
 workspace=$(tellmwm | tail -n 1 | awk '{ print $NF }')
 
 
+#=============================== FUNCTIONS ================================#
+
+
 options(){
 # Specify options:
     while getopts "fh" OPTION; do
@@ -233,11 +236,13 @@ convert_xpm()
 }
 
 
+#======================== MAIN FUNCTION STARTS HERE ========================#
+
+
 # Execute the options:
 options "$@"
 shift $(( OPTIND - 1 ))
 
-# Main function starts here:
 image="$1"
 (( $# >= 2 )) && bgcolor="$2"
 (( $# == 3 )) && fgcolor="$3"

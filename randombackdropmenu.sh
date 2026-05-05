@@ -1,7 +1,7 @@
 #!/bin/bash
 # Name: randombackdropmenu.sh
 # Author: R.J.Toscani
-# Date: 3rd of May 2026
+# Date: 5th of May 2026
 # Description: Interactive wrapper around the 'randombackdrop.sh' and 
 # 'xmbackdrop.sh' scripts.
 # Engine: the 'tellmwm' program by Alexander Pampuchin (part of the 'Enhanced
@@ -48,6 +48,11 @@ else
     read -p "Exclude XBM-files [y/N]? " -n 1 "reply"
     if grep -qi "y" <<< $reply; then
         options="-P $options"
+    fi
+    echo
+    read -p "Strong color contrast by complementary foreground [y/N]? " -n 1 "reply"
+    if grep -qi "y" <<< $reply; then
+       options="-s $options"
     fi
 fi
 

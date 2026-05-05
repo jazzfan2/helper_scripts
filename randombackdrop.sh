@@ -65,9 +65,9 @@ options(){
         case $OPTION in
             c) complementarynext=1 # Next color complementary to previous (end) color
                ;;
-            g) gradual=1           # Gradual shift to random end color
+            g) gradual=1           # Gradual shift to random end-color
                ;;
-            G) crossover=1         # Gradual shift to complementary end color
+            G) crossover=1         # Gradual shift to complementary end-color
                gradual=1
                ;;
             h) helptext>&2
@@ -80,10 +80,10 @@ options(){
                ;;
             P) xpm_only=1          # Accept XPM-files only, omit XBM-files
                ;;
-            s) strongcontrast=1    # Strong color contrast by complementary foreground
+            s) strongcontrast=1    # Strong color-contrast by complementary foreground
                (( ! image )) && strongcontrast=0
                ;;
-            i) identicalnext=1     # Next color identical to previous (end) color
+            i) identicalnext=1     # Next color identical to previous (end-)color
                ;;
             *) helptext>&2
                exit 1
@@ -98,18 +98,18 @@ helptext()
 	cat <<-EOF
 		Usage: randombackdrop.sh [-icgGhnpPs] [-p PERIOD]
 
-		-i   Next (start) color is identical to previous (end) color.
-		-c   Next (start) color complementary to previous (end) color
+		-i   Next (start-)color is identical to previous (end-)color.
+		-c   Next (start-)color complementary to previous (end-)color
 		     (Overrules -i).
-		-g   Gradual shift from start color to random end color.
-		     (= next start color if -c or -i not given).
-		-G   Gradual shift from start color to complementary end color
-		     (= next start color if -c or -i not given). Overrules -g.
+		-g   Gradual shift from start-color to random end-color.
+		     (= next start-color if -c or -i not given).
+		-G   Gradual shift from start-color to complementary end-color
+		     (= next start-color if -c or -i not given). Overrules -g.
 		-h   Help (this output).
 		-n   Only backdrop colors, no images (overrules option -f).
 		-p   Specify period (default = 60 seconds).
         -P   Accept XPM-files only, omit XBM-files
-        -s   Strong color contrast by complementary foreground color
+        -s   Strong color-contrast by complementary foreground-color
 	EOF
 }
 
@@ -206,13 +206,13 @@ done < <(ps aux | grep "/bin/bash $HOME/scripts/randombackdrop.sh" | \
          awk '{ print $2 }')
 
 # Defaults:
-period=60            # period = 60 seconds
-image=1              # include CDE backdrop images
+period=60            # Period = 60 seconds
+image=1              # Include CDE backdrop images
 complementarynext=0  # Next color not complementary to previous color
-gradual=0            # No gradual shift to end color
-crossover=0          # End color not complementary to startcolor
-identicalnext=0      # Next color not identical to previous (end) color
-strongcontrast=0     # No strong color contrast by complementary foreground color
+gradual=0            # No gradual shift from start-color to end-color
+crossover=0          # End-color not complementary to start-color
+identicalnext=0      # Next color not identical to previous (end-)color
+strongcontrast=0     # No strong color-contrast by complementary foreground-color
 xpm_only=0           # Accept both XPM- and XBM-files
 
 # Execute the options:

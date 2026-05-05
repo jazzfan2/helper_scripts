@@ -2,7 +2,7 @@
 # Name: randombackdropmenu.sh
 # Author: R.J.Toscani
 # Date: 5th of May 2026
-# Description: Interactive wrapper around the 'randombackdrop.sh' and 
+# Description: Interactive wrapper around the 'randombackdrop.sh' and
 # 'xmbackdrop.sh' scripts.
 # Engine: the 'tellmwm' program by Alexander Pampuchin (part of the 'Enhanced
 # Motif Window Manager (EMWM)' - https://fastestcode.org/ - LGPLv3, MIT License),

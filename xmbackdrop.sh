@@ -182,7 +182,7 @@ convert_xpm()
 # 2. Updating the 'c'-field accordingly in the color-strings containing above two symbolic color names,
 # 3. Renaming the 's'-field called 'bottomShadowColor' to 'foreground':
 {
-    awk -v bgcolor=$bgcolor -v fgcolor=$fgcolor -v DarkThreshold=$DarkThreshold '\
+    awk -v bgcolor=$bgcolor -v fgcolor=$fgcolor '\
     function min(a, b){
         if (a <= b)
             return a
@@ -204,9 +204,10 @@ convert_xpm()
         blue_sl  = sprintf("%02x", (blue_bg  + blue_fg)  / 2)
         slcolor  = "#" red_sl green_sl blue_sl
 
-        brightness = 100 * (0.299 * red_bg + 0.587 * green_bg + 0.114 * blue_bg) / 255
+        brightness_bg = 100 * (0.299 * red_bg + 0.587 * green_bg + 0.114 * blue_bg) / 255
+        brightness_fg = 100 * (0.299 * red_fg + 0.587 * green_fg + 0.114 * blue_fg) / 255
 
-        if ( brightness > DarkThreshold )
+        if ( brightness_bg > brightness_fg )
             factor = 1.4    # default value
         else
             factor = 0.7    # "inverted" value (proposed)

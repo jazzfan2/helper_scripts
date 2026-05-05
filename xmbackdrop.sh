@@ -204,6 +204,7 @@ convert_xpm()
         blue_sl  = sprintf("%02x", (blue_bg  + blue_fg)  / 2)
         slcolor  = "#" red_sl green_sl blue_sl
 
+        # Calculate topShadowColor RGB-values from background-color RGB:
         brightness_bg = 100 * (0.299 * red_bg + 0.587 * green_bg + 0.114 * blue_bg) / 255
         brightness_fg = 100 * (0.299 * red_fg + 0.587 * green_fg + 0.114 * blue_fg) / 255
 
@@ -212,7 +213,6 @@ convert_xpm()
         else
             factor = 0.7    # "inverted" value (proposed)
 
-        # Calculate topShadowColor RGB-values from background-color RGB:
         red_ts   = sprintf("%02x", min(255, factor * red_bg))
         green_ts = sprintf("%02x", min(255, factor * green_bg))
         blue_ts  = sprintf("%02x", min(255, factor * blue_bg))

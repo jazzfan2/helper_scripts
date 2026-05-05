@@ -189,6 +189,9 @@ convert_xpm()
         else
             return b
     }
+    function brightness(red, green, blue){
+        return 100 * (0.299 * red + 0.587 * green + 0.114 * blue) / 255
+    }
     BEGIN {
         red_bg   = sprintf("%d", strtonum("0x" substr(bgcolor, 5, 2)))
         green_bg = sprintf("%d", strtonum("0x" substr(bgcolor, 8, 2)))
@@ -205,10 +208,7 @@ convert_xpm()
         slcolor  = "#" red_sl green_sl blue_sl
 
         # Calculate topShadowColor RGB-values from background-color RGB:
-        brightness_bg = 100 * (0.299 * red_bg + 0.587 * green_bg + 0.114 * blue_bg) / 255
-        brightness_fg = 100 * (0.299 * red_fg + 0.587 * green_fg + 0.114 * blue_fg) / 255
-
-        if ( brightness_bg > brightness_fg )
+        if (brightness(red_bg, green_bg, blue_bg) > brightness(red_fg, green_fg, blue_fg))
             factor = 1.4    # default value
         else
             factor = 0.7    # "inverted" value (proposed)

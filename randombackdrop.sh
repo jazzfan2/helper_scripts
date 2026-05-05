@@ -47,6 +47,14 @@ fi
 # Copy 'xmbackdrop.sh' script to RAM-memory if possible in order to run it from there:
 cp $HOME/scripts/xmbackdrop.sh $ramdir/xmbackdrop.sh
 
+# Image-sources:
+# https://sourceforge.net/projects/cdesktopenv/
+# http://cs.gettysburg.edu/~duncjo01/archive/patterns/cde/
+# http://cs.gettysburg.edu/~duncjo01/archive/patterns/OEM/Sun/texture/
+imagedir1="/usr/dt/share/backdrops"
+imagedir2="$HOME/Documenten/Ubuntu-Linux/EMWM/wallpapers/cde"
+imagedir3="$HOME/Documenten/Ubuntu-Linux/EMWM/wallpapers/sun"
+
 
 options(){
 # Specify options:
@@ -66,7 +74,7 @@ options(){
                ;;
             p) period="$OPTARG"    # Specify period
                ;;
-            P) filetype="\.x?pm$"  # Accept XPM-files only, omit XBM-files
+            P) filetype="\.x?pm\>"  # Accept XPM-files only, omit XBM-files
                ;;
             i) identicalnext=1     # Next color identical to previous (end) color
                ;;
@@ -144,7 +152,7 @@ crossover=0
 identicalnext=0
 
 # As a default, accept both XPM- and XBM-files:
-filetype="\.x?(p|b)m$"
+filetype="\.x?(p|b)m\>"
 
 # Execute the options:
 options $@
@@ -170,12 +178,9 @@ if (( image )); then
         fi
         \cp $path $tmpfiledir
     done << EOF
-/usr/dt/share/backdrops/*.bm
-/usr/dt/share/backdrops/*.pm
-$HOME/Documenten/Ubuntu-Linux/EMWM/wallpapers/cde/*.xbm
-$HOME/Documenten/Ubuntu-Linux/EMWM/wallpapers/cde/*.xpm
-$HOME/Documenten/Ubuntu-Linux/EMWM/wallpapers/sun/*.xbm
-$HOME/Documenten/Ubuntu-Linux/EMWM/wallpapers/cde/*.pm
+$imagedir1/*.bm $imagedir1/*.pm $imagedir1/*.xbm $imagedir1/*.xpm
+$imagedir2/*.bm $imagedir2/*.pm $imagedir2/*.xbm $imagedir2/*.xpm
+$imagedir3/*.bm $imagedir3/*.pm $imagedir3/*.xbm $imagedir3/*.xpm
 EOF
     # Sources: https://sourceforge.net/projects/cdesktopenv/
     # http://cs.gettysburg.edu/~duncjo01/archive/patterns/cde/

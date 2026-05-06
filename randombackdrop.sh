@@ -113,16 +113,69 @@ helptext()
 	EOF
 }
 
-randomgrade()
-# Return random grade of rgb-component:
+cycle()
+# Periodically set temporary color and image as current workspace backdrop:
 {
-    shuf --random-source=/dev/urandom -i 0-255 -n 1
+    # Generate a random RGB-combination:
+    start=$(random_rgb)
+    color=start
+    while true; do
+        if (( image )); then
+            (( maxindex = ${#imagelist[@]} - 1 ))
+            # Generate a random array index-number:
+            index=$(shuf --random-source=/dev/urandom -i 0-$maxindex -n 1)
+        else
+            index=-1  # No image (in case of the -n option)
+        fi
+        # Start color gradually shifting into another (end) color during every $period, etc:
+        if (( gradual )); then
+            # End color is complementary to start color:
+            if (( crossover )); then
+                end=$(complement $start)
+            # End color is randomly chosen:
+            else
+                end=$(random_rgb)
+            fi
+            gradualshift "$start" "$end" |
+            while read gradation; do
+                backdrop $gradation $index
+                sleep 0.5
+            done
+            # Next shifting start color is complementary to previous end color:
+            if (( complementarynext )); then
+                start=$(complement $end)
+            # Next shifting start color is identical to previous end color:
+            elif (( identicalnext )); then
+                start=$end
+            # Next shifting start color is randomly chosen (= default gradual behaviour):
+            else
+                start=$(random_rgb)
+            fi
+        # Static color switching to complementary color after every $period:
+        elif (( complementarynext )); then
+            backdrop $(complement $color) $index
+            sleep $period
+        # Static color remaining identical:
+        elif (( identicalnext )); then
+            continue
+        # Static color switching to random color after every $period (= default static behaviour):
+        else
+            backdrop $(random_rgb) $index
+            sleep $period
+        fi
+    done
 }
 
 random_rgb()
 # Return random rgb-combination:
 {
     echo "$(randomgrade)/$(randomgrade)/$(randomgrade)"
+}
+
+randomgrade()
+# Return random grade of rgb-component:
+{
+    shuf --random-source=/dev/urandom -i 0-255 -n 1
 }
 
 complement()
@@ -182,6 +235,7 @@ backdrop()
 # Set color and optionally the image of window 0 backdrop:
 {
     color=$(dec2hex $1)
+    index=$2
 
     if (( image && strongcontrast )); then
         compcolor=$(dec2hex $(complement $1))
@@ -262,7 +316,7 @@ Toronto.*bm
 BrickWall.*bm
 EOF
 
-    # Make an array in which all image names are to be stored:
+    # Make an array (global variable) in which all image names are to be stored:
     declare -a imagelist
 
     # Store all image names within the temporary directory into the array:
@@ -271,65 +325,7 @@ EOF
         imagelist[index]="$imagename"
         (( index += 1 ))
     done < <(ls $tmpfiledir)
-
-    (( maxindex = ${#imagelist[@]} - 1 ))
 fi
 
-start=$(random_rgb); color=start
-
-# Periodically generate a random RGB-combination and a random array index-number,
-# each defining temporary color and image for the root window backdrop,
-# or only the color in case of the -n option:
-while true; do
-
-    if (( image )); then
-        index=$(shuf --random-source=/dev/urandom -i 0-$maxindex -n 1)
-    fi
-
-    # Start color gradually shifting into another (end) color during every $period, etc:
-    if (( gradual )); then
-
-        # End color is complementary to start color:
-        if (( crossover )); then
-            end=$(complement $start)
-
-        # End color is randomly chosen:
-        else
-            end=$(random_rgb)
-        fi
-
-        gradualshift "$start" "$end" |
-        while read gradation; do
-            backdrop $gradation
-            sleep 0.5
-        done
-
-        # Next shifting start color is complementary to previous end color:
-        if (( complementarynext )); then
-            start=$(complement $end)
-
-        # Next shifting start color is identical to previous end color:
-        elif (( identicalnext )); then
-            start=$end
-
-        # Next shifting start color is randomly chosen (= default gradual behaviour):
-        else
-            start=$(random_rgb)
-        fi
-
-   # Static color switching to complementary color after every $period:
-    elif (( complementarynext )); then
-        backdrop $(complement $color)
-        sleep $period
-
-    # Static color remaining identical:
-    elif (( identicalnext )); then
-        continue
-
-    # Static color switching to random color after every $period (= default static behaviour):
-    else
-        backdrop $(random_rgb)
-        sleep $period
-    fi
-
-done
+# Periodically set temporary color and image as current workspace backdrop:
+cycle

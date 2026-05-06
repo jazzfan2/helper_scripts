@@ -80,7 +80,7 @@ by Alexander Pampuchin (see https://fastestcode.org/misc.html) as its engine.
 In addition, 'wsbackdrop.sh' offers following extra functionality:
 - automatic calculation of the 'foregound'-color, based on given 'background'-color (as an option);
 - on-the-fly editing of the (X)PM-file, re-activating 'bottomShadowColor' (= 'foreground'), 'selectColor' and 'topShadowColor' as gradations
-  along the 'foreground'->'background' color spectrum;
+  within and beyond the 'foreground'-to-'background' color spectrum;
 - a fix for the (Motif) 'Flat-White-Backdrop-Bug' that occurs with (X)BM images in certain background-/foreground-color combinations;
 
 'randombackdropmenu.sh' is an interactive wrapper around 'randombackdrop.sh', meant to be launched as an item from the EMWM toolbox-menu.

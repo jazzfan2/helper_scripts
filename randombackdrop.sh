@@ -243,7 +243,7 @@ backdrop()
         $ramdir/xmbackdrop.sh "none" "$color"
     fi
     # For debug purposes (uncomment for output to logfile):
-    echo -e "$color\t$tmpfiledir/${imagelist[index]}" >> $HOME/backdroplog.txt
+    echo -e "$(date)\t$color\t$tmpfiledir/${imagelist[index]}" >> $HOME/backdroplog.txt
 }
 
 
@@ -306,6 +306,7 @@ black.*
 white.*
 Gray*
 grey.*
+inversegrey.*
 NoBackdrop.*
 SkyDark.*pm
 SkyLight.*pm
@@ -325,4 +326,5 @@ EOF
 fi
 
 # Periodically set temporary color and image as current workspace backdrop:
+sleep 0.5   # To prevent overruling by global setting at start of EMWM session
 cycle

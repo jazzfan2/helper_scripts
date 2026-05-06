@@ -121,11 +121,11 @@ cycle()
     color=start
     while true; do
         if (( image )); then
-            (( maxindex = ${#imagelist[@]} - 1 ))
+            (( maxindex = ${#imagelist[@]} ))
             # Generate a random array index-number:
-            index=$(shuf --random-source=/dev/urandom -i 0-$maxindex -n 1)
+            index=$(shuf --random-source=/dev/urandom -i 1-$maxindex -n 1)
         else
-            index=-1  # No image (in case of the -n option)
+            index=0  # No image (in case of the -n option)
         fi
         # Start color gradually shifting into another (end) color during every $period, etc:
         if (( gradual )); then
@@ -320,7 +320,7 @@ EOF
     declare -a imagelist
 
     # Store all image names within the temporary directory into the array:
-    index=0
+    index=1
     while read imagename; do
         imagelist[index]="$imagename"
         (( index += 1 ))

@@ -5,7 +5,7 @@
 # Description: Random-cycling of colors and Motif/X11(CDE)-backdrop images,
 # particularly - but not limited to - (x)bm and (x)pm formats.
 #
-# Wrapper around the 'xmbackdrop.sh' script. Engine: the 'tellmwm()' program
+# Wrapper around the 'wsbackdrop.sh' script. Engine: the 'tellmwm()' program
 # by Alexander Pampuchin (workspace control utility for the 'Enhanced Motif
 # Window Manager (EMWM)' https://fastestcode.org/ - LGPLv3, MIT License).
 # Version for EMWM v2.0 and higher.
@@ -41,8 +41,8 @@ else
     ramdir="."         # (No RAM, serves as fall back scenario)
 fi
 
-# Copy 'xmbackdrop.sh' script to RAM-memory if possible in order to run it from there:
-cp $HOME/scripts/xmbackdrop.sh $ramdir/xmbackdrop.sh
+# Copy 'wsbackdrop.sh' script to RAM-memory if possible in order to run it from there:
+cp $HOME/scripts/wsbackdrop.sh $ramdir/wsbackdrop.sh
 
 # Image-sources:
 # https://sourceforge.net/projects/cdesktopenv/
@@ -236,11 +236,11 @@ backdrop()
 
     if (( image && strongcontrast )); then
         compcolor=$(dec2hex $(complement $1))
-        $ramdir/xmbackdrop.sh "$tmpfiledir/${imagelist[index]}" "$color" "$compcolor"
+        $ramdir/wsbackdrop.sh "$tmpfiledir/${imagelist[index]}" "$color" "$compcolor"
     elif (( image )); then
-        $ramdir/xmbackdrop.sh -f "$tmpfiledir/${imagelist[index]}" "$color"
+        $ramdir/wsbackdrop.sh -f "$tmpfiledir/${imagelist[index]}" "$color"
     elif (( ! image )); then
-        $ramdir/xmbackdrop.sh "none" "$color"
+        $ramdir/wsbackdrop.sh "none" "$color"
     fi
     # For debug purposes (uncomment for output to logfile):
     echo -e "$(date)\t$color\t$tmpfiledir/${imagelist[index]}" >> $HOME/backdroplog.txt

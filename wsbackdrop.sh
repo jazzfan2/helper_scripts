@@ -1,5 +1,5 @@
 #!/bin/bash
-# Name: xmbackdrop.sh
+# Name: wsbackdrop.sh
 # Author: Rob Toscani
 # Date: 2nd May 2026
 # Description: Set backdrop image and optional color(s) for current EMWM workspace.
@@ -22,12 +22,12 @@
 #
 # Copyright (C) 2026 Rob Toscani <rob_toscani@yahoo.com>
 #
-# xmbackdrop.sh is free software: you can redistribute it and/or modify
+# wsbackdrop.sh is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
 # the Free Software Foundation, either version 3 of the License, or
 # (at your option) any later version.
 #
-# xmbackdrop.sh is distributed in the hope that it will be useful,
+# wsbackdrop.sh is distributed in the hope that it will be useful,
 # but WITHOUT ANY WARRANTY; without even the implied warranty of
 # MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 # GNU General Public License for more details.
@@ -80,7 +80,7 @@ helptext()
 # Text printed if -h option (help) or a non-existent option has been given:
 {
 	cat <<-EOF
-		Usage: xmbackdrop.sh [-fh] IMAGE [BACKGROUNDCOLOR [FOREGROUNDCOLOR]]
+		Usage: wsbackdrop.sh [-fh] IMAGE [BACKGROUNDCOLOR [FOREGROUNDCOLOR]]
 
 		-f   Calculate foreground-color from background-color if given
 		-h   Help (this output).

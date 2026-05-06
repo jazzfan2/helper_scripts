@@ -76,8 +76,8 @@ It is meant to act as a background daemon called from the $HOME/.sessionetc file
 EMWM's session manager).
 
 It runs 'wsbackdrop.sh', that offers the following functionality:
-- calculation of foregound-color as the 'topShadowColor' based on given background-color - as an option;
-- enabling foreground-color setting for XPM images - in addition to background color - and (re-)activating 'selectColor' and 'topShadowColor' as additional gradations in between/beyond;
+- automatic calculation of the foregound-color based on given background-color - as an option;
+- on-the-fly (X)PM-editing, re-activating 'topShadowColor' (= foreground), 'selectColor' and 'topShadowColor' in as colored gradations in addition to background color;
 - a fix for the (Motif) 'Flat-White-Backdrop-Bug' if certain background-/foreground-color combinations are used with XBM images;
 - setting of the desired backdrop image and color(s) for the current workspace.
 Its engine is the 'tellmwm' program by Alexander Pampuchin (see https://fastestcode.org/misc.html).

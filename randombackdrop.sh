@@ -182,9 +182,9 @@ backdrop()
 # Set color and optionally the image of window 0 backdrop:
 {
     color=$(dec2hex $1)
-    compcolor=$(dec2hex $(complement $1))
 
     if (( image && strongcontrast )); then
+        compcolor=$(dec2hex $(complement $1))
         $ramdir/xmbackdrop.sh "$tmpfiledir/${imagelist[index]}" "$color" "$compcolor"
     elif (( image )); then
         $ramdir/xmbackdrop.sh -f "$tmpfiledir/${imagelist[index]}" "$color"
@@ -298,13 +298,13 @@ while true; do
             end=$(random_rgb)
         fi
 
-       gradualshift "$start" "$end" |
-       while read color; do
-           backdrop $color
-           sleep 0.5
-       done
+        gradualshift "$start" "$end" |
+        while read gradation; do
+            backdrop $gradation
+            sleep 0.5
+        done
 
-       # Next shifting start color is complementary to previous end color:
+        # Next shifting start color is complementary to previous end color:
         if (( complementarynext )); then
             start=$(complement $end)
 

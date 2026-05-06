@@ -5,10 +5,10 @@
 # Description: Random-cycling of colors and Motif/X11(CDE)-backdrop images,
 # particularly - but not limited to - (x)bm and (x)pm formats.
 #
-# Wrapper around the 'xmbackdrop.sh' script. Engine: the 'tellmwm' program
+# Wrapper around the 'xmbackdrop.sh' script. Engine: the 'tellmwm()' program
 # by Alexander Pampuchin (workspace control utility for the 'Enhanced Motif
 # Window Manager (EMWM)' https://fastestcode.org/ - LGPLv3, MIT License).
-# Version for EMWM v2 and higher.
+# Version for EMWM v2.0 and higher.
 #
 # Meant to act as a background daemon called from the $HOME/.sessionetc
 # file (i.e. the 'startup applications' file read by EMWM's session manager).

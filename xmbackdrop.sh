@@ -5,9 +5,8 @@
 # Description: Set backdrop image and optional color(s) for current EMWM workspace.
 #
 # Wrapper script around the 'tellmwm()' program by Alexander Pampuchin
-# (part of the 'Enhanced Motif Window Manager (EMWM)' - https://fastestcode.org/
-# - LGPLv3, MIT License), which as a prerequisite must have been installed in
-# order for this script to function.
+# (workspace control utility for the 'Enhanced Motif Window Manager (EMWM)'
+# https://fastestcode.org/ - LGPLv3, MIT License).
 # EMWM version must be at least v2.0 to use this program.
 #
 # Possible future feature: if $1 equals 'same', then the *current* image will

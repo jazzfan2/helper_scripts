@@ -3,13 +3,12 @@
 # Author: R.J.Toscani
 # Date: 5th of May 2026
 # Description: Interactive wrapper around the 'randombackdrop.sh' and
-# 'xmbackdrop.sh' scripts.
-# Engine: the 'tellmwm' program by Alexander Pampuchin (part of the 'Enhanced
-# Motif Window Manager (EMWM)' - https://fastestcode.org/ - LGPLv3, MIT License),
-# which as a prerequisite must have been installed in order for this script
-# to function. Intended to be launched as an item from the EMWM toolbox-menu.
+# 'xmbackdrop.sh' scripts. Engine: the 'tellmwm()' program by Alexander Pampuchin
+# (workspace control utility for the 'Enhanced Motif Window Manager (EMWM)'
+# https://fastestcode.org/ - LGPLv3, MIT License).
+# EMWM version must be at least v2.0 to use this program.
 #
-# Version for EMWM v2 and higher.
+# Intended to be launched as an item from the EMWM toolbox-menu.
 #
 ##############################################################################
 #

@@ -326,5 +326,5 @@ EOF
 fi
 
 # Periodically set temporary color and image as current workspace backdrop:
-sleep 0.5   # To prevent overruling by global setting at start of EMWM session
+sleep 0.4   # To prevent overruling by global setting at start of EMWM session
 cycle

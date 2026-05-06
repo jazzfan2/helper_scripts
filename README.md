@@ -75,9 +75,9 @@ do a detailed selection of the color in the XPaint canvas popping up, and obtain
 It is meant to act as a background daemon called from the $HOME/.sessionetc file (i.e. the 'startup applications' file read by
 EMWM's session manager).
 
-It runs 'wsbackdrop.sh', that sets desired backdrop image and color(s) for the current workspace, with addition of following functionality:
+It runs 'wsbackdrop.sh', that sets desired backdrop image and color(s) for the current workspace, while adding following functionality:
 - automatic calculation of the 'foregound'-color, based on given 'background'-color (as an option);
-- on-the-fly editing of (X)PM-file, re-activating 'bottomShadowColor' (= foreground), 'selectColor' and 'topShadowColor' as gradations of given 'background'-color;
+- on-the-fly editing of the (X)PM-file, re-activating 'bottomShadowColor' (= foreground), 'selectColor' and 'topShadowColor' as gradations of given 'background'-color;
 - a fix for the (Motif) 'Flat-White-Backdrop-Bug' if certain background-/foreground-color combinations are used with (X)BM images;
 Its engine is the 'tellmwm' program by Alexander Pampuchin (see https://fastestcode.org/misc.html).
 

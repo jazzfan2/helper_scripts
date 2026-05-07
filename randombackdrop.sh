@@ -166,14 +166,18 @@ cycle()
             fi
         # Static colors switching to complementary colors after every $period:
         elif (( complementarynext )); then
-            backdrop $(complement $color1) $(complement $color2) $index
+            color1=$(complement $color1)
+            color2=$(complement $color2)
+            backdrop $color1 $color2 $index
             sleep $period
         # Static colors remaining identical:
         elif (( identicalnext )); then
             continue
         # Static colors switching to random colors after every $period (= default static behaviour):
         else
-            backdrop $(random_rgb) $(random_rgb) $index
+            color1=$(random_rgb)
+            color2=$(random_rgb)
+            backdrop $color1 $color2 $index
             sleep $period
         fi
     done

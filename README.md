@@ -77,7 +77,7 @@ EMWM's session manager).
 
 It runs 'wsbackdrop.sh', that sets desired backdrop image and color(s) for the current workspace, using the 'tellmwm' program
 by Alexander Pampuchin (see https://fastestcode.org/misc.html) as its engine.
-In addition, the following extra functionality is offered:
+In addition, following extra functionality is provided:
 - calculation of the 'foregound'-color as a darker shade of the given 'background'-color (as an option);
 - on-the-fly editing of the (X)PM color scheme, re-activating 'bottomShadowColor' (= 'foreground'), 'selectColor' and 'topShadowColor' 
   as gradations within the color-range from 'foreground'-color to/beyond 'background'-color;

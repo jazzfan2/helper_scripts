@@ -42,7 +42,7 @@ else
 fi
 
 # Copy 'wsbackdrop.sh' script to RAM-memory if possible in order to run it from there:
-cp $HOME/scripts/wsbackdrop.sh $ramdir/wsbackdrop.sh
+\cp $HOME/scripts/wsbackdrop.sh $ramdir/wsbackdrop.sh
 
 # Image-sources:
 # https://sourceforge.net/projects/cdesktopenv/

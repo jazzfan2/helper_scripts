@@ -252,7 +252,7 @@ dec2hex()
 }
 
 backdrop()
-# Set color(s) and optionally the image of workspace backdrop:
+# Set color(s) and optionally the image of the current workspace backdrop:
 {
     color1=$(dec2hex $1)   # Background color
     color2=$(dec2hex $2)   # Foreground color (independent from backgrond color)

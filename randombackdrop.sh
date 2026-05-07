@@ -60,33 +60,27 @@ options(){
 # Specify options:
     while getopts "cgGhnp:Prsi" OPTION; do
         case $OPTION in
-            c) complementarynext=1 # Next color complementary to previous (end) color
+            c) complementarynext=1  # Next color complementary to previous (end) color
                ;;
-            g) gradual=1           # Gradual shift to random end-color
+            g) gradual=1            # Gradual shift to random end-color
                ;;
-            G) crossover=1         # Gradual shift to complementary end-color
+            G) crossover=1          # Gradual shift to complementary end-color
                gradual=1
                ;;
             h) helptext>&2
                exit 0
                ;;
-            n) image=0             # No CDE backdrop images (overrules options -f and -r)
-               strongcontrast=0
-               randomforeground=0
+            n) image=0              # No CDE backdrop images (overrides options -f and -r)
                ;;
-            p) period="$OPTARG"    # Specify period
+            p) period="$OPTARG"     # Specify period
                ;;
-            P) xpm_only=1          # Accept XPM-files only, omit XBM-files
+            P) xpm_only=1           # Accept XPM-files only, omit XBM-files
                ;;
-            s) strongcontrast=1    # Strong color-contrast by complementary foreground
-               randomforeground=0
-               (( ! image )) && strongcontrast=0
+            r) randomforeground=1   # Random foreground color, independent from background
                ;;
-            r) randomforeground=1  # Random foreground color, independent from background
-               strongcontrast=0
-               (( ! image )) && randomforeground=0
+            s) strongcontrast=1     # Strong color-contrast by complementary foreground
                ;;
-            i) identicalnext=1     # Next color identical to previous (end-)color
+            i) identicalnext=1      # Next color identical to previous (end-)color
                ;;
             *) helptext>&2
                exit 1
@@ -101,19 +95,22 @@ helptext()
 	cat <<-EOF
 		Usage: randombackdrop.sh [-icgGhnpPrs] [-p PERIOD]
 
-		-i   Next (start-)color is identical to previous (end-)color.
-		-c   Next (start-)color complementary to previous (end-)color
-		     (Overrules -i).
-		-g   Gradual shift from start-color to random end-color.
-		     (= next start-color if -c or -i not given).
-		-G   Gradual shift from start-color to complementary end-color
-		     (= next start-color if -c or -i not given). Overrules -g.
-		-h   Help (this output).
-		-n   Only backdrop colors, no images (overrules option -f and -r).
-		-p   Specify period (default = 60 seconds).
-		-P   Accept XPM-files only, omit XBM-files
-		-r   Random foreground color, i.e. independent from background
-		-s   Strong color-contrast by complementary foreground-color
+		-i       Next (start-)color pair is identical to previous (end-)color
+		         pair.
+		-c       Next (start-)color pair complementary to previous (end-)color
+		         pair (overrides -i).
+		-g       Gradual shift from start-color pair to random end-color pair.
+		-G       Gradual shift from start-color pair to complementary end-color
+		         pair. Overrides -g.
+		-h       Help (this output).
+		-n       Only backdrop colors, no images (overrides -s and -r).
+		-p PERIOD
+                 Specify cycling period (default = 60 seconds).
+		-P       Accept XPM-files only, omit XBM-files.
+		-r       Random foreground color, unrelated to background color
+		         (overrides -s).
+		-s       Strong contrasting foreground-color, complementary to
+			     background color.
 	EOF
 }
 
@@ -145,9 +142,9 @@ cycle()
                 end2=$(random_rgb)
             fi
             gradualshift "$start1" "$end1" "$start2" "$end2" |
-            while read gradation; do
-                gradation1=${gradation/:*/}  # Background color gradation
-                gradation2=${gradation/*:/}  # Foreground color gradation (independent)
+            while read gradation_pair; do
+                gradation1=${gradation_pair/:*/}  # Background color gradation
+                gradation2=${gradation_pair/*:/}  # Foreground color gradation (independent)
                 backdrop $gradation1 $gradation2 $index
                 sleep 0.5
             done
@@ -184,19 +181,19 @@ cycle()
 }
 
 random_rgb()
-# Return random rgb-combination:
+# Return random RGB-combination:
 {
     echo "$(randomgrade)/$(randomgrade)/$(randomgrade)"
 }
 
 randomgrade()
-# Return random grade of rgb-component:
+# Return random grade of one RGB-component:
 {
     shuf --random-source=/dev/urandom -i 0-255 -n 1
 }
 
 complement()
-# Return complementary grade of red, green or blue color component:
+# Return RGB-combination complementary to given RGB-combination:
 {
     awk '\
     BEGIN { FS = "/" }
@@ -358,5 +355,5 @@ EOF
 fi
 
 # Periodically set color(s) and/or image as current workspace backdrop:
-sleep 0.4   # To prevent overruling by global setting at start of EMWM session
+sleep 0.4   # To prevent overriding by global setting at start of EMWM session
 cycle

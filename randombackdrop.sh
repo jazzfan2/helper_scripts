@@ -100,8 +100,8 @@ helptext()
 		-c       Next (start-)color pair complementary to previous (end-)color
 		         pair (overrides -i).
 		-g       Gradual shift from start-color pair to random end-color pair.
-		-G       Gradual shift from start-color pair to complementary end-color
-		         pair. Overrides -g.
+		-G       Gradual shift from start-color pair to complementary
+		         end-color pair. Overrides -g.
 		-h       Help (this output).
 		-n       Only backdrop colors, no images (overrides -s and -r).
 		-p PERIOD

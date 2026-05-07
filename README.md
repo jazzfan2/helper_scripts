@@ -78,9 +78,9 @@ EMWM's session manager).
 It runs 'wsbackdrop.sh', that sets desired backdrop image and color(s) for the current workspace, using the 'tellmwm' program
 by Alexander Pampuchin (see https://fastestcode.org/misc.html) as its engine.
 In addition, 'wsbackdrop.sh' offers following extra functionality:
-- automatic calculation of the 'foregound'-color, based on given 'background'-color (as an option);
+- automatic calculation of the 'foregound'-color as a darker shade of the given 'background'-color (as an option);
 - on-the-fly editing of the (X)PM color scheme, re-activating 'bottomShadowColor' (= 'foreground'), 'selectColor' and 'topShadowColor' 
-  as gradations within the color-range running from 'foreground' to (and beyond) 'background' color;
+  as gradations within the color-range running from 'foreground'-color beyond 'background'-color;
 - a fix for the (Motif) 'Flat-White-Backdrop-Bug' that occurs with (X)BM images in certain background-/foreground-color combinations;
 
 'randombackdropmenu.sh' is an interactive wrapper around 'randombackdrop.sh', meant to be launched as an item from the EMWM toolbox-menu.

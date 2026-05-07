@@ -105,7 +105,7 @@ helptext()
 		-h       Help (this output).
 		-n       Only backdrop colors, no images (overrides -s and -r).
 		-p PERIOD
-                 Specify cycling period (default = 60 seconds).
+                 Specify cycling PERIOD in seconds (default = 60).
 		-P       Accept XPM-files only, omit XBM-files.
 		-r       Random foreground color, unrelated to background color
 		         (overrides -s).

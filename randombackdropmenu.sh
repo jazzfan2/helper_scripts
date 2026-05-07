@@ -52,6 +52,12 @@ else
     read -p "Strong color contrast by complementary foreground [y/N]? " -n 1 "reply"
     if grep -qi "y" <<< $reply; then
        options="-s $options"
+    else
+        echo
+        read -p "Foreground color independent from background [y/N]? " -n 1 "reply"
+        if grep -qi "y" <<< $reply; then
+            options="-r $options"
+        fi
     fi
 fi
 

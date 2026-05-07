@@ -1,7 +1,7 @@
 #!/bin/bash
 # Name: randombackdrop.sh
 # Author: R.J.Toscani
-# Date: 6th of May 2026
+# Date: 5th of May 2026
 # Description: Random-cycling of colors and Motif/X11(CDE)-backdrop images,
 # particularly - but not limited to - (x)bm and (x)pm formats.
 #
@@ -58,7 +58,7 @@ imagedir3="$HOME/Documenten/Ubuntu-Linux/EMWM/wallpapers/sun"
 
 options(){
 # Specify options:
-    while getopts "cgGhnp:Prsi" OPTION; do
+    while getopts "cgGhnp:Psi" OPTION; do
         case $OPTION in
             c) complementarynext=1 # Next color complementary to previous (end) color
                ;;
@@ -70,21 +70,15 @@ options(){
             h) helptext>&2
                exit 0
                ;;
-            n) image=0             # No CDE backdrop images (overrules options -f and -r)
+            n) image=0             # No CDE backdrop images (overrules option -f)
                strongcontrast=0
-               randomforeground=0
                ;;
             p) period="$OPTARG"    # Specify period
                ;;
             P) xpm_only=1          # Accept XPM-files only, omit XBM-files
                ;;
             s) strongcontrast=1    # Strong color-contrast by complementary foreground
-               randomforeground=0
                (( ! image )) && strongcontrast=0
-               ;;
-            r) randomforeground=1  # Random foreground color, independent from background
-               strongcontrast=0
-               (( ! image )) && randomforeground=0
                ;;
             i) identicalnext=1     # Next color identical to previous (end-)color
                ;;
@@ -99,7 +93,7 @@ helptext()
 # Text printed if -h option (help) or a non-existent option has been given:
 {
 	cat <<-EOF
-		Usage: randombackdrop.sh [-icgGhnpPrs] [-p PERIOD]
+		Usage: randombackdrop.sh [-icgGhnpPs] [-p PERIOD]
 
 		-i   Next (start-)color is identical to previous (end-)color.
 		-c   Next (start-)color complementary to previous (end-)color
@@ -109,22 +103,19 @@ helptext()
 		-G   Gradual shift from start-color to complementary end-color
 		     (= next start-color if -c or -i not given). Overrules -g.
 		-h   Help (this output).
-		-n   Only backdrop colors, no images (overrules option -f and -r).
+		-n   Only backdrop colors, no images (overrules option -f).
 		-p   Specify period (default = 60 seconds).
 		-P   Accept XPM-files only, omit XBM-files
-		-r   Random foreground color, i.e. independent from background
 		-s   Strong color-contrast by complementary foreground-color
 	EOF
 }
 
 cycle()
-# Periodically set image, background color and independent foreground color, and call backdrop():
+# Periodically set temporary color and image as current workspace backdrop:
 {
-    # Generate two independent random RGB-combinations:
-    start1=$(random_rgb)
-    start2=$(random_rgb)
-    color1=start1         # Background color
-    color2=start2         # Foreground color (independent from backgrond color)
+    # Generate a random RGB-combination:
+    start=$(random_rgb)
+    color=start
     while true; do
         if (( image )); then
             (( maxindex = ${#imagelist[@]} ))
@@ -133,47 +124,40 @@ cycle()
         else
             index=0  # No image (in case of the -n option)
         fi
-        # Start colors gradually shifting into another pair of (end) colors during every $period, etc:
+        # Start color gradually shifting into another (end) color during every $period, etc:
         if (( gradual )); then
-            # End colors are complementary to start colors:
+            # End color is complementary to start color:
             if (( crossover )); then
-                end1=$(complement $start1);
-                end2=$(complement $start2)
-            # End colors are randomly chosen:
+                end=$(complement $start)
+            # End color is randomly chosen:
             else
-                end1=$(random_rgb)
-                end2=$(random_rgb)
+                end=$(random_rgb)
             fi
-            gradualshift "$start1" "$end1" "$start2" "$end2" |
+            gradualshift "$start" "$end" |
             while read gradation; do
-                gradation1=${gradation/:*/}  # Background color gradation
-                gradation2=${gradation/*:/}  # Foreground color gradation (independent)
-                backdrop $gradation1 $gradation2 $index
+                backdrop $gradation $index
                 sleep 0.5
             done
-            # Next shifting start colors are complementary to previous end colors:
+            # Next shifting start color is complementary to previous end color:
             if (( complementarynext )); then
-                start1=$(complement $end1)
-                start2=$(complement $end2)
-            # Next shifting start colors are identical to previous end colors:
+                start=$(complement $end)
+            # Next shifting start color is identical to previous end color:
             elif (( identicalnext )); then
-                start1=$end1
-                start2=$end2
-            # Next shifting start colors are randomly chosen (= default gradual behaviour):
+                start=$end
+            # Next shifting start color is randomly chosen (= default gradual behaviour):
             else
-                start1=$(random_rgb)
-                start2=$(random_rgb)
+                start=$(random_rgb)
             fi
-        # Static colors switching to complementary colors after every $period:
+        # Static color switching to complementary color after every $period:
         elif (( complementarynext )); then
-            backdrop $(complement $color1) $(complement $color2) $index
+            backdrop $(complement $color) $index
             sleep $period
-        # Static colors remaining identical:
+        # Static color remaining identical:
         elif (( identicalnext )); then
             continue
-        # Static colors switching to random colors after every $period (= default static behaviour):
+        # Static color switching to random color after every $period (= default static behaviour):
         else
-            backdrop $(random_rgb) $(random_rgb) $index
+            backdrop $(random_rgb) $index
             sleep $period
         fi
     done
@@ -205,36 +189,30 @@ complement()
 }
 
 gradualshift()
-# Gradually shift from start-color1 to end-color1, and from start-color2 to end-color2:
+# Gradually shift from start-color to end-color:
 {
-    startcolor1="$1"    # Background color (start)
-    endcolor1="$2"      # Background color (end)
-    startcolor2="$3"    # Foreground color (start, independent from background color)
-    endcolor2="$4"      # Foreground color (end, independent from background color)
+    startcolor="$1"
+    endcolor="$2"
 
     awk -v period=$period '\
     BEGIN { FS = "/" }
     {
-        startred1   = $1;   redrange1   = $4 - $1
-        startgreen1 = $2;   greenrange1 = $5 - $2
-        startblue1  = $3;   bluerange1  = $6 - $3
-
-        startred2   = $7;   redrange2   = $10 - $7
-        startgreen2 = $8;   greenrange2 = $11 - $8
-        startblue2  = $9;   bluerange2  = $12 - $9
+        startred   = $1
+        startgreen = $2
+        startblue  = $3
+        redrange   = $4 - $1
+        greenrange = $5 - $2
+        bluerange  = $6 - $3
 
         elapsed = 0
         while (elapsed < 2*period){
-            red1   = startred1   + elapsed * redrange1   / (2 * period)
-            green1 = startgreen1 + elapsed * greenrange1 / (2 * period)
-            blue1  = startblue1  + elapsed * bluerange1  / (2 * period)
-            red2   = startred2   + elapsed * redrange2   / (2 * period)
-            green2 = startgreen2 + elapsed * greenrange2 / (2 * period)
-            blue2  = startblue2  + elapsed * bluerange2  / (2 * period)
-            print red1 "/" green1 "/" blue1 ":" red2 "/" green2 "/" blue2
+            red   = startred   + elapsed * redrange   / (2 * period)
+            green = startgreen + elapsed * greenrange / (2 * period)
+            blue  = startblue  + elapsed * bluerange  / (2 * period)
+            print red "/" green "/" blue
             elapsed += 1
         }
-    }' <<< "$startcolor1/$endcolor1/$startcolor2/$endcolor2"
+    }' <<< "$startcolor/$endcolor"
 }
 
 dec2hex()
@@ -251,24 +229,21 @@ dec2hex()
 }
 
 backdrop()
-# Set color(s) and optionally the image of workspace backdrop:
+# Set color and optionally the image of window 0 backdrop:
 {
-    color1=$(dec2hex $1)   # Background color
-    color2=$(dec2hex $2)   # Foreground color (independent from backgrond color)
-    index=$3
+    color=$(dec2hex $1)
+    index=$2
 
-    if (( image && randomforeground )); then   # independent foreground color
-        $ramdir/wsbackdrop.sh "$tmpfiledir/${imagelist[index]}" "$color1" "$color2"
-    elif (( image && strongcontrast )); then   # complementary foreground color
-        compcolor=$(dec2hex $(complement $1)) 
-        $ramdir/wsbackdrop.sh "$tmpfiledir/${imagelist[index]}" "$color1" "$compcolor"
-    elif (( image )); then                     # foreground is calculated by wsbackdrop.sh
-        $ramdir/wsbackdrop.sh -f "$tmpfiledir/${imagelist[index]}" "$color1"
-    elif (( ! image )); then                   # image and foreground color omitted
-        $ramdir/wsbackdrop.sh "none" "$color1"
+    if (( image && strongcontrast )); then
+        compcolor=$(dec2hex $(complement $1))
+        $ramdir/wsbackdrop.sh "$tmpfiledir/${imagelist[index]}" "$color" "$compcolor"
+    elif (( image )); then
+        $ramdir/wsbackdrop.sh -f "$tmpfiledir/${imagelist[index]}" "$color"
+    elif (( ! image )); then
+        $ramdir/wsbackdrop.sh "none" "$color"
     fi
     # For debug purposes (uncomment for output to logfile):
-    echo -e "$(date)\t$color1\t$tmpfiledir/${imagelist[index]}" >> $HOME/backdroplog.txt
+    echo -e "$(date)\t$color\t$tmpfiledir/${imagelist[index]}" >> $HOME/backdroplog.txt
 }
 
 
@@ -289,7 +264,6 @@ gradual=0            # No gradual shift from start-color to end-color
 crossover=0          # End-color not complementary to start-color
 identicalnext=0      # Next color not identical to previous (end-)color
 strongcontrast=0     # No strong color-contrast by complementary foreground-color
-randomforeground=0   # No independent foreground-color
 xpm_only=0           # Accept both XPM- and XBM-files
 
 # Execute the options:
@@ -334,8 +308,6 @@ Gray*
 grey.*
 inversegrey.*
 NoBackdrop.*
-Pattern50.*
-Ridged.*
 SkyDark.*pm
 SkyLight.*pm
 Toronto.*bm
@@ -353,6 +325,6 @@ EOF
     done < <(ls $tmpfiledir)
 fi
 
-# Periodically set color(s) and/or image as current workspace backdrop:
+# Periodically set temporary color and image as current workspace backdrop:
 sleep 0.4   # To prevent overruling by global setting at start of EMWM session
 cycle

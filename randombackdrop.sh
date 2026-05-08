@@ -107,7 +107,7 @@ helptext()
 		-p PERIOD
                  Specify cycling PERIOD in seconds (default = 60).
 		-P       Accept XPM-files only, omit XBM-files.
-		-r       Random foreground color, unrelated to background color
+		-r       Random foreground color, unrelated to background color.
 		         Overrides -s.
 		-s       Strong contrasting foreground-color, complementary to
 			     background color.

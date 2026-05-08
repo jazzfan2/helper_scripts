@@ -98,17 +98,17 @@ helptext()
 		-i       Next (start-)color pair is identical to previous (end-)color
 		         pair.
 		-c       Next (start-)color pair complementary to previous (end-)color
-		         pair (overrides -i).
+		         pair. Overrides -i.
 		-g       Gradual shift from start-color pair to random end-color pair.
 		-G       Gradual shift from start-color pair to complementary
 		         end-color pair. Overrides -g.
 		-h       Help (this output).
-		-n       Only backdrop colors, no images (overrides -s and -r).
+		-n       Only backdrop colors, no images. Overrides -s and -r.
 		-p PERIOD
                  Specify cycling PERIOD in seconds (default = 60).
 		-P       Accept XPM-files only, omit XBM-files.
 		-r       Random foreground color, unrelated to background color
-		         (overrides -s).
+		         Overrides -s.
 		-s       Strong contrasting foreground-color, complementary to
 			     background color.
 	EOF

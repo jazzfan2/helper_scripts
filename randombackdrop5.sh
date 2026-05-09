@@ -1,7 +1,7 @@
 #!/bin/bash
 # Name: randombackdrop.sh
 # Author: R.J.Toscani
-# Date: 9th of May 2026
+# Date: 6th of May 2026
 # Description: Random-cycling of colors and Motif/X11(CDE)-backdrop images,
 # particularly - but not limited to - (x)bm and (x)pm formats.
 #
@@ -58,22 +58,19 @@ imagedir3="$HOME/Documenten/Ubuntu-Linux/EMWM/wallpapers/sun"
 
 options(){
 # Specify options:
-    while getopts "cf:gGhnp:Prsi" OPTION; do
+    while getopts "cgGhnp:Prsi" OPTION; do
         case $OPTION in
-            c) complementarynext=1  # Next color complementary to previous (end) color.
-               ;;
-            f) fixed=1              # Fixed image.
-               fixed_image="$OPTARG"
+            c) complementarynext=1  # Next color complementary to previous (end) color
                ;;
             g) gradual=1            # Gradual shift to random end-color
                ;;
-            G) crossover=1          # Gradual shift to complementary end-color.
+            G) crossover=1          # Gradual shift to complementary end-color
                gradual=1
                ;;
-            h) helptext>&2          # Print help text.
+            h) helptext>&2
                exit 0
                ;;
-            n) image=0              # No CDE backdrop images.
+            n) image=0              # No CDE backdrop images (overrides options -f and -r)
                ;;
             p) period="$OPTARG"     # Specify period
                ;;
@@ -96,19 +93,17 @@ helptext()
 # Text printed if -h option (help) or a non-existent option has been given:
 {
 	cat <<-EOF
-		Usage: randombackdrop.sh [-icfgGhnpPrs] [-p PERIOD]
+		Usage: randombackdrop.sh [-icgGhnpPrs] [-p PERIOD]
 
 		-i       Next (start-)color pair is identical to previous (end-)color
 		         pair.
 		-c       Next (start-)color pair complementary to previous (end-)color
 		         pair. Overrides -i.
-		-f PATH
-		         Fixed image with with full PATH to file. Overrides -P.
 		-g       Gradual shift from start-color pair to random end-color pair.
 		-G       Gradual shift from start-color pair to complementary
 		         end-color pair. Overrides -g.
 		-h       Help (this output).
-		-n       Only backdrop colors, no images. Overrides -f, -s and -r.
+		-n       Only backdrop colors, no images. Overrides -s and -r.
 		-p PERIOD
                  Specify cycling PERIOD in seconds (default = 60).
 		-P       Accept XPM-files only, omit XBM-files.
@@ -288,7 +283,6 @@ done < <(ps aux | grep "/bin/bash $HOME/scripts/randombackdrop.sh" | \
          awk '{ print $2 }')
 
 # Defaults:
-fixed=0              # No single fixed image
 period=60            # Period = 60 seconds
 image=1              # Include CDE backdrop images
 complementarynext=0  # Next color not complementary to previous color
@@ -315,27 +309,24 @@ trap "[[ -d $tmpfiledir ]] && \rm -rf $tmpfiledir; exit" SIGINT SIGTERM
 
 # Copy the CDE backdrop-images (pixmap and bitmap) to the temporary directory
 # (except in if -n option is given):
-if (( image)); then
+if (( image )); then
     mkdir $tmpfiledir
-    if (( fixed )); then
-        \cp $fixed_image $tmpfiledir 2>/dev/null 
-    else
-        while read path; do
-            \cp $path/{*.pm,*.xpm} $tmpfiledir 2>/dev/null
-            if (( ! xpm_only )); then
-                \cp $path/{*.bm,*.xbm} $tmpfiledir 2>/dev/null
-            fi
-        done << EOF
+    while read path; do
+        \cp $path/{*.pm,*.xpm} $tmpfiledir 2>/dev/null
+        if (( ! xpm_only )); then
+            \cp $path/{*.bm,*.xbm} $tmpfiledir 2>/dev/null
+        fi
+    done << EOF
 $imagedir1
 $imagedir2
 $imagedir3
 EOF
-        # Remove some non-desired backdrops from the temporary directory
-        # (either because of lack of figuration, insufficient height or negative
-        # representation w/ most colors):
-        while read omissions; do
-            \rm $tmpfiledir/$omissions 2>/dev/null
-        done << EOF
+    # Remove some non-desired backdrops from the temporary directory
+    # (either because of lack of figuration, insufficient height or negative
+    # representation w/ most colors):
+    while read omissions; do
+        \rm $tmpfiledir/$omissions 2>/dev/null
+    done << EOF
 Background.*
 Foreground.*
 black.*
@@ -351,8 +342,6 @@ SkyLight.*pm
 Toronto.*bm
 BrickWall.*bm
 EOF
-
-    fi
 
     # Make an array (global variable) in which all image names are to be stored:
     declare -a imagelist

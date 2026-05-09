@@ -1,7 +1,29 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf8">
+<style type="text/css">
+pre {
+  font-family: "Courier New", monospace;
+  font-size:   12pt;
+  white-space: pre-wrap;
+  white-space: -moz-pre-wrap;
+  white-space: -pre-wrap;
+  white-space: -o-pre-wrap;
+  white-space: -webkit-pre-wrap;
+  word-wrap:   break-word;
+}
+</style>
+<title>wsbackdrop_probeersel.sh</title>
+</head>
+<body>
+<pre>
+
 #!/bin/bash
 # Name: wsbackdrop.sh
 # Author: Rob Toscani
-# Date: 9nd May 2026
+# Date: <span style="font-weight:bold;color:#ff0000;">2nd</span> <span style="font-weight:bold;color:#00ff00;">9th of</span> May 2026
 # Description: Set backdrop image and optional color(s) for current EMWM workspace.
 #
 # Wrapper script around the 'tellmwm()' program by Alexander Pampuchin
@@ -9,13 +31,18 @@
 # https://fastestcode.org/ - LGPLv3, MIT License).
 # EMWM version must be at least v2.0 to use this program.
 #
-# BUG: foreground-color calculation function only supports
-# "rgb:<red>/<green>/<blue>" color-notation for now,
+# <span style="font-weight:bold;color:#ff0000;">Possible future feature: if $1 equals 'same', then the *current* image will
+# be set with specified color(s).
+# Method: use 'tellmwm' command and some filtering to determine existing image
+# used with current workspace.
+#
+#</span> BUG: foreground-color calculation function only supports
+# "rgb:&lt;red&gt;/&lt;green&gt;/&lt;blue&gt;" color-notation for now,
 # Color *names* aren´t supported as of yet (under development).
 #
 #############################################################################
 #
-# Copyright (C) 2026 Rob Toscani <rob_toscani@yahoo.com>
+# Copyright (C) 2026 Rob Toscani &lt;rob_toscani@yahoo.com&gt;
 #
 # wsbackdrop.sh is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -28,7 +55,7 @@
 # GNU General Public License for more details.
 #
 # You should have received a copy of the GNU General Public License
-# along with this program.  If not, see <http://www.gnu.org/licenses/>.
+# along with this program.  If not, see &lt;http://www.gnu.org/licenses/&gt;.
 #
 ############################################################################
 #
@@ -48,7 +75,8 @@ else
 fi
 
 # Names of RAM-subdirectory and modified pixmap file:
-subdir="subdir_$RANDOM$RANDOM"
+subdir="subdir_$RANDOM$RANDOM"<span style="font-weight:bold;color:#ff0000;">
+new_image="image_$RANDOM$RANDOM"</span>
 
 # Determine current workspace:
 workspace=$(tellmwm | tail -n 1 | awk '{ print $NF }')
@@ -63,7 +91,7 @@ options(){
         case $OPTION in
             f) calculate_fgcolor=1  # Calculate foreground- from background-color
                ;;
-            *) helptext>&2
+            *) helptext&gt;&2
                exit 1
                ;;
         esac
@@ -73,15 +101,17 @@ options(){
 helptext()
 # Text printed if -h option (help) or a non-existent option has been given:
 {
-	cat <<-EOF
+	cat &lt;&lt;-EOF
 		Usage: wsbackdrop.sh [-fh] IMAGE [BACKGROUNDCOLOR [FOREGROUNDCOLOR]]
 
 		-f   Calculate foreground-color from background-color if given
 		-h   Help (this output).
 
 		Arguments:
-		IMAGE            Full path to image file, or 'none' for no image.
-		BACKGROUNDCOLOR  Hexadecimal RGB-string "rgb:1C/87/fa" (example).
+		IMAGE            Full path to image <span style="font-weight:bold;color:#ff0000;">file</span> <span style="font-weight:bold;color:#00ff00;">file, or
+		                 'same' for previous image, or
+		                 'none' for no image</span>
+		BACKGROUNDCOLOR  Hexadecimal RGB-string "rgb:1C/87/fa" <span style="font-weight:bold;color:#ff0000;">(example)</span> <span style="font-weight:bold;color:#00ff00;">(example).</span>
 		FOREGROUNDCOLOR  Idem
 	EOF
 }
@@ -103,12 +133,12 @@ get_fgcolor()
         factor_fg     = 1
         offset_red_fg = offset_green_fg = offset_blue_fg  = 0
 
-        if ( brightness < DarkThreshold ){
+        if ( brightness &lt; DarkThreshold ){
             offset_red_fg   = 0.2 * (255 - red)
             offset_green_fg = 0.2 * (255 - green)
             offset_blue_fg  = 0.2 * (255 - blue)
         }
-        else if ( brightness > LightThreshold )
+        else if ( brightness &gt; LightThreshold )
             factor_fg = 0.5
         else
             factor_fg = 0.6
@@ -118,11 +148,19 @@ get_fgcolor()
         blue_fg  = sprintf("%02x", blue  * factor_fg + offset_blue_fg)
 
         printf ("%s\n", "rgb:"red_fg"/"green_fg"/"blue_fg)
-    }' <<< "${rgb/*:/}"
+    }' &lt;&lt;&lt; "${rgb/*:/}"
 }
-
+<span style="font-weight:bold;color:#00ff00;">
+tellimage()
+# Report full path to current backdrop image:
+{
+    (( nr = ${workspace/ws/} + 1 ))
+    path="$(tellmwm | grep "Backdrop" | head -n $nr | tail -n -1)"
+    echo "${path:13}"
+}
+</span>
 tellrgb()
-# Report current rgb of argument-string "Background" or "Foreground":
+# Report <span style="font-weight:bold;color:#00ff00;">current</span> rgb of argument-string "Background" or "Foreground":
 {
     (( nr = ${workspace/ws/} + 1 ))
     tellmwm | grep "$1" | head -n $nr | tail -n -1 |
@@ -140,7 +178,7 @@ combinecolor()
         green = sprintf("%d", strtonum("0x" $2))
         blue  = sprintf("%d", strtonum("0x" $3))
         print 256**2 * red + 256 * green + blue
-    }' <<< "${rgb/*:/}"
+    }' &lt;&lt;&lt; "${rgb/*:/}"
 }
 
 testwhite()
@@ -150,7 +188,7 @@ testwhite()
     BEGIN {
         mod=31
         remainder = bg % mod
-        badfg = 65805 + (remainder >= 13) * mod - remainder
+        badfg = 65805 + (remainder &gt;= 13) * mod - remainder
         if ((fg - badfg) % mod == 0)
             print 1           # Remainder = 0 gives white result
         else
@@ -169,7 +207,7 @@ shiftcolor()
         green = $2
         blue = sprintf("%02x", strtonum("0x" $3) + 0x01)
         print "rgb:"red"/"green"/"blue
-    }' <<< "${rgb/*:/}"
+    }' &lt;&lt;&lt; "${rgb/*:/}"
 }
 
 convert_xpm()
@@ -180,7 +218,7 @@ convert_xpm()
 {
     awk -v bgcolor=$bgcolor -v fgcolor=$fgcolor '\
     function min(a, b){
-        if (a <= b)
+        if (a &lt;= b)
             return a
         else
             return b
@@ -204,7 +242,7 @@ convert_xpm()
         slcolor  = "#" red_sl green_sl blue_sl
 
         # Calculate topShadowColor RGB-values from background-color RGB:
-        if (brightness(red_bg, green_bg, blue_bg) > brightness(red_fg, green_fg, blue_fg))
+        if (brightness(red_bg, green_bg, blue_bg) &gt; brightness(red_fg, green_fg, blue_fg))
             factor = 1.4    # default value
         else
             factor = 0.7    # "inverted" value (proposed)
@@ -237,11 +275,13 @@ options "$@"
 shift $(( OPTIND - 1 ))
 
 image="$1"
-(( $# >= 2 )) && bgcolor="$2"
+(( $# &gt;= 2 )) && bgcolor="$2"
 (( $# == 3 )) && fgcolor="$3"
-
+<span style="font-weight:bold;color:#00ff00;">
+[[ $image == "same" ]] && image="$(tellimage)"
+</span>
 # Get foreground color (and background color) if not given for current workspace:
-if (( calculate_fgcolor )) && (( $# >= 2 )); then
+if (( calculate_fgcolor )) && (( $# &gt;= 2 )); then
     fgcolor="$(get_fgcolor "$bgcolor")"
 elif (( $# == 2 )); then
     fgcolor="$(tellrgb "Foreground")"
@@ -251,19 +291,23 @@ elif (( $# == 1 )); then
 fi
 
 #  If image is an XBM, and bg/fg-combination causes a flat white backdrop, slightly change fgcolor:
-if grep -qE "\.x?bm$" <<< "$image"; then
+if grep -qE "\.x?bm$" &lt;&lt;&lt; "$image"; then
     (( $(testwhite "$bgcolor" "$fgcolor") )) && fgcolor="$(shiftcolor "$fgcolor")"
 fi
 
 # If image is an XPM, derive a modified version with adapted 's'- and 'c'-fields in color string:
-if grep -qE "\.x?pm$" <<< "$image"; then
-    mkdir "$tempdir/$subdir"                            # New subdir needed for tellmwm() to show image
-    new_image="${image/*\//}"                           # Edited XPM file keeps file name
-    convert_xpm $image >| "$tempdir/$subdir/$new_image" # tellmwm ignores image if process-substitution
+if grep -qE "\.x?pm$" &lt;&lt;&lt; "$image"; then
+    <span style="font-weight:bold;color:#00ff00;">new_image="${image/*\//}"
+   </span> mkdir "$tempdir/$subdir"                            # New subdir needed for tellmwm() to show image
+    convert_xpm $image &gt;| "$tempdir/$subdir/$new_image" # tellmwm ignores image if process-substitution
     image="$tempdir/$subdir/$new_image"                 # Full path needed
 fi
 
 # Set desired colors and image as backdrop for current workspace:
 tellmwm backdrop $workspace -b "$bgcolor" -f "$fgcolor" "$image"
 
-[[ -d "$tempdir/$subdir" ]] && rm -rf "$tempdir/$subdir"
+[[ -d "$tempdir/$subdir" ]] && rm -rf "$tempdir/$subdir" <span style="font-weight:bold;color:#00ff00;"> </span>
+
+</pre>
+</body>
+</html>

@@ -63,7 +63,7 @@ options(){
             c) complementarynext=1  # Next color complementary to previous (end) color.
                ;;
             f) fixed=1              # Fixed image.
-               fixed_image="$OPTARG"
+               image_path="$OPTARG"
                ;;
             g) gradual=1            # Gradual shift to random end-color
                ;;
@@ -102,8 +102,8 @@ helptext()
 		         pair.
 		-c       Next (start-)color pair complementary to previous (end-)color
 		         pair. Overrides -i.
-		-f PATH
-		         Fixed image with with full PATH to file. Overrides -P.
+		-f IMAGEPATH
+		         Fixed image, with with full IMAGEPATH to file. Overrides -P.
 		-g       Gradual shift from start-color pair to random end-color pair.
 		-G       Gradual shift from start-color pair to complementary
 		         end-color pair. Overrides -g.
@@ -318,7 +318,7 @@ trap "[[ -d $tmpfiledir ]] && \rm -rf $tmpfiledir; exit" SIGINT SIGTERM
 if (( image)); then
     mkdir $tmpfiledir
     if (( fixed )); then
-        \cp $fixed_image $tmpfiledir 2>/dev/null 
+        \cp $image_path $tmpfiledir 2>/dev/null 
     else
         while read path; do
             \cp $path/{*.pm,*.xpm} $tmpfiledir 2>/dev/null

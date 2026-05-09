@@ -326,9 +326,9 @@ if (( image)); then
                 \cp $path/{*.bm,*.xbm} $tmpfiledir 2>/dev/null
             fi
         done << EOF
-$imagedir1
-$imagedir2
-$imagedir3
+        $imagedir1
+        $imagedir2
+        $imagedir3
 EOF
         # Remove some non-desired backdrops from the temporary directory
         # (either because of lack of figuration, insufficient height or negative

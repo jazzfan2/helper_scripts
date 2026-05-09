@@ -1,7 +1,7 @@
 #!/bin/bash
 # Name: randombackdropmenu.sh
 # Author: R.J.Toscani
-# Date: 5th of May 2026
+# Date: 9th of May 2026
 # Description: Interactive wrapper around the 'randombackdrop.sh' and
 # 'wsbackdrop.sh' scripts. Engine: the 'tellmwm()' program by Alexander Pampuchin
 # (workspace control utility for the 'Enhanced Motif Window Manager (EMWM)'
@@ -29,6 +29,11 @@
 #
 #############################################################################
 
+
+imagedir1="/usr/dt/share/backdrops"
+imagedir2="$HOME/Documenten/Ubuntu-Linux/EMWM/wallpapers/cde"
+imagedir3="$HOME/Documenten/Ubuntu-Linux/EMWM/wallpapers/sun"
+
 period=60
 read -p "Specify cycling period in (minimally 1) seconds (<ENTER> = 60s): " period
 
@@ -43,31 +48,52 @@ read -p "Include CDE-images [y/N]? " -n 1 "reply"
 if ! grep -qi "y" <<< $reply; then
     options="-n $options"
 else
-    echo
-    read -p "Exclude XBM-files [y/N]? " -n 1 "reply"
+    printf "\nOne single fixed image [y/N]? "
+    read -n 1 "reply"
     if grep -qi "y" <<< $reply; then
-        options="-P $options"
+        while true; do
+            echo
+            while read "dir"; do
+                find "$dir"/{*.bm,*.xbm,*.pm,*.xpm} 2>/dev/null
+            done << EOF
+            $imagedir1
+            $imagedir2
+            $imagedir3
+EOF
+            printf "Enter full path to image: "
+            read "path"
+            if [[ -f "$path" ]]; then
+                break
+            fi
+        done
+        options="-f "$path" $options"
+    else
+        printf "\nExclude XBM-files [y/N]? "
+        read -n 1 "reply"
+        if grep -qi "y" <<< $reply; then
+            options="-P $options"
+        fi
     fi
-    echo
-    read -p "Strong color contrast by complementary foreground [y/N]? " -n 1 "reply"
+    printf "\nStrong color contrast by complementary foreground [y/N]? "
+    read -n 1 "reply"
     if grep -qi "y" <<< $reply; then
        options="-s $options"
     else
-        echo
-        read -p "Foreground color independent from background [y/N]? " -n 1 "reply"
+        printf "\nForeground color independent from background [y/N]? "
+        read -n 1 "reply"
         if grep -qi "y" <<< $reply; then
             options="-r $options"
         fi
     fi
 fi
 
-echo
-read -p "Gradual shift of colors [y/N]? " -n 1 "reply"
+printf "\nGradual shift of colors [y/N]? "
+read -n 1 "reply"
 
 if grep -qi "y" <<< $reply; then
 
-    echo
-    read -p "Shift to a complementary color [y/N] instead of a random color? " -n 1 "reply"
+    printf "\nShift to a complementary color [y/N] instead of a random color? "
+    read -n 1 "reply"
 
     if grep -qi "y" <<< $reply; then
         options="-G $options"
@@ -75,8 +101,8 @@ if grep -qi "y" <<< $reply; then
         options="-g $options"
     fi
 
-    echo
-    read -p "Next color identical [i] or complementary [c] to previous, or random [any other key]? " -n 1 "reply"
+    printf "\nNext color identical [i] or complementary [c] to previous, or random [any other key]? "
+    read -n 1 "reply"
 
     if grep -qi "c" <<< $reply; then
         options="-c $options"

@@ -1,7 +1,7 @@
 #!/bin/bash
 # Name: wsbackdrop.sh
 # Author: Rob Toscani
-# Date: 9nd May 2026
+# Date: 9th May 2026
 # Description: Set backdrop image and optional color(s) for current EMWM workspace.
 #
 # Wrapper script around the 'tellmwm()' program by Alexander Pampuchin
@@ -47,7 +47,7 @@ else
     tempdir="."               # (No RAM, serves as fall back scenario)
 fi
 
-# Names of RAM-subdirectory and modified pixmap file:
+# Name of RAM-subdirectory:
 subdir="subdir_$RANDOM$RANDOM"
 
 # Determine current workspace:
@@ -258,7 +258,7 @@ fi
 # If image is an XPM, derive a modified version with adapted 's'- and 'c'-fields in color string:
 if grep -qE "\.x?pm$" <<< "$image"; then
     mkdir "$tempdir/$subdir"                            # New subdir needed for tellmwm() to show image
-    new_image="${image/*\//}"                           # Edited XPM file keeps file name
+    new_image="${image/*\//}"                           # Edited XPM file keeps same name
     convert_xpm $image >| "$tempdir/$subdir/$new_image" # tellmwm ignores image if process-substitution
     image="$tempdir/$subdir/$new_image"                 # Full path needed
 fi

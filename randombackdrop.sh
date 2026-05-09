@@ -103,7 +103,7 @@ helptext()
 		-c       Next (start-)color pair complementary to previous (end-)color
 		         pair. Overrides -i.
 		-f IMAGEPATH
-		         Fixed image, with with full IMAGEPATH to file. Overrides -P.
+		         Fixed image, with full IMAGEPATH to file. Overrides -P.
 		-g       Gradual shift from start-color pair to random end-color pair.
 		-G       Gradual shift from start-color pair to complementary
 		         end-color pair. Overrides -g.

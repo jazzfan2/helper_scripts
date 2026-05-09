@@ -37,7 +37,6 @@ calculate_fgcolor=0 # Initial state: no calculation of foreground color
 DarkThreshold=15    # Motif value
 LightThreshold=93   # Motif value
 
-
 # Determine where the modified pixmap file can be stored in RAM temporarily:
 if [[ -d /tmp/ramdisk/ ]]; then
     tempdir="/tmp/ramdisk"

@@ -318,7 +318,7 @@ trap "[[ -d $tmpfiledir ]] && \rm -rf $tmpfiledir; exit" SIGINT SIGTERM
 if (( image)); then
     mkdir $tmpfiledir
     if (( fixed )); then
-        \cp $image_path $tmpfiledir 2>/dev/null 
+        \cp $image_path $tmpfiledir 2>/dev/null
     else
         while read path; do
             \cp $path/{*.pm,*.xpm} $tmpfiledir 2>/dev/null

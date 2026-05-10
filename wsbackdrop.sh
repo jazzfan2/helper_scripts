@@ -45,8 +45,7 @@ fi
 # Name of RAM-subdirectory:
 subdir="subdir_$RANDOM$RANDOM"
 
-# X11-colors list:
-colorsfile="/etc/X11/rgb.txt"
+# X11-colors list addendum:
 addendum="\
 0 128 128 teal\n
 0 128 128 Teal"
@@ -91,7 +90,7 @@ helptext()
 name2rgb()
 # Convert X11-color-name to "rgb:redhex/greenhex/bluehex" string:
 {
-    line="$( (cat $colorsfile; echo -e $addendum) | awk 'NF == 4' |
+    line="$( (showrgb; echo -e $addendum) | awk 'NF == 4' |
     grep -m1 -iE "\<${1// /}\>" )"
     [[ -z "$line" ]] && echo "Cannot allocate named color '$1'" >&2 && return
     awk '{

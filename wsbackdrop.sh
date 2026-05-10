@@ -45,7 +45,7 @@ fi
 # Name of RAM-subdirectory:
 subdir="subdir_$RANDOM$RANDOM"
 
-# X11-colors list addendum:
+# X11-colors-list addendum:
 addendum="\
 0 128 128 teal\n
 0 128 128 Teal"

@@ -256,7 +256,7 @@ image="$1"
 (( $# >= 2 )) && bg="$2"
 (( $# == 3 )) && fg="$3"
 
-# In case of X11-color-names for background and/or foreground color, retrieve RGB-values:
+# In case of X11-color-names for background- and/or foreground-color, retrieve RGB-values:
 [[ -n "$bg" ]] && [[ "${bg//\//}" == "$bg" ]] && bg=$(name2rgb "$bg")
 [[ -n "$fg" ]] && [[ "${fg//\//}" == "$fg" ]] && fg=$(name2rgb "$fg")
 

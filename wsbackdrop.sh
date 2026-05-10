@@ -45,6 +45,12 @@ fi
 # Name of RAM-subdirectory:
 subdir="subdir_$RANDOM$RANDOM"
 
+# X11-colors list:
+colorsfile="/etc/X11/rgb.txt"
+addendum="\
+0 128 128 teal\n
+0 128 128 Teal"
+
 # Determine current workspace:
 workspace=$(tellmwm | tail -n 1 | awk '{ print $NF }')
 
@@ -85,9 +91,9 @@ helptext()
 name2rgb()
 # Convert X11-color-name to "rgb:redhex/greenhex/bluehex" string:
 {
-    name=${1// /}
-    line="$(awk 'NF == 4' /etc/X11/rgb.txt | grep -iE "\<$name\>")"
-    [[ -z "$line" ]] && echo "Cannot allocate named color $name" >&2 && return
+    line="$( (cat $colorsfile; echo -e $addendum) | awk 'NF == 4' |
+    grep -m1 -iE "\<${1// /}\>" )"
+    [[ -z "$line" ]] && echo "Cannot allocate named color '$1'" >&2 && return
     awk '{
         redx   = sprintf("%02x", $1)
         greenx = sprintf("%02x", $2)

@@ -1,17 +1,13 @@
 #!/bin/bash
 # Name: wsbackdrop.sh
 # Author: Rob Toscani
-# Date: 9th of May 2026
+# Date: 11th of May 2026
 # Description: Set backdrop image and optional color(s) for current EMWM workspace.
 #
 # Wrapper script around the 'tellmwm()' program by Alexander Pampuchin
 # (workspace control utility for the 'Enhanced Motif Window Manager (EMWM)'
 # https://fastestcode.org/ - LGPLv3, MIT License).
 # EMWM version must be at least v2.0 to use this program.
-#
-# BUG: foreground-color calculation function only supports
-# "rgb:<red>/<green>/<blue>" color-notation for now,
-# Color *names* aren´t supported as of yet (under development).
 #
 #############################################################################
 #
@@ -80,9 +76,24 @@ helptext()
 
 		Arguments:
 		IMAGE            Full path to image file, or 'none' for no image.
-		BACKGROUNDCOLOR  Hexadecimal RGB-string "rgb:1C/87/fa" (example).
-		FOREGROUNDCOLOR  Idem
+		BACKGROUNDCOLOR  Hexadecimal RGB-string e.g. "rgb:1C/87/fa",
+		                 or X11-color-name without spaces or quoted.
+		FOREGROUNDCOLOR  Idem.
 	EOF
+}
+
+name2rgb()
+# Convert color-name to "rgb:redhex/greenhex/bluehex" string:
+{
+    name=${1// /}
+    line="$(awk 'NF == 4' /etc/X11/rgb.txt | grep -iE "\<$name\>")"
+    [[ -z "$line" ]] && echo "Cannot allocate named color $name" >&2 && return
+    awk '{
+        redx   = sprintf("%02x", $1)
+        greenx = sprintf("%02x", $2)
+        bluex  = sprintf("%02x", $3)
+        print "rgb:" redx "/" greenx "/" bluex
+    }' <<< "$line"
 }
 
 get_fgcolor()
@@ -121,7 +132,7 @@ get_fgcolor()
 }
 
 tellrgb()
-# Report current rgb of argument-string "Background" or "Foreground":
+# Report current RGB of argument-string "Background" or "Foreground":
 {
     (( nr = ${workspace/ws/} + 1 ))
     tellmwm | grep "$1" | head -n $nr | tail -n -1 |
@@ -177,7 +188,8 @@ convert_xpm()
 # 2. Updating the 'c'-field accordingly in the color-strings containing above two symbolic color names,
 # 3. Renaming the 's'-field called 'bottomShadowColor' to 'foreground':
 {
-    awk -v bgcolor=$bgcolor -v fgcolor=$fgcolor '\
+    image="$1"
+    awk -v bgcolor=$bg -v fgcolor=$fg '\
     function min(a, b){
         if (a <= b)
             return a
@@ -224,7 +236,7 @@ convert_xpm()
     {
         sub(/bottomShadowColor/, "foreground")
         print
-    }' "$1"
+    }' "$image"
 }
 
 
@@ -236,22 +248,26 @@ options "$@"
 shift $(( OPTIND - 1 ))
 
 image="$1"
-(( $# >= 2 )) && bgcolor="$2"
-(( $# == 3 )) && fgcolor="$3"
+(( $# >= 2 )) && bg="$2"
+(( $# == 3 )) && fg="$3"
+
+# In case of X11-color-names for background and/or foreground color, retrieve RGB-values:
+[[ -n "$bg" ]] && [[ "${bg//\//}" == "$bg" ]] && bg=$(name2rgb "$bg")
+[[ -n "$fg" ]] && [[ "${fg//\//}" == "$fg" ]] && fg=$(name2rgb "$fg")
 
 # Get foreground color (and background color) if not given for current workspace:
 if (( calculate_fgcolor )) && (( $# >= 2 )); then
-    fgcolor="$(get_fgcolor "$bgcolor")"
+    fg="$(get_fgcolor "$bg")"
 elif (( $# == 2 )); then
-    fgcolor="$(tellrgb "Foreground")"
+    fg="$(tellrgb "Foreground")"
 elif (( $# == 1 )); then
-    bgcolor="$(tellrgb "Background")"
-    fgcolor="$(tellrgb "Foreground")"
+    bg="$(tellrgb "Background")"
+    fg="$(tellrgb "Foreground")"
 fi
 
-#  If image is an XBM, and bg/fg-combination causes a flat white backdrop, slightly change fgcolor:
+#  If image is an XBM, and bg/fg-combination causes a "White Backdrop" (Motif-bug), slightly change fg:
 if grep -qE "\.x?bm$" <<< "$image"; then
-    (( $(testwhite "$bgcolor" "$fgcolor") )) && fgcolor="$(shiftcolor "$fgcolor")"
+    (( $(testwhite "$bg" "$fg") )) && fg="$(shiftcolor "$fg")" # Therefore name2rgb() needed for xbm too
 fi
 
 # If image is an XPM, derive a modified version with adapted 's'- and 'c'-fields in color string:
@@ -263,6 +279,6 @@ if grep -qE "\.x?pm$" <<< "$image"; then
 fi
 
 # Set desired colors and image as backdrop for current workspace:
-tellmwm backdrop $workspace -b "$bgcolor" -f "$fgcolor" "$image"
+tellmwm backdrop $workspace -b "$bg" -f "$fg" "$image" 2>/dev/null
 
 [[ -d "$tempdir/$subdir" ]] && rm -rf "$tempdir/$subdir"

@@ -83,7 +83,7 @@ helptext()
 }
 
 name2rgb()
-# Convert color-name to "rgb:redhex/greenhex/bluehex" string:
+# Convert X11-color-name to "rgb:redhex/greenhex/bluehex" string:
 {
     name=${1// /}
     line="$(awk 'NF == 4' /etc/X11/rgb.txt | grep -iE "\<$name\>")"

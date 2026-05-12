@@ -29,9 +29,9 @@
 ############################################################################
 #
 
-calculate_fgcolor=0 # Initial state: no calculation of foreground color
-DarkThreshold=15    # Motif value
-LightThreshold=93   # Motif value
+calculate_fgcolor=false # Initial state: no calculation of foreground color
+DarkThreshold=15        # Motif value
+LightThreshold=93       # Motif value
 
 # Determine where the modified pixmap file can be stored in RAM temporarily:
 if [[ -d /tmp/ramdisk/ ]]; then
@@ -61,7 +61,7 @@ options(){
 # Specify options:
     while getopts "fh" OPTION; do
         case $OPTION in
-            f) calculate_fgcolor=1  # Calculate foreground- from background-color
+            f) calculate_fgcolor=true  # Calculate foreground from background
                ;;
             *) helptext>&2
                exit 1
@@ -163,13 +163,13 @@ testwhite()
 {
     awk -v bg=$(combinecolor "$1") -v fg=$(combinecolor "$2") '\
     BEGIN {
-        mod=31
+        mod = 31
         remainder = bg % mod
         badfg = 65805 + (remainder >= 13) * mod - remainder
         if ((fg - badfg) % mod == 0)
-            print 1           # Remainder = 0 gives white result
+            print "true"     # Remainder = 0 gives white result
         else
-            print 0
+            print "false"
     }'
 }
 
@@ -261,7 +261,7 @@ image="$1"
 [[ -n "$fg" ]] && [[ "${fg//\//}" == "$fg" ]] && fg=$(name2rgb "$fg")
 
 # Get foreground color (and background color) if not given for current workspace:
-if (( calculate_fgcolor )) && (( $# >= 2 )); then
+if $calculate_fgcolor && (( $# >= 2 )); then
     fg="$(get_fgcolor "$bg")"
 elif (( $# == 2 )); then
     fg="$(tellrgb "Foreground")"
@@ -272,7 +272,7 @@ fi
 
 #  If image is an XBM, and bg/fg-combination causes a "White Backdrop" (Motif-bug), slightly change fg:
 if grep -qE "\.x?bm$" <<< "$image"; then
-    (( $(testwhite "$bg" "$fg") )) && fg="$(shiftcolor "$fg")" # Therefore name2rgb() needed for xbm too
+    $(testwhite "$bg" "$fg") && fg="$(shiftcolor "$fg")" # Therefore name2rgb() needed for xbm too
 fi
 
 # If image is an XPM, derive a modified version with adapted 's'- and 'c'-fields in color string:

@@ -62,6 +62,9 @@ options(){
 # Specify options:
     while getopts "dsh" OPTION; do
         case $OPTION in
+            h) helptext>&2        # Print help text.
+               exit 0
+               ;;
             d) bottomshadow=true  # Foreground a darker shade of background
                ;;
             s) complementary=true # Foreground complementary to background

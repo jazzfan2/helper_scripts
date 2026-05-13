@@ -1,7 +1,7 @@
 #!/bin/bash
 # Name: randombackdropmenu.sh
 # Author: R.J.Toscani
-# Date: 9th of May 2026
+# Date: 14th of May 2026
 # Description: Interactive wrapper around the 'randombackdrop.sh' and
 # 'wsbackdrop.sh' scripts. Engine: the 'tellmwm()' program by Alexander Pampuchin
 # (workspace control utility for the 'Enhanced Motif Window Manager (EMWM)'

@@ -1,7 +1,7 @@
 #!/bin/bash
 # Name: wsbackdrop.sh
 # Author: Rob Toscani
-# Date: 13th of May 2026
+# Date: 14th of May 2026
 # Description: Set backdrop image and optional color(s) for current EMWM workspace.
 #
 # Wrapper script around the 'tellmwm()' program by Alexander Pampuchin
@@ -62,7 +62,7 @@ options(){
 # Specify options:
     while getopts "dsh" OPTION; do
         case $OPTION in
-            h) helptext>&2        # Print help text.
+            h) helptext>&2        # Print help text
                exit 0
                ;;
             d) bottomshadow=true  # Foreground a darker shade of background

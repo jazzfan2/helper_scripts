@@ -1,7 +1,7 @@
 #!/bin/bash
 # Name: wsbackdrop.sh
 # Author: Rob Toscani
-# Date: 11th of May 2026
+# Date: 13th of May 2026
 # Description: Set backdrop image and optional color(s) for current EMWM workspace.
 #
 # Wrapper script around the 'tellmwm()' program by Alexander Pampuchin
@@ -29,9 +29,10 @@
 ############################################################################
 #
 
-calculate_fgcolor=false # Initial state: no calculation of foreground color
-DarkThreshold=15        # Motif value
-LightThreshold=93       # Motif value
+bottomshadow=false  # Default: foreground color not a darker grade of background
+complementary=false # Default: foreground color not complementary to background
+DarkThreshold=15    # Motif value
+LightThreshold=93   # Motif value
 
 # Determine where the modified pixmap file can be stored in RAM temporarily:
 if [[ -d /tmp/ramdisk/ ]]; then
@@ -59,9 +60,11 @@ workspace=$(tellmwm | tail -n 1 | awk '{ print $NF }')
 
 options(){
 # Specify options:
-    while getopts "fh" OPTION; do
+    while getopts "dsh" OPTION; do
         case $OPTION in
-            f) calculate_fgcolor=true  # Calculate foreground from background
+            d) bottomshadow=true  # Foreground a darker shade of background
+               ;;
+            s) complementary=true # Foreground complementary to background
                ;;
             *) helptext>&2
                exit 1
@@ -74,9 +77,12 @@ helptext()
 # Text printed if -h option (help) or a non-existent option has been given:
 {
 	cat <<-EOF
-		Usage: wsbackdrop.sh [-fh] IMAGE [BACKGROUNDCOLOR [FOREGROUNDCOLOR]]
+		Usage: wsbackdrop.sh [-dsh] IMAGE [BACKGROUNDCOLOR [FOREGROUNDCOLOR]]
 
-		-f   Calculate foreground-color from background-color if given
+		-d   Foreground color is calculated as a darker (= 'bottomshadow')
+		     gradation of background color if given. Overrides -c.
+		-s   Foreground color is calculated as strong contrasting
+		     (= complementary) to background color if given.
 		-h   Help (this output).
 
 		Arguments:
@@ -101,8 +107,8 @@ name2rgb()
     }' <<< "$line"
 }
 
-get_fgcolor()
-# Calculate foreground color RGB from given background RGB and brightness:
+get_bottomshadow()
+# Calculate RGB of darker 'bottomshadow' gradation of given background RGB:
 {
     rgb="$1"
     awk -v DarkThreshold=$DarkThreshold -v LightThreshold=$LightThreshold '\
@@ -133,6 +139,20 @@ get_fgcolor()
         blue_fg  = sprintf("%02x", blue  * factor_fg + offset_blue_fg)
 
         printf ("%s\n", "rgb:"red_fg"/"green_fg"/"blue_fg)
+    }' <<< "${rgb/*:/}"
+}
+
+get_complementary()
+# Return RGB-combination complementary to given RGB-combination:
+{
+    rgb="$1"
+    awk '\
+    BEGIN { FS = "/" }
+    {
+        red_comp   = sprintf("%02x", 0xff - strtonum("0x" $1))
+        green_comp = sprintf("%02x", 0xff - strtonum("0x" $2))
+        blue_comp  = sprintf("%02x", 0xff - strtonum("0x" $3))
+        print "rgb:" red_comp "/" green_comp "/" blue_comp
     }' <<< "${rgb/*:/}"
 }
 
@@ -261,8 +281,10 @@ image="$1"
 [[ -n "$fg" ]] && [[ "${fg//\//}" == "$fg" ]] && fg=$(name2rgb "$fg")
 
 # Get foreground color (and background color) if not given for current workspace:
-if $calculate_fgcolor && (( $# >= 2 )); then
-    fg="$(get_fgcolor "$bg")"
+if $bottomshadow && (( $# >= 2 )); then
+    fg="$(get_bottomshadow "$bg")"
+elif $complementary && (( $# >= 2 )); then
+    fg="$(get_complementary "$bg")"
 elif (( $# == 2 )); then
     fg="$(tellrgb "Foreground")"
 elif (( $# == 1 )); then

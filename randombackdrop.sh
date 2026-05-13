@@ -263,13 +263,12 @@ backdrop()
     color2=$(dec2hex $2)   # Foreground color (independent from backgrond color)
     index=$3
 
-    if (( image && randomforeground )); then   # independent foreground color
+    if (( image && randomforeground )); then   # foreground color independent from backgropund
         $ramdir/wsbackdrop.sh "$tmpfiledir/${imagelist[index]}" "$color1" "$color2"
-    elif (( image && strongcontrast )); then   # complementary foreground color
-        compcolor=$(dec2hex $(complement $1)) 
-        $ramdir/wsbackdrop.sh "$tmpfiledir/${imagelist[index]}" "$color1" "$compcolor"
-    elif (( image )); then                     # foreground is calculated by wsbackdrop.sh
-        $ramdir/wsbackdrop.sh -f "$tmpfiledir/${imagelist[index]}" "$color1"
+    elif (( image && strongcontrast )); then   # foreground color complementary to background
+        $ramdir/wsbackdrop.sh -s "$tmpfiledir/${imagelist[index]}" "$color1"
+    elif (( image )); then                     # foreground color a darker shade of background
+        $ramdir/wsbackdrop.sh -d "$tmpfiledir/${imagelist[index]}" "$color1"
     elif (( ! image )); then                   # image and foreground color omitted
         $ramdir/wsbackdrop.sh "none" "$color1"
     fi

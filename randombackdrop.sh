@@ -306,7 +306,7 @@ if (grep -q [^0-9] <<< "$period" || [[ $period < 1 ]]); then
     period=1
 fi
 
-# Create subdirectory in RAM where the bitmaps and pixmaps will be strored temporarily:
+# Create subdirectory in RAM where the bitmaps and pixmaps will be stored temporarily:
 tmpfiledir="$ramdir/backdrops$RANDOM"
 
 # Stop the program in case of an interrupt (Ctrl-C) or terminate signal:

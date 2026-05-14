@@ -1,7 +1,7 @@
 #!/bin/bash
 # Name: randombackdrop.sh
 # Author: R.J.Toscani
-# Date: 14th of May 2026
+# Date: 9th of May 2026
 # Description: Random-cycling of colors and Motif/X11(CDE)-backdrop images,
 # particularly - but not limited to - (x)bm and (x)pm formats.
 #

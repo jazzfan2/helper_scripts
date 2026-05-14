@@ -83,7 +83,7 @@ helptext()
 		Usage: wsbackdrop.sh [-dsh] IMAGE [BACKGROUNDCOLOR [FOREGROUNDCOLOR]]
 
 		-d   Foreground color is calculated as a darker (= 'bottomshadow')
-		     gradation of background color if given. Overrides -c.
+		     gradation of background color if given. Overrides -s.
 		-s   Foreground color is calculated as strong contrasting
 		     (= complementary) to background color if given.
 		-h   Help (this output).

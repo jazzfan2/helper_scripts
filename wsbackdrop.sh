@@ -205,7 +205,7 @@ shiftcolor()
     {
         red   = $1
         green = $2
-        blue = sprintf("%02x", strtonum("0x" $3) + 0x01)
+        blue  = sprintf("%02x", strtonum("0x" $3) + 0x01)
         print "rgb:"red"/"green"/"blue
     }' <<< "${rgb/*:/}"
 }

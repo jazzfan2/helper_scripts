@@ -1,7 +1,7 @@
 #!/bin/bash
 # Name: randombackdropmenu.sh
 # Author: R.J.Toscani
-# Date: 14th of May 2026
+# Date: 21th of May 2026
 # Description: Interactive wrapper around the 'randombackdrop.sh' and
 # 'wsbackdrop.sh' scripts. Engine: the 'tellmwm()' program by Alexander Pampuchin
 # (workspace control utility for the 'Enhanced Motif Window Manager (EMWM)'
@@ -111,7 +111,9 @@ if grep -qi "y" <<< $reply; then
     fi
 fi
 
-nohup $HOME/scripts/randombackdrop.sh "$options" 2>/dev/null &
+# Choose which line to uncomment/comment to call Shell- or Python-version of 'randombackdrop':
+# nohup $HOME/scripts/randombackdrop.sh "$options" 2>/dev/null &
+nohup $HOME/scripts/randombackdrop.py $options 2>/dev/null &
 
 echo
 sleep 1    # To avoid timing issue with background process starting up

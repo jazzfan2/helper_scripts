@@ -68,14 +68,14 @@ doing a *new* primary X-selection by mouse button 1.
 do a detailed selection of the color in the XPaint canvas popping up, and obtain its hexadecimal RGB-value in
 "rgb:[red]/[green]/[blue]" format, as well as in "[red] [green] [blue]" format.
 
-## randombackdrop.sh
+## randombackdrop
 
-'randombackdrop.sh' generates a random-cycling of colors and Motif/X11(CDE)-backdrop images, particularly - but not limited to -
+'randombackdrop' generates a random-cycling of colors and Motif/X11(CDE)-backdrop images, particularly - but not limited to -
 (X)BM and (X)PM formats. Various options are available for setting color transition modes etc.
 It is meant to act as a background daemon called from the $HOME/.sessionetc file (i.e. the 'startup applications' file read by
 EMWM's session manager).
 
-It runs 'wsbackdrop.sh', that sets desired backdrop image and color(s) for the current workspace, using the 'tellmwm' program
+It runs 'wsbackdrop', that sets desired backdrop image and color(s) for the current workspace, using the 'tellmwm' program
 by Alexander Pampuchin (see https://fastestcode.org/misc.html) as its engine.
 In addition, 'wsbackdrop.sh' provides following extra functionality:
 - calculation of the 'foregound'-color as a darker shade of the given 'background'-color (as an option);
@@ -83,7 +83,9 @@ In addition, 'wsbackdrop.sh' provides following extra functionality:
   as gradations within the color-range from 'foreground'-color to/beyond 'background'-color;
 - a fix for the (Motif) 'White-Backdrop-Bug' that occurs with (X)BM images in certain background-/foreground-color combinations;
 
-'randombackdropmenu.sh' is an interactive wrapper around 'randombackdrop.sh', meant to be launched as an item from the EMWM toolbox-menu.
+Both 'randombackdrop' and 'wsbackdrop' are available as Bash scripts as well as in Python3 format.
+
+'randombackdropmenu.sh' is an interactive wrapper around 'randombackdrop', meant to be launched as an item from the EMWM toolbox-menu.
 
 Note: all scripts mentioned exclusively work with EMWM v2.0 and higher.
 Older versions for pre-EMWM v2.0 are available on request though.

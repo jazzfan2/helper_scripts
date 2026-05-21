@@ -13,7 +13,7 @@
 # Meant to act as a background daemon called from the $HOME/.sessionetc
 # file (i.e. the 'startup applications' file read by EMWM's session manager).
 #
-# Python3-version of randombackdrop.sh.
+# Python3-version of randombackdrop.sh. Calls 'wsbackdrop.py'.
 #
 #############################################################################
 #
@@ -48,6 +48,7 @@ from random import random
 
 homedir = os.path.expanduser("~")
 sys.path.insert(0, homedir + "/scripts");
+# (If needed adjust above path if 'wsbackdrop.py' resides in another directory.)
 
 import wsbackdrop
 

@@ -9,6 +9,8 @@
 # https://fastestcode.org/ - LGPLv3, MIT License).
 # EMWM version must be at least v2.0 to use this program.
 #
+# Python3-version of wsbackdrop.sh.
+#
 # Call this function as follows (example):
 # - From Shell-CLI or -script:
 #          wsbackdrop.py -d <image> <background_color>

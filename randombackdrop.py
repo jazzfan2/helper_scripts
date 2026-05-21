@@ -48,7 +48,7 @@ from random import random
 
 homedir = os.path.expanduser("~")
 sys.path.insert(0, homedir + "/scripts");
-# (Adjust above path if 'wsbackdrop.py' resides in another directory.)
+# (Adjust above path if 'wsbackdrop.py' resides in another directory)
 
 import wsbackdrop
 

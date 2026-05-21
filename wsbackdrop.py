@@ -268,7 +268,6 @@ def main(args):
 
     argcount = len(non_option_args)
     image = non_option_args[0]
-#   print(image)
     if argcount >= 2:
         bg = non_option_args[1]
     if argcount == 3:

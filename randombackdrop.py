@@ -61,7 +61,7 @@ elif isdir("/dev/shm/"):
 else:
     ramdir = "."         # (No RAM, serves as fall back scenario)
 
-# Image-sources:
+# XBM and XPM image-sources (change as desired):
 # https://sourceforge.net/projects/cdesktopenv/
 # http://cs.gettysburg.edu/~duncjo01/archive/patterns/cde/
 # http://cs.gettysburg.edu/~duncjo01/archive/patterns/OEM/Sun/texture/

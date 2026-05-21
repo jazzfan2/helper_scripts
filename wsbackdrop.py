@@ -39,12 +39,10 @@
 #
 
 import sys
-import time
 import os
-import shutil
 import getopt
 import re
-from os.path import isfile, isdir, join
+from os.path import isdir
 from random import random
 
 

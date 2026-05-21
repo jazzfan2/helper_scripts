@@ -153,7 +153,11 @@ def shiftcolor(rgb):
     rgb = re.split(':|/', rgb)
     red   = rgb[1]
     green = rgb[2]
-    blue  = format(int(rgb[3], 16) + 1, '02x')     # Hier ontbreekt nog: 1 aftrekken als blauw al FF is!!
+    blue  = rgb[3]
+    if blue == 'ff' or blue == 'FF':
+        blue  = format(int(blue, 16) - 1, '02x')
+    else:
+        blue  = format(int(blue, 16) + 1, '02x')   
     return "rgb:" + red + "/" + green + "/" + blue
 
 

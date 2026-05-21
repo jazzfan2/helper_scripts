@@ -157,7 +157,7 @@ def shiftcolor(rgb):
     if blue == 'ff' or blue == 'FF':
         blue  = format(int(blue, 16) - 1, '02x')
     else:
-        blue  = format(int(blue, 16) + 1, '02x')   
+        blue  = format(int(blue, 16) + 1, '02x')
     return "rgb:" + red + "/" + green + "/" + blue
 
 

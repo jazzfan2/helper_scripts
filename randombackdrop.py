@@ -161,12 +161,10 @@ def cycle(imagelist):
 
 def random_rgb():
 # Return random RGB-combination:
-    return (randomgrade(), randomgrade(), randomgrade())
-
-
-def randomgrade():
-# Return random grade of one RGB-component:
-    return int(random() * 255)
+    red   = int(random() * 255)
+    green = int(random() * 255)
+    blue  = int(random() * 255)
+    return (red, green, blue)
 
 
 def complement(rgb):

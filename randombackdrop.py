@@ -37,6 +37,7 @@
 import time
 import datetime
 import sys
+import threading
 import os
 import shutil
 import getopt
@@ -128,7 +129,8 @@ def cycle(imagelist):
                 end1 = random_rgb()
                 end2 = random_rgb()
             for gradation1, gradation2 in gradualshift(start1, end1, start2, end2):
-                backdrop(gradation1, gradation2, index)
+                backdrop_thread = threading.Thread(target=backdrop, args=[gradation1, gradation2, index])
+                backdrop_thread.start()     # backdrop() runs in parallel to cycle()
                 time.sleep(0.5)
             # Next shifting start colors are complementary to previous end colors:
             if complementarynext:
@@ -146,7 +148,8 @@ def cycle(imagelist):
         elif complementarynext:
             color1 = complement(color1)
             color2 = complement(color2)
-            backdrop(color1, color2, index)
+            backdrop_thread = threading.Thread(target=backdrop, args=[color1, color2, index])
+            backdrop_thread.start()
             time.sleep(period)
         # Static colors remaining identical:
         elif identicalnext:
@@ -155,7 +158,8 @@ def cycle(imagelist):
         else:
             color1 = random_rgb()
             color2 = random_rgb()
-            backdrop(color1, color2, index)
+            backdrop_thread = threading.Thread(target=backdrop, args=[color1, color2, index])
+            backdrop_thread.start()
             time.sleep(period)
 
 

@@ -128,8 +128,8 @@ def cycle(imagelist):
             else:
                 end1 = random_rgb()
                 end2 = random_rgb()
-            for gradation1, gradation2 in gradualshift(start1, end1, start2, end2):
-                backdrop_thread = threading.Thread(target=backdrop, args=[gradation1, gradation2, index])
+            for step1, step2 in gradualshift(start1, end1, start2, end2):
+                backdrop_thread = threading.Thread(target=backdrop, args=[step1, step2, index])
                 backdrop_thread.start()     # backdrop() runs in parallel to cycle()
                 time.sleep(0.5)
             # Next shifting start colors are complementary to previous end colors:

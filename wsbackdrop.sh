@@ -311,4 +311,4 @@ fi
 # Set desired colors and image as backdrop for current workspace:
 tellmwm backdrop $workspace -b "$bg" -f "$fg" "$image" 2>/dev/null
 
-[[ -d "$tempdir/$subdir" ]] && rm -rf "$tempdir/$subdir"
+(sleep 1; [[ -d "$tempdir/$subdir" ]] && rm -rf "$tempdir/$subdir")&

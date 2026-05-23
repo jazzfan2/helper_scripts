@@ -150,7 +150,7 @@ cycle()
             while read gradation_pair; do
                 gradation1=${gradation_pair/:*/}  # Background color gradation
                 gradation2=${gradation_pair/*:/}  # Foreground color gradation (independent)
-                backdrop $gradation1 $gradation2 $index
+                backdrop $gradation1 $gradation2 $index &
                 sleep 0.5
             done
             # Next shifting start colors are complementary to previous end colors:
@@ -170,7 +170,7 @@ cycle()
         elif (( complementarynext )); then
             color1=$(complement $color1)
             color2=$(complement $color2)
-            backdrop $color1 $color2 $index
+            backdrop $color1 $color2 $index &
             sleep $period
         # Static colors remaining identical:
         elif (( identicalnext )); then
@@ -179,7 +179,7 @@ cycle()
         else
             color1=$(random_rgb)
             color2=$(random_rgb)
-            backdrop $color1 $color2 $index
+            backdrop $color1 $color2 $index &
             sleep $period
         fi
     done

@@ -127,9 +127,9 @@ cycle()
     start2=$(random_rgb)
     color1=start1         # Background color
     color2=start2         # Foreground color (independent from backgrond color)
+    (( maxindex = ${#imagelist[@]} ))
     while true; do
         if (( image )); then
-            (( maxindex = ${#imagelist[@]} ))
             # Generate a random array index-number:
             index=$(shuf --random-source=/dev/urandom -i 1-$maxindex -n 1)
         else
@@ -283,7 +283,7 @@ backdrop()
 # Stop any other "randombackdrop"-process already running:
 while read process; do
     [[ $process != $$ ]] && kill -15 $process 2>/dev/null
-done < <(ps aux | grep "/bin/bash $HOME/scripts/randombackdrop.sh" | \
+done < <(ps aux | grep "$HOME/scripts/randombackdrop" | \
          awk '{ print $2 }')
 
 # Defaults:
@@ -311,6 +311,10 @@ tmpfiledir="$ramdir/backdrops$RANDOM"
 
 # Stop the program in case of an interrupt (Ctrl-C) or terminate signal:
 trap "[[ -d $tmpfiledir ]] && \rm -rf $tmpfiledir; exit" SIGINT SIGTERM
+
+# Make an array (global variable) in which all image names are to be stored:
+declare -a imagelist
+imagelist[0]=""
 
 # Copy the CDE backdrop-images (pixmap and bitmap) to the temporary directory
 # (except in if -n option is given):
@@ -350,12 +354,7 @@ SkyLight.*pm
 Toronto.*bm
 BrickWall.*bm
 EOF
-
     fi
-
-    # Make an array (global variable) in which all image names are to be stored:
-    declare -a imagelist
-
     # Store all image names within the temporary directory into the array:
     index=1
     while read imagename; do

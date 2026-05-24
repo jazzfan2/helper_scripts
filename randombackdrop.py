@@ -111,9 +111,9 @@ def cycle(imagelist):
     # Generate two independent random RGB-combinations:
     color1 = start1 = random_rgb()     # Background color
     color2 = start2 = random_rgb()     # Foreground color (independent from backgrond color)
+    maxindex = len(imagelist)
     while True:
         if image:
-            maxindex = len(imagelist)
             # Generate a random array index-number:
             index = max(1, int(random() * maxindex))
         else:
@@ -234,7 +234,7 @@ def backdrop(color1, color2, index):
 
 
 # Stop any other "randombackdrop"-process already running:
-kill_earlier("scripts/randombackdrop.py")
+kill_earlier("scripts/randombackdrop")
 
 # Defaults:
 fixed = False              # No single fixed image

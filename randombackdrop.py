@@ -317,7 +317,7 @@ signal.signal(signal.SIGINT, signal_handler)
 signal.signal(signal.SIGTERM, signal_handler)
 
 # Make a list in which all image-names are to be stored:
-imagelist = [""]
+imagelist = [""]      # List-element with index 0 represents "no image"
 
 # Copy the CDE backdrop-images (pixmap and bitmap) to the temporary directory
 # (except in if -n option is given):

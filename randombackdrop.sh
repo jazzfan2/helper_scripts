@@ -314,7 +314,7 @@ trap "[[ -d $tmpfiledir ]] && \rm -rf $tmpfiledir; exit" SIGINT SIGTERM
 
 # Make an array (global variable) in which all image-names are to be stored:
 declare -a imagelist
-imagelist[0]=""
+imagelist[0]=""      # Array-element with index 0 represents "no image"
 
 # Copy the CDE backdrop-images (pixmap and bitmap) to the temporary directory
 # (except in if -n option is given):

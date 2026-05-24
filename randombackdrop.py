@@ -316,9 +316,11 @@ tmpfiledir = ramdir + "/backdrops" + str(int(random()*1000000))
 signal.signal(signal.SIGINT, signal_handler)
 signal.signal(signal.SIGTERM, signal_handler)
 
+# Make a list in which all image-names are to be stored:
+imagelist = [""]
+
 # Copy the CDE backdrop-images (pixmap and bitmap) to the temporary directory
 # (except in if -n option is given):
-imagelist = [""]
 if image:
     os.mkdir(tmpfiledir)
     if fixed:
@@ -358,7 +360,7 @@ if image:
         for omissions in omissionslist:
             os.system('rm ' + tmpfiledir + "/" + omissions + ' 2>/dev/null')
 
-    # Store all image names within the temporary directory into a global array:
+    # Store all image-names within the temporary directory into the image-list:
     imagelist += [f for f in listdir(tmpfiledir) if isfile(join(tmpfiledir, f))]
 
 # Periodically set color(s) and/or image as current workspace backdrop:

@@ -312,7 +312,7 @@ tmpfiledir="$ramdir/backdrops$RANDOM"
 # Stop the program in case of an interrupt (Ctrl-C) or terminate signal:
 trap "[[ -d $tmpfiledir ]] && \rm -rf $tmpfiledir; exit" SIGINT SIGTERM
 
-# Make an array (global variable) in which all image names are to be stored:
+# Make an array (global variable) in which all image-names are to be stored:
 declare -a imagelist
 imagelist[0]=""
 
@@ -355,7 +355,7 @@ Toronto.*bm
 BrickWall.*bm
 EOF
     fi
-    # Store all image names within the temporary directory into the array:
+    # Store all image-names within the temporary directory into the image-array:
     index=1
     while read imagename; do
         imagelist[index]="$imagename"

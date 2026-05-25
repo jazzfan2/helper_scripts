@@ -78,7 +78,7 @@ def kill_earlier(name):
 # Stop any other "randombackdrop"-process already running:
 # https://www.geeksforgeeks.org/python/kill-a-process-by-name-using-python/
     ownpid = os.getpid()
-    exclude = "(mousepad|gedit|nedit|xnedit|xedit|emacs|less|nano|grep)" # Adjust as wished
+    exclude = "(mousepad|gedit|nedit|xnedit|xedit|emacs|less|nano|grep) " # Adjust as applicable
     try:
         # iterating through each instance of the process
         for line in os.popen("ps ax | grep \"" + name + "\" | grep -vE \"" + exclude + "\""):

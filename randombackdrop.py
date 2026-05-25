@@ -78,9 +78,10 @@ def kill_earlier(name):
 # Stop any other "randombackdrop"-process already running:
 # https://www.geeksforgeeks.org/python/kill-a-process-by-name-using-python/
     ownpid = os.getpid()
+    exclude = "(mousepad|gedit|nedit|xnedit|xedit|emacs|less|nano)" # Adjust as wished
     try:
         # iterating through each instance of the process
-        for line in os.popen("ps ax | grep \"" + name + "\" | grep -v grep"):
+        for line in os.popen("ps ax | grep \"" + name + "\" | grep -vE \"" + exclude + "\""):
             fields = line.split()
 
             # extracting Process ID from the output
@@ -303,7 +304,7 @@ for opt, arg in options:
 
 # Minimize period to 1 second:
 regex = re.compile('^0|[^0-9]')
-if re.search(regex, period) or int(period) < 1:
+if re.search(regex, str(period)) or int(period) < 1:
     period = 1
     print("Input is not integer. Period changed to 1s.", file=sys.stderr)
 else:

@@ -281,9 +281,10 @@ backdrop()
 
 
 # Stop any other "randombackdrop"-process already running:
+exclude="(mousepad|gedit|nedit|xnedit|xedit|emacs|less|nano)" # Adjust as wished
 while read process; do
     [[ $process != $$ ]] && kill -15 $process 2>/dev/null
-done < <(ps aux | grep "$HOME/scripts/randombackdrop" | \
+done < <(ps aux | grep "$HOME/scripts/randombackdrop" | grep -vE "$exclude" | \
          awk '{ print $2 }')
 
 # Defaults:

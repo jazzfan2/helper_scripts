@@ -124,7 +124,7 @@ The symbolic link adopts the name of the file pointed to.
 1. the full path to the directory where the selected file resides
 2. the name of selected file
 
-'symlink2.sh' stores a *relative* link to the file selected in the file manager into the directory which path is entered in an xterm pop-up.
+'symlink2.sh' stores a *relative* symbolic link to the file selected in the file manager into the directory which path is entered in an xterm pop-up.
 
 ## updatenotify.sh
 

@@ -114,15 +114,17 @@ parent window, i.e. the first one from which the splitting sequence started, and
 
 'splitpanes.sh' is meant to be launched as an item from XFile's tools-menu. To accelerate splitting and uniting actions and to enable easy toggling, function keys such as F8 and F9 could be assigned respectively.
 
-## symlink.sh
+## symlink.sh and symlink2.sh
 
-'symlink.sh' stores an absolute symbolic link to the file selected in the file manager into a RAM directory. It presents this in a file
+'symlink.sh' stores an *absolute* symbolic link to the file selected in the file manager into a RAM directory. It presents this in a file
 manager window popping up, from which the link can be moved or copied to a desired directory opened in another file manager window.
 The symbolic link adopts the name of the file pointed to.
 
 'symlink.sh' is meant to be launched from XFile's tools-menu, and takes two arguments:
 1. the full path to the directory where the selected file resides
 2. the name of selected file
+
+'symlink2.sh' stores a *relative* link to the file selected in the file manager into the directory which path is entered in an xterm pop-up.
 
 ## updatenotify.sh
 

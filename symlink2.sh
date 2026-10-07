@@ -5,7 +5,7 @@
 # Description: Create a relative symbolic link to the target-file or -directory
 # selected in the file manager. The link is placed into the directory entered
 # in the xterm pop-up. The symbolic link adopts the name of the file pointed to.
-# Based on algorithm presented by Thomas Dickey in:
+# Based on the algorithm presented by Thomas Dickey in:
 # https://stackoverflow.com/questions/29055511/how-to-find-relative-path-given-two-absolute-paths
 #
 # Meant to be launched from the tools-menu of the file-manager named

@@ -43,8 +43,14 @@ makelink()
     echo "$tardirpath"
     echo "$targetfile"
 
-    echo "Give absolute path of link directory:"
-    read -e "linkdirpath" # -e option allows moving the cursor within the entered text!!
+    while true; do
+        echo "Give absolute path of link directory:"
+        read -e "linkdirpath"  # (-e option allows moving the cursor within the entered text)
+        if ([ -d "$linkdirpath" ] && [ -w "$linkdirpath" ]); then
+            break
+        fi
+        echo "Path must be a directory with write-permission. Please retry."
+    done
 
     if ! echo "$tardirpath" | grep -qE "\/$"; then
         tardirpath=$tardirpath"/"

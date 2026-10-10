@@ -44,7 +44,7 @@ makelink()
     echo "$targetfile"
 
     while true; do
-        echo "Give absolute path of link directory:"
+        echo "Give absolute path of directory to place symlink in:"
         read -e "linkdirpath"  # (-e option allows moving the cursor within the entered text)
         if ([ -d "$linkdirpath" ] && [ -w "$linkdirpath" ]); then
             break

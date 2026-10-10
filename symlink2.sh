@@ -49,7 +49,7 @@ makelink()
         if ([ -d "$linkdirpath" ] && [ -w "$linkdirpath" ]); then
             break
         fi
-        echo "Path must be a directory with write-permission. Please retry."
+        echo "Path must be an existing directory with write-permission. Please retry."
     done
 
     if ! echo "$tardirpath" | grep -qE "\/$"; then

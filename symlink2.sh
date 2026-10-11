@@ -44,7 +44,7 @@ makelink()
     echo "$targetfile"
 
     while true; do
-        echo "Give absolute path of directory to place symlink in:"
+        echo "Give absolute path of directory to place symlink in (Ctl-C to quit):"
         read -e "linkdirpath"  # (-e option allows moving the cursor within the entered text)
         if ([ -d "$linkdirpath" ] && [ -w "$linkdirpath" ]); then
             break
@@ -84,6 +84,7 @@ makelink()
     target="$(    sed -E "s/\/+/\//g"       <<< "$tardirpath$targetfile")"
 
     ln -s "$target" "$link"
+    [ $? -gt 0 ] && sleep 6
 }
 
 [[ $# != 2 || $2 == "" ]] && echo "Usage: symlink2 <directory_path> <target_file>" && exit

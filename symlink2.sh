@@ -44,8 +44,9 @@ makelink()
         tardirpath=$tardirpath"/"
     fi
 
-    echo "$tardirpath"
-    echo "$targetfile"
+    if echo "$targetfile" | grep -qE "\/$"; then
+        targetfile=${targetfile//\//}
+    fi
 
     while true; do
         echo "Give absolute path of directory to place symlink in (Ctl-C to quit):"
@@ -90,6 +91,8 @@ makelink()
 }
 
 [[ $# != 2 || $2 == "" ]] && echo "Usage: symlink2 <directory_path> <target_file>" && exit
+
+[[ ! -e "$1/$2" ]] && echo "$1/$2 doesn't exist." | sed -E 's/\/+/\//g' && exit
 
 export -f makelink
 

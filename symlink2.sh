@@ -57,7 +57,7 @@ makelink()
             if [ "$linkdirpath" != "$tardirpath" ]; then
                break
             fi
-            echo "Link and target are the same. Please retry." && continue
+            echo "Link must be in another directory than target. Please retry." && continue
         fi
         echo "Path must be an existing directory with write-permission. Please retry."
     done

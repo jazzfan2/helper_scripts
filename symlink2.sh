@@ -40,6 +40,10 @@ makelink()
     tardirpath="$1"   # Absolute path to directory containing target-file or -directory
     targetfile="$2"   # Name of target-file or -directory
 
+    if ! echo "$tardirpath" | grep -qE "\/$"; then
+        tardirpath=$tardirpath"/"
+    fi
+
     echo "$tardirpath"
     echo "$targetfile"
 
@@ -47,18 +51,16 @@ makelink()
         echo "Give absolute path of directory to place symlink in (Ctl-C to quit):"
         read -e "linkdirpath"  # (-e option allows moving the cursor within the entered text)
         if ([ -d "$linkdirpath" ] && [ -w "$linkdirpath" ]); then
-            break
+            if ! echo "$linkdirpath" | grep -qE "\/$"; then
+                linkdirpath=$linkdirpath"/"
+            fi
+            if [ "$linkdirpath" != "$tardirpath" ]; then
+               break
+            fi
+            echo "Link and target are the same. Please retry." && continue
         fi
         echo "Path must be an existing directory with write-permission. Please retry."
     done
-
-    if ! echo "$tardirpath" | grep -qE "\/$"; then
-        tardirpath=$tardirpath"/"
-    fi
-
-    if ! echo "$linkdirpath" | grep -qE "\/$"; then
-        linkdirpath=$linkdirpath"/"
-    fi
 
     link=$linkdirpath$targetfile
 

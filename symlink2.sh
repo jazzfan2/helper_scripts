@@ -90,9 +90,9 @@ makelink()
     [ $? -gt 0 ] && sleep 6
 }
 
-[[ $# != 2 || $2 == "" ]] && echo "Usage: symlink2 <directory_path> <target_file>" && exit
+[[ $# != 2 || $2 == "" ]] && echo "Usage: symlink2 <directory_path> <target_file>" && exit 1
 
-[[ ! -e "$1/$2" ]] && echo "$1/$2 doesn't exist." | sed -E 's/\/+/\//g' && exit
+[[ ! -e "$1/$2" ]] && echo "$1/$2 doesn't exist." | sed -E 's/\/+/\//g' && exit 1
 
 export -f makelink
 

@@ -40,18 +40,12 @@ makelink()
     tardirpath="$1"   # Absolute path to directory containing target-file or -directory
     targetfile="$2"   # Name of target-file or -directory
 
-    if ! echo "$tardirpath" | grep -qE "\/$"; then
-        tardirpath=$tardirpath"/"
-    fi
-
-    if echo "$targetfile" | grep -qE "\/$"; then
-        targetfile=${targetfile//\//}
-    fi
-
     while true; do
         echo "Give absolute path of directory to place symlink in (Ctl-C to quit):"
         read -e "linkdirpath"  # (-e option allows moving the cursor within the entered text)
-        if ([ -d "$linkdirpath" ] && [ -w "$linkdirpath" ]); then
+        linkdirpath="$(sed -E 's/$/\//; s/\/+/\//g' <<< "$linkdirpath")"
+        if (grep -q "^\/" <<< "$linkdirpath" &&
+            [ -d "$linkdirpath" ] && [ -w "$linkdirpath" ]); then
             if ! echo "$linkdirpath" | grep -qE "\/$"; then
                 linkdirpath=$linkdirpath"/"
             fi
@@ -60,7 +54,7 @@ makelink()
             fi
             echo "Link must be in another directory than target. Please retry." && continue
         fi
-        echo "Path must be an existing directory with write-permission. Please retry."
+        echo "Must be full path to existing directory with write-permission. Please retry."
     done
 
     link=$linkdirpath$targetfile
@@ -90,10 +84,15 @@ makelink()
     [ $? -gt 0 ] && sleep 6
 }
 
-[[ $# != 2 || $2 == "" ]] && echo "Usage: symlink2 <directory_path> <target_file>" && exit 1
+if ([[ $# < 2 || $2 == "" ]] || ! grep -q "^\/" <<< "$1"); then
+    echo "Usage:  symlink2  <full_targetdir_path>  <target_name>" && exit 1
+fi
 
-[[ ! -e "$1/$2" ]] && echo "$1/$2 doesn't exist." | sed -E 's/\/+/\//g' && exit 1
+tardirpath="$(sed -E 's/$/\//; s/\/+/\//g' <<< "$1")"
+targetfile="$(sed -E 's/\/+$/\//' <<< "$2")"
+
+[[ ! -e "$tardirpath$targetfile" ]] && echo "$tardirpath$targetfile doesn't exist." && exit 1
 
 export -f makelink
 
-xterm -geometry 100x10+0+0 -e "makelink \"$1\" \"$2\""
+xterm -geometry 100x10+0+0 -e "makelink \"$tardirpath\" \"$targetfile\""

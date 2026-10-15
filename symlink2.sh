@@ -3,12 +3,13 @@
 # Author: R.J.Toscani
 # Date: 6th October 2026
 # Description: Create a relative symbolic link to the target-file or -directory
-# selected in the file manager. The link is placed into the directory entered
-# in the xterm pop-up. The symbolic link adopts the name of the file pointed to.
+# selected in the file manager. The link is placed into the directory of which
+# the full path is entered in the xterm pop-up. The symbolic link adopts the
+# name of the file pointed to.
 # Based on the algorithm presented by Thomas Dickey in:
 # https://stackoverflow.com/questions/29055511/how-to-find-relative-path-given-two-absolute-paths
 #
-# Meant to be launched from the tools-menu of the file-manager named
+# Optimized for use by launching from the tools-menu of the file-manager named
 # 'XFile' (part of the 'Enhanced Motif Window Manager (EMWM)' by
 # Alexander Pampuchin - https://fastestcode.org/ - LGPLv3, MIT License).
 #
@@ -20,12 +21,12 @@
 #
 # Copyright (C) 2026 Rob Toscani <rob_toscani@yahoo.com>
 #
-# symlink.sh is free software: you can redistribute it and/or modify
+# symlink2.sh is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
 # the Free Software Foundation, either version 3 of the License, or
 # (at your option) any later version.
 #
-# symlink.sh is distributed in the hope that it will be useful,
+# symlink2.sh is distributed in the hope that it will be useful,
 # but WITHOUT ANY WARRANTY; without even the implied warranty of
 # MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 # GNU General Public License for more details.

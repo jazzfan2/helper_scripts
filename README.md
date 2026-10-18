@@ -136,5 +136,5 @@ called from the $HOME/.sessionetc file (i.e. the 'startup applications' file rea
 # Credits:
 Thanks to Alexander Pampuchin (https://fastestcode.org/) for his wonderful project 'Enhanced Motif Window Manager' (EMWM) along with the 'XFile' file manager and many more applications.
 
-# Author
+# Autheur
 Written by Rob Toscani (rob_toscani@yahoo.com). If you find any bugs or want to comment otherwise, please let me know.

@@ -34,7 +34,7 @@ rename()
 {
     echo "Geef nieuwe naam:"
     read -e "newname"        # -e option allows moving the cursor within the entered text!!
-    mv -i "$1" "$newname"
+    mv -i "$1" "$newname"    # Made interactive
 }
 
 [[ $# != 1 ]] && exit

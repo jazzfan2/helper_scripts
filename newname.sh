@@ -34,7 +34,7 @@ rename()
 {
     echo "Geef nieuwe naam:"
     read -e "newname"        # -e option allows moving the cursor within the entered text!!
-    mv "$1" "$newname"
+    mv -i "$1" "$newname"
 }
 
 [[ $# != 1 ]] && exit
@@ -43,4 +43,4 @@ file="$1"
 
 export -f rename
 
-xterm -geometry 50x5+0+0 -e "rename \"$file\""
+xterm -geometry 80x5+0+0 -e "rename \"$file\""

@@ -19,7 +19,7 @@
 # sorting takes effect as intended *only if* the 'xfile_options' variable set in
 # this program resembles the (combination of) XFile options given to your
 # typical use (e.g. as set in $HOME/.toolboxrc). By default in this program,
-# options -a and -l are used, but as a consequence to the above these may have to
+# options -a and -l are used, but as a consequence of the above these may have to
 # be modified dependant upon your typical use.
 #
 # Prerequisites for this program:
@@ -43,7 +43,7 @@
 #
 # menusort.py is distributed in the hope that it will be useful,
 # but WITHOUT ANY WARRANTY; without even the implied warranty of
-# MERCHANTABILITY or FITNESS FOR A PARTICULAmenusort.pyR PURPOSE.  See the
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 # GNU General Public License for more details.
 #
 # You should have received a copy of the GNU General Public License
